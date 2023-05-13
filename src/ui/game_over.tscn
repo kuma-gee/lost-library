@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://pm20a6nh47o2"]
+
+[ext_resource type="Theme" uid="uid://cvvavdkxk7llv" path="res://theme/theme.tres" id="1_poyul"]
+[ext_resource type="Script" path="res://src/ui/game_over.gd" id="2_u6gt1"]
+[ext_resource type="PackedScene" uid="uid://e4ecbsqrjuf6" path="res://src/ui/start_menu.tscn" id="3_nrxbd"]
+
+[node name="GameOver" type="CenterContainer"]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_poyul")
+script = ExtResource("2_u6gt1")
+menu_scene = ExtResource("3_nrxbd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Retry" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Retry"
+
+[node name="Menu" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Back to Menu"
+
+[connection signal="pressed" from="VBoxContainer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="VBoxContainer/Menu" to="." method="_on_menu_pressed"]

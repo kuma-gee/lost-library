@@ -168,7 +168,7 @@ position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_dnngp")
 
 [node name="MinionSpawner" type="Timer" parent="."]
-wait_time = 20.0
+wait_time = 15.0
 one_shot = true
 script = ExtResource("5_lf52b")
 minion = ExtResource("6_tl23x")

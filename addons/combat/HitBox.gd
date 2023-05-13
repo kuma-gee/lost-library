@@ -8,4 +8,4 @@ func _ready():
 
 func _on_area_entered(area):
 	if area.has_method("damage"):
-		area.damage(damage)
+		area.damage(damage, global_position)

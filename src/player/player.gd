@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal died()
+
 @export var speed := 100
 
 @export var input: PlayerInput
@@ -8,6 +10,7 @@ extends CharacterBody2D
 @export var cursor_root: Node2D
 @export var sprite: Sprite2D
 @export var spell_caster: SpellCaster
+@export var hp_container: Control
 
 func _ready():
 	anim.start_play("move")
@@ -31,3 +34,7 @@ func _physics_process(delta):
 func _on_player_input_just_pressed(ev: InputEvent):
 	if ev.is_action("fire"):
 		spell_caster.fire()
+
+
+func _on_health_died():
+	died.emit()

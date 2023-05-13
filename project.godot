@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="lost-library"
-run/main_scene="res://src/game.tscn"
+run/main_scene="res://src/ui/start_menu.tscn"
 config/features=PackedStringArray("4.0")
 boot_splash/bg_color=Color(0.101961, 0.101961, 0.101961, 1)
 config/icon="res://icon.svg"
