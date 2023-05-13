@@ -3,6 +3,7 @@ extends CharacterBody2D
 signal died()
 
 @export var speed := 100
+@export var accel := 500
 
 @export var input: PlayerInput
 @export var anim: SpriteAnimTool
@@ -27,7 +28,7 @@ func _physics_process(delta):
 		input.get_action_strength("move_down") - input.get_action_strength("move_up")
 	)
 	
-	velocity = motion * speed
+	velocity = velocity.move_toward(motion * speed, accel * delta)
 	move_and_slide()
 
 
@@ -37,4 +38,11 @@ func _on_player_input_just_pressed(ev: InputEvent):
 
 
 func _on_health_died():
+	input.disable()
+	anim.play("died")
+	await anim.animation_finished
 	died.emit()
+
+
+func _on_health_hit(knockback):
+	velocity += knockback

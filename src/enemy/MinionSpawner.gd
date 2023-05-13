@@ -41,3 +41,7 @@ func _on_enemy_died():
 	alive -= 1
 	if alive <= 0:
 		all_died = true
+		
+func kill_all():
+	for minion in get_tree().get_nodes_in_group("minion"):
+		minion.die()

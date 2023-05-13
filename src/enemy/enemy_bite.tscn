@@ -110,7 +110,7 @@ size = Vector2(10, 12)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vcyrr"]
 size = Vector2(8, 8)
 
-[node name="EnemyBite" type="CharacterBody2D" node_paths=PackedStringArray("anim", "body", "hit_timer")]
+[node name="EnemyBite" type="CharacterBody2D" node_paths=PackedStringArray("anim", "body", "hit_timer") groups=["minion"]]
 script = ExtResource("1_p6q80")
 anim = NodePath("AnimationPlayer")
 body = NodePath("Body")
@@ -154,7 +154,6 @@ script = ExtResource("5_wxo0e")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("RectangleShape2D_vcyrr")
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="died" from="HurtBox" to="." method="_on_hurt_box_died"]
 [connection signal="hit" from="HurtBox" to="." method="_on_hurt_box_hit"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]

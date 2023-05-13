@@ -1,66 +1,20 @@
-[gd_scene load_steps=13 format=3 uid="uid://b4iv54x5k5a35"]
+[gd_scene load_steps=18 format=3 uid="uid://b4iv54x5k5a35"]
 
 [ext_resource type="Texture2D" uid="uid://box8pwvaag4ah" path="res://assets/Enemy_Boss_Bite_Book.png" id="1_d7mjs"]
 [ext_resource type="Script" path="res://src/enemy/bite_boss.gd" id="1_gdrh0"]
 [ext_resource type="Texture2D" uid="uid://15qrm1afwu17" path="res://assets/Enemy_Boss_Bite_LandEffect.png" id="2_suitc"]
+[ext_resource type="Texture2D" uid="uid://b6y4bbfwlvmy0" path="res://assets/Enemy_Boss_Bite_Shadow.png" id="3_autmr"]
 [ext_resource type="Script" path="res://addons/tools/SpriteAnimTool.gd" id="4_hu13f"]
 [ext_resource type="Script" path="res://src/enemy/MinionSpawner.gd" id="5_lf52b"]
 [ext_resource type="PackedScene" uid="uid://bcqm3pfhcnkvy" path="res://src/enemy/enemy_bite.tscn" id="6_tl23x"]
+[ext_resource type="Script" path="res://addons/combat/HealthBox.gd" id="7_dejes"]
+[ext_resource type="Script" path="res://addons/combat/HitBox.gd" id="9_sbbk3"]
 
-[sub_resource type="Animation" id="Animation_yyvjh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -4)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D2:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jdfip"]
+size = Vector2(36, 22)
 
-[sub_resource type="Animation" id="Animation_sb1fq"]
-resource_name = "idle"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dnngp"]
+size = Vector2(32, 6)
 
 [sub_resource type="Animation" id="Animation_qhlii"]
 resource_name = "move"
@@ -84,10 +38,10 @@ tracks/1/path = NodePath("Sprite2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.5),
+"times": PackedFloat32Array(0, 0.2, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Vector2(0, 0), Vector2(0, -4), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(0, -8), Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -96,10 +50,22 @@ tracks/2/path = NodePath("Sprite2D2:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.6, 0.7, 0.8, 0.9),
+"times": PackedFloat32Array(0, 0.8, 0.9, 1, 1.1, 1.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitBox/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_1xh4h"]
@@ -128,17 +94,96 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_12b2j"]
+resource_name = "died"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 1.8, 2.1, 2.3, 2.5, 2.7, 2.9, 3.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D3:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitBox/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_gasog"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HitBox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cia7q"]
 _data = {
-"RESET": SubResource("Animation_yyvjh"),
-"idle": SubResource("Animation_sb1fq"),
+"RESET": SubResource("Animation_gasog"),
+"died": SubResource("Animation_12b2j"),
 "move": SubResource("Animation_qhlii"),
 "shout": SubResource("Animation_1xh4h")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dnngp"]
-size = Vector2(32, 6)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2426"]
+size = Vector2(30, 16)
 
 [node name="BiteBoss" type="CharacterBody2D" node_paths=PackedStringArray("anim", "spawner")]
 collision_layer = 4
@@ -146,16 +191,32 @@ script = ExtResource("1_gdrh0")
 anim = NodePath("AnimationPlayer")
 spawner = NodePath("MinionSpawner")
 
+[node name="Health" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("7_dejes")
+health = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Health"]
+shape = SubResource("RectangleShape2D_jdfip")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_dnngp")
+
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 texture = ExtResource("2_suitc")
 hframes = 6
-frame = 2
+frame = 1
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+texture = ExtResource("3_autmr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -4)
 texture = ExtResource("1_d7mjs")
-hframes = 2
-frame = 1
+hframes = 10
+vframes = 2
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -163,14 +224,22 @@ libraries = {
 }
 script = ExtResource("4_hu13f")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
-shape = SubResource("RectangleShape2D_dnngp")
-
 [node name="MinionSpawner" type="Timer" parent="."]
 wait_time = 15.0
 one_shot = true
 script = ExtResource("5_lf52b")
 minion = ExtResource("6_tl23x")
 
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("9_sbbk3")
+knockback_force = 200
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_g2426")
+disabled = true
+
+[connection signal="died" from="Health" to="." method="_on_health_died"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b815whyv5g4a3"]
+[gd_scene load_steps=17 format=3 uid="uid://b815whyv5g4a3"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_cb6w3"]
 [ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_1jj1u"]
@@ -43,8 +43,24 @@ tracks/0/keys = {
 "values": [0, 1]
 }
 
+[sub_resource type="Animation" id="Animation_rmoep"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jux2d"]
 _data = {
+"died": SubResource("Animation_rmoep"),
 "idle": SubResource("Animation_dotvp"),
 "move": SubResource("Animation_4peaf")
 }
@@ -66,8 +82,8 @@ spell_caster = NodePath("CenterRoot/SpellCaster")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_1jj1u")
-hframes = 2
-frame = 1
+hframes = 4
+frame = 3
 
 [node name="CenterRoot" type="Node2D" parent="."]
 
@@ -124,3 +140,4 @@ hp_icon = ExtResource("9_leggk")
 
 [connection signal="just_pressed" from="PlayerInput" to="." method="_on_player_input_just_pressed"]
 [connection signal="died" from="Health" to="." method="_on_health_died"]
+[connection signal="hit" from="Health" to="." method="_on_health_hit"]

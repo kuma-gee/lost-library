@@ -6,10 +6,10 @@ signal hit(knockback)
 
 @export var health: int
 
-func damage(dmg: int, pos: Vector2):
+func damage(dmg: int, knockback: Vector2):
 	health -= dmg
 	if health <= 0:
+		set_deferred("monitorable", false)
 		died.emit()
 		
-	var knockback = pos.direction_to(global_position)
 	hit.emit(knockback)

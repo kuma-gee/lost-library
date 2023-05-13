@@ -35,10 +35,12 @@ func _on_hit_timer_timeout():
 
 
 func _on_hurt_box_died():
+	die()
+
+func die():
+	stopped = true
 	anim.play("died")
+	await anim.animation_finished
 	died.emit()
-
-
-func _on_animation_player_animation_finished(anim_name):
-	if anim_name == "died":
-		queue_free()
+	queue_free()
+	

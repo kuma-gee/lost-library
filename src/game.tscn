@@ -180,4 +180,5 @@ layer = 2
 [node name="GameOver" parent="CanvasLayer" instance=ExtResource("6_y4l8y")]
 visible = false
 
+[connection signal="died" from="BiteBoss" to="." method="_on_bite_boss_died"]
 [connection signal="died" from="Player" to="." method="_on_player_died"]

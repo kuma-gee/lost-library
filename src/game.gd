@@ -7,3 +7,6 @@ func _ready():
 
 func _on_player_died():
 	gameover.show()
+
+func _on_bite_boss_died():
+	print("receive forgotten knowledge")

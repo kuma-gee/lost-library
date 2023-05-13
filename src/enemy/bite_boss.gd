@@ -1,8 +1,11 @@
 extends CharacterBody2D
 
+signal died()
+
 enum {
 	MOVE,
 	SPAWN,
+	DEAD
 }
 
 @export var anim: SpriteAnimTool
@@ -53,3 +56,12 @@ func _on_animation_player_animation_finished(anim_name):
 		can_move = true
 	elif anim_name == "shout":
 		state = MOVE
+
+
+func _on_health_died():
+	state = DEAD
+	anim.play("died")
+	spawner.kill_all()
+	await anim.animation_finished
+	died.emit()
+	queue_free()
