@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b815whyv5g4a3"]
+[gd_scene load_steps=19 format=3 uid="uid://b815whyv5g4a3"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_cb6w3"]
 [ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_1jj1u"]
@@ -10,6 +10,24 @@
 [ext_resource type="Script" path="res://addons/combat/HealthBox.gd" id="8_mwr0l"]
 [ext_resource type="Script" path="res://src/player/HpContainer.gd" id="9_ik0e2"]
 [ext_resource type="Texture2D" uid="uid://gxvp8aldmy7v" path="res://assets/UI_Health.png" id="9_leggk"]
+[ext_resource type="Script" path="res://shared/items/Hand.gd" id="11_5poc2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w122e"]
+
+[sub_resource type="Animation" id="Animation_rmoep"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
 
 [sub_resource type="Animation" id="Animation_dotvp"]
 length = 0.1
@@ -43,21 +61,6 @@ tracks/0/keys = {
 "values": [0, 1]
 }
 
-[sub_resource type="Animation" id="Animation_rmoep"]
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [2, 3]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jux2d"]
 _data = {
 "died": SubResource("Animation_rmoep"),
@@ -71,11 +74,12 @@ size = Vector2(10, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oh3kc"]
 size = Vector2(8, 12)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "cursor_root", "sprite", "spell_caster") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cursor_root", "sprite", "spell_caster") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_cb6w3")
 input = NodePath("PlayerInput")
 anim = NodePath("AnimationPlayer")
+hand = NodePath("CenterRoot/Hand")
 cursor_root = NodePath("CenterRoot")
 sprite = NodePath("Sprite2D")
 spell_caster = NodePath("CenterRoot/SpellCaster")
@@ -86,6 +90,15 @@ hframes = 4
 frame = 3
 
 [node name="CenterRoot" type="Node2D" parent="."]
+
+[node name="Hand" type="Area2D" parent="CenterRoot"]
+position = Vector2(8, 0)
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("11_5poc2")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CenterRoot/Hand"]
+shape = SubResource("RectangleShape2D_w122e")
 
 [node name="Cursor" type="Sprite2D" parent="CenterRoot"]
 position = Vector2(13, 0)

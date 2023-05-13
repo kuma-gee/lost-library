@@ -5,8 +5,7 @@ signal interacted
 
 const OUTLINE = preload("res://shared/items/sprite_outline.tres")
 
-@export var sprite_path: NodePath
-@onready var sprite: Sprite2D = get_node(sprite_path)
+@export var sprite: Sprite2D
 
 
 func highlight():

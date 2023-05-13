@@ -1,7 +1,5 @@
 extends CharacterBody2D
 
-signal died()
-
 enum {
 	MOVE,
 	SPAWN,
@@ -10,6 +8,7 @@ enum {
 
 @export var anim: SpriteAnimTool
 @export var spawner: MinionSpawner
+@export var scroll_scene: PackedScene
 
 @export var move_distance := 30
 @export var move_speed := 100
@@ -63,5 +62,9 @@ func _on_health_died():
 	anim.play("died")
 	spawner.kill_all()
 	await anim.animation_finished
-	died.emit()
+	
+	var scroll = scroll_scene.instantiate()
+	scroll.global_position = global_position
+	get_tree().current_scene.add_child(scroll)
+	
 	queue_free()

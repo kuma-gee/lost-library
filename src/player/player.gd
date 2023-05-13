@@ -7,11 +7,11 @@ signal died()
 
 @export var input: PlayerInput
 @export var anim: SpriteAnimTool
+@export var hand: Hand
 
 @export var cursor_root: Node2D
 @export var sprite: Sprite2D
 @export var spell_caster: SpellCaster
-@export var hp_container: Control
 
 func _ready():
 	anim.start_play("move")
@@ -35,6 +35,8 @@ func _physics_process(delta):
 func _on_player_input_just_pressed(ev: InputEvent):
 	if ev.is_action("fire"):
 		spell_caster.fire()
+	elif ev.is_action("interact"):
+		hand.interact()
 
 
 func _on_health_died():
