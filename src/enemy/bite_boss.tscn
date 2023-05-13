@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://15qrm1afwu17" path="res://assets/Enemy_Boss_Bite_LandEffect.png" id="2_suitc"]
 [ext_resource type="Script" path="res://addons/tools/SpriteAnimTool.gd" id="4_hu13f"]
 [ext_resource type="Script" path="res://src/enemy/MinionSpawner.gd" id="5_lf52b"]
-[ext_resource type="PackedScene" uid="uid://tyk4jibol4xn" path="res://src/enemy/enemy_bite.tscn" id="6_tl23x"]
+[ext_resource type="PackedScene" uid="uid://bcqm3pfhcnkvy" path="res://src/enemy/enemy_bite.tscn" id="6_tl23x"]
 
 [sub_resource type="Animation" id="Animation_yyvjh"]
 length = 0.001

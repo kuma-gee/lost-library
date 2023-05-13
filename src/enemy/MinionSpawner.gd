@@ -1,20 +1,25 @@
 class_name MinionSpawner
 extends Timer
 
-#@export var walls: TileMap
 @export var minion: PackedScene
 @export var count = 5
 
-var can_spawn = true
+var timed_out = true
+var all_died = true
+var alive = 0
+
+func can_spawn():
+	return all_died and timed_out
 
 func _ready():
-	timeout.connect(func(): can_spawn = true)
+	timeout.connect(func(): timed_out = true)
 	
 func spawn():
-	if not can_spawn: return []
+	if not can_spawn(): return
 	
-	var nodes = []
-	can_spawn = false
+	timed_out = false
+	all_died = false
+	alive = count
 	for i in range(0, count):
 		var walls = get_tree().get_first_node_in_group("walls")
 		var enemy = minion.instantiate()
@@ -27,8 +32,12 @@ func spawn():
 		
 		var spawn_pos = walls.map_to_local(rect.get_center()) + dir * radius
 		enemy.global_position = spawn_pos
+		enemy.died.connect(_on_enemy_died)
 		get_tree().current_scene.add_child(enemy)
-		nodes.append(enemy)
 	
 	start()
-	return nodes
+
+func _on_enemy_died():
+	alive -= 1
+	if alive <= 0:
+		all_died = true

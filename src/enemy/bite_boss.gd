@@ -11,7 +11,6 @@ enum {
 @export var move_distance := 30
 @export var move_speed := 100
 
-var minions = []
 var can_move = true
 var target_pos
 var state = MOVE
@@ -22,16 +21,14 @@ func _process(delta):
 		SPAWN: _spawn_minions()
 
 func _spawn_minions():
-	if spawner.can_spawn:
+	if spawner.can_spawn():
 		anim.play("shout")
-		var spawned = spawner.spawn()
-		if not spawned.is_empty():
-			minions = spawned
+		spawner.spawn()
 
 func _set_move_target():
 	if not can_move: return
 	
-	if minions.is_empty() and spawner.can_spawn:
+	if spawner.can_spawn():
 		state = SPAWN
 	else:
 		can_move = false

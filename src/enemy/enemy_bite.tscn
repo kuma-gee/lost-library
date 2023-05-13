@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://tyk4jibol4xn"]
+[gd_scene load_steps=12 format=3 uid="uid://bcqm3pfhcnkvy"]
 
 [ext_resource type="Texture2D" uid="uid://d3sbd08tc23i3" path="res://assets/Enemy_Bite.png" id="1_6vj7j"]
 [ext_resource type="Script" path="res://src/enemy/enemy_bite.gd" id="1_p6q80"]
 [ext_resource type="Script" path="res://addons/tools/SpriteAnimTool.gd" id="2_wxo4l"]
+[ext_resource type="Script" path="res://addons/combat/HealthBox.gd" id="4_bctyo"]
 
 [sub_resource type="Animation" id="Animation_s8ret"]
 resource_name = "move"
@@ -75,9 +76,26 @@ tracks/1/keys = {
 "values": [Vector2(0, 3)]
 }
 
+[sub_resource type="Animation" id="Animation_mngqm"]
+resource_name = "died"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 7]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vo8hu"]
 _data = {
 "RESET": SubResource("Animation_g3lul"),
+"died": SubResource("Animation_mngqm"),
 "move": SubResource("Animation_s8ret"),
 "open": SubResource("Animation_juok7")
 }
@@ -85,10 +103,14 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_whgt2"]
 size = Vector2(8, 4)
 
-[node name="EnemyBite" type="CharacterBody2D" node_paths=PackedStringArray("anim", "body")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2dcu"]
+size = Vector2(10, 12)
+
+[node name="EnemyBite" type="CharacterBody2D" node_paths=PackedStringArray("anim", "body", "hit_timer")]
 script = ExtResource("1_p6q80")
 anim = NodePath("AnimationPlayer")
 body = NodePath("Body")
+hit_timer = NodePath("HitTimer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -104,5 +126,23 @@ disabled = true
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
 position = Vector2(0, -2)
 texture = ExtResource("1_6vj7j")
-hframes = 3
+hframes = 8
 frame = 2
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4_bctyo")
+health = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_f2dcu")
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="died" from="HurtBox" to="." method="_on_hurt_box_died"]
+[connection signal="hit" from="HurtBox" to="." method="_on_hurt_box_hit"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
