@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://cuqmegx7rob8"]
+
+[ext_resource type="Script" path="res://src/player.gd" id="1_aqkqg"]
+[ext_resource type="Texture2D" uid="uid://dqoik054fc2bn" path="res://assets/Char_Wizard.png" id="1_tn0ug"]
+[ext_resource type="Script" path="res://src/PlayerAnim.gd" id="2_1mp4t"]
+[ext_resource type="Texture2D" uid="uid://c8jkbnk7fckul" path="res://assets/Cursor.png" id="3_2am81"]
+[ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="4_d084o"]
+
+[sub_resource type="Animation" id="Animation_4peaf"]
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_dotvp"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jux2d"]
+_data = {
+"idle": SubResource("Animation_dotvp"),
+"move": SubResource("Animation_4peaf")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cyneh"]
+size = Vector2(10, 4)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "cursor_root", "sprite")]
+script = ExtResource("1_aqkqg")
+input = NodePath("PlayerInput")
+anim = NodePath("AnimationPlayer")
+cursor_root = NodePath("CenterRoot")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_tn0ug")
+hframes = 2
+
+[node name="CenterRoot" type="Node2D" parent="."]
+
+[node name="Cursor" type="Sprite2D" parent="CenterRoot"]
+position = Vector2(13, 1)
+texture = ExtResource("3_2am81")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jux2d")
+}
+script = ExtResource("2_1mp4t")
+sprite = NodePath("../Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_cyneh")
+
+[node name="PlayerInput" type="Node" parent="."]
+script = ExtResource("4_d084o")

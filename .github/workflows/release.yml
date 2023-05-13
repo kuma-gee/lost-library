@@ -15,7 +15,7 @@ jobs:
         # Remove channel if not releasing (Available: win, linux, mac, web, android)
         channel: [win, linux]
     env:
-      GAME: ##VAR_GAME_NAME
+      GAME: lost-library
       CHANNEL: ${{matrix.channel}}
       GODOT_VERSION: 3.4.4
     steps:
