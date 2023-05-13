@@ -7,6 +7,7 @@ extends CharacterBody2D
 
 @export var cursor_root: Node2D
 @export var sprite: Sprite2D
+@export var spell_caster: SpellCaster
 
 func _ready():
 	anim.start_play("move")
@@ -25,3 +26,8 @@ func _physics_process(delta):
 	
 	velocity = motion * speed
 	move_and_slide()
+
+
+func _on_player_input_just_pressed(ev: InputEvent):
+	if ev.is_action("fire"):
+		spell_caster.fire()

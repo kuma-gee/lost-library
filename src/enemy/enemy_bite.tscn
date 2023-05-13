@@ -1,0 +1,108 @@
+[gd_scene load_steps=9 format=3 uid="uid://tyk4jibol4xn"]
+
+[ext_resource type="Texture2D" uid="uid://d3sbd08tc23i3" path="res://assets/Enemy_Bite.png" id="1_6vj7j"]
+[ext_resource type="Script" path="res://src/enemy/enemy_bite.gd" id="1_p6q80"]
+[ext_resource type="Script" path="res://addons/tools/SpriteAnimTool.gd" id="2_wxo4l"]
+
+[sub_resource type="Animation" id="Animation_s8ret"]
+resource_name = "move"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 2), Vector2(0, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_juok7"]
+resource_name = "open"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_g3lul"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vo8hu"]
+_data = {
+"RESET": SubResource("Animation_g3lul"),
+"move": SubResource("Animation_s8ret"),
+"open": SubResource("Animation_juok7")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_whgt2"]
+size = Vector2(8, 4)
+
+[node name="EnemyBite" type="CharacterBody2D" node_paths=PackedStringArray("anim", "body")]
+script = ExtResource("1_p6q80")
+anim = NodePath("AnimationPlayer")
+body = NodePath("Body")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vo8hu")
+}
+script = ExtResource("2_wxo4l")
+
+[node name="Body" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_whgt2")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Body"]
+position = Vector2(0, -2)
+texture = ExtResource("1_6vj7j")
+hframes = 3
+frame = 2
