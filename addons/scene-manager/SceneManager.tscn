@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8dxgonvi2qp2"]
+
+[ext_resource type="Shader" path="res://addons/scene-manager/Transition.gdshader" id="1"]
+[ext_resource type="Script" path="res://addons/scene-manager/SceneManager.gd" id="3"]
+
+[sub_resource type="ShaderMaterial" id="1"]
+shader = ExtResource("1")
+shader_parameter/dissolve_amount = 0.0
+shader_parameter/fade_color = Color(0, 0, 0, 1)
+shader_parameter/fade = true
+shader_parameter/inverted = false
+
+[node name="SceneManager" type="Node"]
+script = ExtResource("3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

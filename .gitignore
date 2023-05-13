@@ -1,0 +1,10 @@
+script_templates/
+.test/
+tests/results
+*.import
+.import
+
+build/
+*.css*
+_sprites/
+.godot/
