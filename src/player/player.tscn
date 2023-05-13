@@ -1,12 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://cuqmegx7rob8"]
+[gd_scene load_steps=12 format=3 uid="uid://b815whyv5g4a3"]
 
-[ext_resource type="Script" path="res://src/player.gd" id="1_aqkqg"]
-[ext_resource type="Script" path="res://src/PlayerAnim.gd" id="2_1mp4t"]
-[ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_02brr"]
-[ext_resource type="PackedScene" uid="uid://dq8yi6fwxkup0" path="res://src/spells/spark.tscn" id="2_m1e22"]
-[ext_resource type="Texture2D" uid="uid://c8jkbnk7fckul" path="res://assets/Cursor.png" id="3_2am81"]
-[ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="4_d084o"]
-[ext_resource type="Script" path="res://src/SpellCaster.gd" id="7_pqdt6"]
+[ext_resource type="Script" path="res://src/player/player.gd" id="1_cb6w3"]
+[ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_1jj1u"]
+[ext_resource type="Texture2D" uid="uid://c8jkbnk7fckul" path="res://assets/Cursor.png" id="3_oa0so"]
+[ext_resource type="Script" path="res://src/player/SpellCaster.gd" id="4_1bbg0"]
+[ext_resource type="PackedScene" uid="uid://dq8yi6fwxkup0" path="res://src/spells/spark.tscn" id="5_hcrp1"]
+[ext_resource type="Script" path="res://src/player/PlayerAnim.gd" id="6_p8dvm"]
+[ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="7_ajej8"]
 
 [sub_resource type="Animation" id="Animation_4peaf"]
 length = 0.4
@@ -50,7 +50,7 @@ _data = {
 size = Vector2(10, 4)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "cursor_root", "sprite", "spell_caster") groups=["player"]]
-script = ExtResource("1_aqkqg")
+script = ExtResource("1_cb6w3")
 input = NodePath("PlayerInput")
 anim = NodePath("AnimationPlayer")
 cursor_root = NodePath("CenterRoot")
@@ -58,7 +58,7 @@ sprite = NodePath("Sprite2D")
 spell_caster = NodePath("CenterRoot/SpellCaster")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_02brr")
+texture = ExtResource("2_1jj1u")
 hframes = 2
 frame = 1
 
@@ -66,19 +66,19 @@ frame = 1
 
 [node name="Cursor" type="Sprite2D" parent="CenterRoot"]
 position = Vector2(13, 0)
-texture = ExtResource("3_2am81")
+texture = ExtResource("3_oa0so")
 
 [node name="SpellCaster" type="Node2D" parent="CenterRoot"]
 position = Vector2(16, 0)
-script = ExtResource("7_pqdt6")
-spark_spell = ExtResource("2_m1e22")
+script = ExtResource("4_1bbg0")
+spark_spell = ExtResource("5_hcrp1")
 firerate = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_jux2d")
 }
-script = ExtResource("2_1mp4t")
+script = ExtResource("6_p8dvm")
 sprite = NodePath("../Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -86,6 +86,6 @@ position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_cyneh")
 
 [node name="PlayerInput" type="Node" parent="."]
-script = ExtResource("4_d084o")
+script = ExtResource("7_ajej8")
 
 [connection signal="just_pressed" from="PlayerInput" to="." method="_on_player_input_just_pressed"]
