@@ -15,7 +15,6 @@ jobs:
     env:
       GAME: lost-library
       CHANNEL: ${{matrix.channel}}
-      GODOT_VERSION: 3.4.4
     steps:
       - uses: actions/checkout@v3
         with:
@@ -30,22 +29,6 @@ jobs:
 
       - name: Setup Templates
         run: ./scripts/ci/prepare-templates.sh
-
-      - name: Prepare android release
-        env:
-          ANDROID_KEYSTORE: ${{secrets.ANDROID_RELEASE_KEYSTORE}}
-          ANDROID_KEYSTORE_USER: ${{secrets.ANDROID_RELEASE_KEYSTORE_USER}}
-          ANDROID_KEYSTORE_PW: ${{secrets.ANDROID_RELEASE_KEYSTORE_PW}}
-        if: |
-          env.CHANNEL == 'android' &&
-          env.ANDROID_KEYSTORE &&
-          env.ANDROID_KEYSTORE_USER &&
-          env.ANDROID_KEYSTORE_PW
-        run: |
-          echo $ANDROID_KEYSTORE | base64 --decode > ./release.keystore
-          sed 's@keystore/release=".*"@keystore/release="'./release.keystore'"@g' -i export_presets.cfg
-          sed 's@keystore/release_user=".*"@keystore/release_user="'$ANDROID_KEYSTORE_USER'"@g' -i export_presets.cfg
-          sed 's@keystore/release_password=".*"@keystore/release_password="'$ANDROID_KEYSTORE_PW'"@g' -i export_presets.cfg
 
       - name: Prepare Build
         run: ./addons/debug/prepare-build.sh $GITHUB_REF_NAME
@@ -62,27 +45,16 @@ jobs:
         run: butler push build/$CHANNEL $USER/$GAME:$CHANNEL --userversion $GITHUB_REF_NAME
 
       - name: Package builds
-        if: |
-          env.CHANNEL != 'android' &&
-          env.CHANNEL != 'mac'
         run: |
           cd build
           mv $CHANNEL $GAME && zip -r $GAME-$CHANNEL.zip $GAME
 
       # Upload exported build
       - name: Upload artifacts
-        if: env.CHANNEL != 'android'
         uses: actions/upload-artifact@v3
         with:
           name: release
           path: build/**/*.zip
-
-      - name: Upload android
-        if: env.CHANNEL == 'android'
-        uses: actions/upload-artifact@v3
-        with:
-          name: release
-          path: build/**/*.aab
 
   github-release:
     runs-on: ubuntu-latest
