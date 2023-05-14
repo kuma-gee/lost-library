@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         # Remove channel if not releasing (Available: win, linux, mac, Web, android)
-        channel: [win, linux, Web]
+        channel: [win, linux]
     env:
       GAME: lost-library
       CHANNEL: ${{matrix.channel}}

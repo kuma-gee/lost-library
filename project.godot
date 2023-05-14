@@ -35,10 +35,6 @@ window/stretch/mode="canvas_items"
 window/size/width=1920
 window/size/height=1080
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/coi_serviceworker/plugin.cfg")
-
 [importer_defaults]
 
 texture={

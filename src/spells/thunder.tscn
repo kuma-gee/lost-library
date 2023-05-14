@@ -116,3 +116,6 @@ shape = SubResource("RectangleShape2D_1fkak")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_y6nnx")
 volume_db = -5.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 15)

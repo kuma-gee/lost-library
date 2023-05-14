@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dh1olryh0ve1e"]
+[gd_scene load_steps=11 format=3 uid="uid://dh1olryh0ve1e"]
 
 [ext_resource type="Texture2D" uid="uid://fep37ahobvhf" path="res://assets/Tiles_Walls.png" id="1_j6kva"]
 [ext_resource type="Script" path="res://src/game.gd" id="1_peygm"]
@@ -150,6 +150,9 @@ terrain_set_0/terrain_0/color = Color(0.207843, 0.333333, 0.780392, 1)
 sources/0 = SubResource("TileSetAtlasSource_uo04m")
 sources/2 = SubResource("TileSetAtlasSource_5jkja")
 
+[sub_resource type="Environment" id="Environment_s0el7"]
+background_mode = 3
+
 [node name="Game" type="Node2D" node_paths=PackedStringArray("gameover")]
 script = ExtResource("1_peygm")
 gameover = NodePath("CanvasLayer/GameOver")
@@ -179,5 +182,10 @@ layer = 2
 
 [node name="GameOver" parent="CanvasLayer" instance=ExtResource("6_y4l8y")]
 visible = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_s0el7")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="WorldEnvironment"]
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]
