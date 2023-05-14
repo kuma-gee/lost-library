@@ -1,3 +1,4 @@
+class_name Spell
 extends HitBox
 
 @export var anim: AnimationPlayer

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://b80fisyqg8wtt"]
+
+[ext_resource type="Script" path="res://src/spells/thunderstorm.gd" id="1_okktv"]
+[ext_resource type="PackedScene" uid="uid://bu5g6bwfjphkk" path="res://src/spells/thunder.tscn" id="2_tmws6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3vqmt"]
+radius = 70.0
+
+[node name="Thunderstorm" type="Area2D" node_paths=PackedStringArray("firerate")]
+script = ExtResource("1_okktv")
+thunder_scene = ExtResource("2_tmws6")
+firerate = NodePath("Firerate")
+
+[node name="Firerate" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+autostart = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.615686, 0.615686, 0.615686, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3vqmt")
+
+[connection signal="timeout" from="Firerate" to="." method="_on_firerate_timeout"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

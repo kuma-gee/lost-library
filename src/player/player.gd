@@ -27,6 +27,8 @@ signal died()
 @export var spell_caster: SpellCaster
 @export var chain: InputChain
 
+@export var thunderstorm_scene: PackedScene
+
 var casting = false
 
 func _ready():
@@ -72,6 +74,9 @@ func _on_player_input_just_released(ev: InputEvent):
 	if ev.is_action("cast"):
 		var action = chain.get_chain_action()
 		if action != null:
+			match action:
+				Action.THUNDERSTORM: add_child(thunderstorm_scene.instantiate())
+			
 			print("Action: %s" % Action.keys()[action])
 
 func _on_health_died():
