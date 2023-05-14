@@ -39,19 +39,19 @@ texture = ExtResource("1_j6kva")
 0:2/0/terrain_set = 0
 0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:2/0/physics_layer_0/angular_velocity = 0.0
-0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 3, -8, -8, -3, -8, -3, 3, 8, 3, 8, 8, -8, 8)
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -3, -8, -3, 2, 8, 2, 8, 8, -8, 8)
 1:2/0 = 0
 1:2/0/z_index = 2
 1:2/0/terrain_set = 0
 1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:2/0/physics_layer_0/angular_velocity = 0.0
-1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 3, 8, 3, 8, 8, -8, 8)
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 2, 8, 2, 8, 8, -8, 8)
 2:2/0 = 0
 2:2/0/z_index = 2
 2:2/0/terrain_set = 0
 2:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:2/0/physics_layer_0/angular_velocity = 0.0
-2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(3, -8, 8, -8, 8, 6, 8, 8, -8, 8, -8, 3, 3, 3)
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 2, 3, 2, 3, -8, 8, -8, 8, 2, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5jkja"]
 texture = ExtResource("2_5ccxw")
@@ -189,5 +189,6 @@ visible = false
 environment = SubResource("Environment_s0el7")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="WorldEnvironment"]
+color = Color(0.941176, 0.941176, 0.941176, 1)
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]

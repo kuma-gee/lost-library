@@ -1,8 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://e4ecbsqrjuf6"]
+[gd_scene load_steps=8 format=3 uid="uid://e4ecbsqrjuf6"]
 
 [ext_resource type="Theme" uid="uid://dyxpiak5ymujy" path="res://theme/theme.tres" id="1_npdgd"]
 [ext_resource type="Script" path="res://src/ui/start_menu.gd" id="2_a7n7o"]
 [ext_resource type="PackedScene" uid="uid://bryo50hd7fs0k" path="res://src/ui/ui_button.tscn" id="3_6a4eu"]
+
+[sub_resource type="Gradient" id="Gradient_dyx16"]
+colors = PackedColorArray(0.185795, 0.101392, 0.466962, 1, 0.0416151, 0.00714876, 0.0883803, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vi8ug"]
+gradient = SubResource("Gradient_dyx16")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_85c0m"]
+texture = SubResource("GradientTexture2D_vi8ug")
+
+[sub_resource type="LabelSettings" id="LabelSettings_cbt70"]
+outline_size = 2
+outline_color = Color(0.721569, 0.247059, 1, 1)
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -14,6 +28,15 @@ grow_vertical = 2
 theme = ExtResource("1_npdgd")
 script = ExtResource("2_a7n7o")
 
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_85c0m")
+
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -24,9 +47,24 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
-[node name="Start" parent="CenterContainer/VBoxContainer" instance=ExtResource("3_6a4eu")]
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Start Game"
+text = "Lost Library"
+label_settings = SubResource("LabelSettings_cbt70")
+uppercase = true
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Enter" parent="CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_6a4eu")]
+layout_mode = 2
+text = "Enter"
+
+[node name="Exit" parent="CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_6a4eu")]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Enter" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

@@ -22,7 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.784314)
+color = Color(0.0420935, 0.0185151, 0.0939286, 0.705882)
 
 [node name="GameOver" type="CenterContainer" parent="."]
 process_mode = 3
