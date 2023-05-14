@@ -1,5 +1,5 @@
 # https://github.com/scipioceaser/Godot-Camera-Shake
-class_name ShakeCamera2D
+class_name CameraShake
 extends Camera2D
 
 @export var max_offset := 5.0
@@ -32,9 +32,9 @@ func _get_noise(noise_seed, time) -> float:
 	var n = FastNoiseLite.new()
 	
 	n.seed = noise_seed
-	n.octaves = 4
-	n.period = 20.0
-	n.persistence = 0.8
+#	n.octaves = 4
+#	n.period = 20.0
+#	n.persistence = 0.8
 	
 	return n.get_noise_1d(time)
 	

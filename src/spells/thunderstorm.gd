@@ -3,8 +3,8 @@ extends Node2D
 @export var thunder_scene: PackedScene
 @export var firerate: Timer
 
-@export var firerate_start = 0.5
-@export var firerate_end = 2.0
+@export var firerate_mean = 1.0
+@export var firerate_deviation = 0.5
 
 @onready var radius = $CollisionShape2D.shape.radius
 
@@ -19,4 +19,4 @@ func _on_firerate_timeout():
 	thunder.global_position = pos
 	get_tree().current_scene.add_child(thunder)
 	
-	firerate.start(randf_range(firerate_start, firerate_end))
+	firerate.start(randfn(firerate_mean, firerate_deviation))

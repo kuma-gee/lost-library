@@ -5,6 +5,7 @@
 
 [sub_resource type="Animation" id="Animation_xb8bx"]
 resource_name = "fire"
+length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -12,7 +13,7 @@ tracks/0/path = NodePath("../Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.5, 0.6, 0.7, 0.8),
+"times": PackedFloat32Array(0, 0.7, 0.8, 0.9, 1, 1.1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
@@ -24,10 +25,22 @@ tracks/1/path = NodePath(".:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.6),
+"times": PackedFloat32Array(0, 0.7, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_o1jy8"]
@@ -79,6 +92,7 @@ libraries = {
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_40oxu")
 hframes = 6
 frame = 1

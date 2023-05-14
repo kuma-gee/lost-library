@@ -3,7 +3,7 @@ extends CharacterBody2D
 enum {
 	MOVE,
 	SPAWN,
-	DEAD
+	DEAD,
 }
 
 @export var anim: SpriteAnimTool
@@ -21,7 +21,7 @@ func _process(delta):
 	match state:
 		MOVE: _set_move_target()
 		SPAWN: _spawn_minions()
-
+		
 func _spawn_minions():
 	if spawner.can_spawn():
 		anim.play("shout")

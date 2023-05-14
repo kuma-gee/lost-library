@@ -5,13 +5,6 @@ const D = "move_down"
 const L = "move_left"
 const R = "move_right"
 
-enum Action {
-	THUNDERSTORM,
-	FIREBALL,
-	EARTHQUAKE,
-	TELEPORT,
-}
-
 signal died()
 
 @export var speed := 100
@@ -29,13 +22,12 @@ signal died()
 
 @export var thunderstorm_scene: PackedScene
 
+
 var casting = false
 
 func _ready():
-	chain.add_chain([U, D, U, L, R], Action.THUNDERSTORM)
-	chain.add_chain([L, R, R, U, L], Action.FIREBALL)
-	chain.add_chain([D, L, R, D, U], Action.EARTHQUAKE)
-	chain.add_chain([R, L], Action.TELEPORT)
+	for spell in GameManager.spells:
+		chain.add_chain(spell.get_inputs(), spell.get_action())
 
 func _process(delta):
 	var dir = global_position.direction_to(get_global_mouse_position())
@@ -75,9 +67,9 @@ func _on_player_input_just_released(ev: InputEvent):
 		var action = chain.get_chain_action()
 		if action != null:
 			match action:
-				Action.THUNDERSTORM: add_child(thunderstorm_scene.instantiate())
+				SpellResource.Action.THUNDERSTORM: add_child(thunderstorm_scene.instantiate())
 			
-			print("Action: %s" % Action.keys()[action])
+			print("Action: %s" % SpellResource.Action.keys()[action])
 
 func _on_health_died():
 	input.disable()

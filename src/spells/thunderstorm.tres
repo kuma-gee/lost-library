@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SpellResource" load_steps=2 format=3 uid="uid://dv3v875rnt4ey"]
+
+[ext_resource type="Script" path="res://src/spells/SpellResource.gd" id="1_go262"]
+
+[resource]
+script = ExtResource("1_go262")
+inputs = Array[int]([0, 1, 0, 2, 3])
+name = "Thunderstorm"
+action = 0

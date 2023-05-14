@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmftgxsquxfoc"]
+
+[ext_resource type="Theme" uid="uid://cvvavdkxk7llv" path="res://theme/theme.tres" id="1_ffidn"]
+[ext_resource type="Script" path="res://src/ui/spell_info.gd" id="1_qp53f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3rfu"]
+bg_color = Color(0.827451, 0.721569, 0.54902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.109804, 0.0745098, 0.0313726, 1)
+
+[node name="SpellInfo" type="Control" node_paths=PackedStringArray("name_label", "input_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ffidn")
+script = ExtResource("1_qp53f")
+name_label = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Name")
+input_container = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Inputs")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_u3rfu")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Name" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Test"
+
+[node name="Inputs" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Close" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Close" to="." method="_on_close_pressed"]

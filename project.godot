@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 Env="*res://addons/debug/Env.gd"
 SceneManager="*res://addons/scene-manager/SceneManager.tscn"
 Debug="*res://addons/debug/Debug.tscn"
+GameManager="*res://src/game_manager.tscn"
 
 [debug]
 

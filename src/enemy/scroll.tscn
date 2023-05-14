@@ -1,15 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqvn2dfst6604"]
+[gd_scene load_steps=5 format=3 uid="uid://bqvn2dfst6604"]
 
 [ext_resource type="Script" path="res://src/enemy/scroll.gd" id="1_5i3ch"]
 [ext_resource type="Texture2D" uid="uid://scxibw6a4wba" path="res://assets/Scroll.png" id="1_wnaiy"]
+[ext_resource type="PackedScene" uid="uid://cmftgxsquxfoc" path="res://src/ui/spell_info.tscn" id="2_6t08t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ddwr"]
 size = Vector2(26, 24)
 
-[node name="Scroll" type="Area2D" node_paths=PackedStringArray("sprite")]
+[node name="Scroll" type="Area2D" node_paths=PackedStringArray("canvas", "sprite")]
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_5i3ch")
+spell_info_scene = ExtResource("2_6t08t")
+canvas = NodePath("CanvasLayer")
 sprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -17,5 +20,7 @@ shape = SubResource("RectangleShape2D_5ddwr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_wnaiy")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [connection signal="interacted" from="." to="." method="_on_interacted"]
