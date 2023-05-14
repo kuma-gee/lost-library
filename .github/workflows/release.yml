@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # Remove channel if not releasing (Available: win, linux, mac, web, android)
-        channel: [win, linux]
+        # Remove channel if not releasing (Available: win, linux, mac, Web, android)
+        channel: [win, linux, Web]
     env:
       GAME: lost-library
       CHANNEL: ${{matrix.channel}}
@@ -27,8 +27,8 @@ jobs:
           # Pre-release label is optional.
           version: 4.0.1
 
-      - name: Setup Templates
-        run: ./scripts/ci/prepare-templates.sh
+      # - name: Setup Templates
+      #   run: ./scripts/ci/prepare-templates.sh
 
       - name: Prepare Build
         run: ./addons/debug/prepare-build.sh $GITHUB_REF_NAME
