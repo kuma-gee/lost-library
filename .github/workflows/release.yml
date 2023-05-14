@@ -28,6 +28,7 @@ jobs:
           # Version must include major, minor, and patch, and be >= 4.0.0
           # Pre-release label is optional.
           version: 4.0.1
+          use-dotnet: false
 
       # - name: Setup Templates
       #   run: ./scripts/ci/prepare-templates.sh
