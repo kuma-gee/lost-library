@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_o38j8")
-inputs = Array[int]([3, 3, 2, 0, 3])
+inputs = Array[int]([3, 2, 0, 3])
 name = "Fireball"
 action = 1

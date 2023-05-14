@@ -22,17 +22,24 @@ signal died()
 @export var chain: InputChain
 @export var chain_inputs: Control
 @export var thunderstorm_scene: PackedScene
+@export var health: HealthBox
 
 @export var teleport_cast: RayCast2D
 
-
+var thunderstorm_active = false
 var casting = false
+var stop = false
 
 func _ready():
+	health.health = GameManager.player_health
+	print("Init health ", GameManager.player_health)
+	
 	for spell in GameManager.spells:
 		chain.add_chain(spell.get_inputs(), spell.get_action())
 
 func _process(delta):
+	if stop: return
+	
 	var dir = global_position.direction_to(get_global_mouse_position())
 	cursor_root.rotation = dir.angle()
 	
@@ -40,6 +47,8 @@ func _process(delta):
 	sprite.flip_h = dir.x < 0
 
 func _physics_process(delta):
+	if stop: return
+	
 	if casting:
 		anim.start_play("idle")
 		cast_circle.visible = true
@@ -73,11 +82,19 @@ func _on_player_input_just_released(ev: InputEvent):
 		var action = chain.get_chain_action()
 		if action != null:
 			match action:
-				SpellResource.Action.THUNDERSTORM: add_child(thunderstorm_scene.instantiate())
+				SpellResource.Action.THUNDERSTORM: _spawn_thunderstorm()
 				SpellResource.Action.TELEPORT: _teleport()
 				SpellResource.Action.FIREBALL: spell_caster.fireball()
 			
 			print("Action: %s" % SpellResource.Action.keys()[action])
+
+func _spawn_thunderstorm():
+	if thunderstorm_active: return
+	
+	thunderstorm_active = true
+	var node = thunderstorm_scene.instantiate()
+	node.finished.connect(func(): thunderstorm_active = false)
+	add_child(node)
 
 func _teleport():
 	if teleport_cast.is_colliding():
@@ -91,6 +108,7 @@ func _teleport():
 	
 func _on_health_died():
 	input.disable()
+	stop = true
 	anim.play("died")
 	await anim.animation_finished
 	died.emit()
@@ -98,6 +116,7 @@ func _on_health_died():
 
 func _on_health_hit(knockback):
 	velocity += knockback
+	GameManager.player_health -= 1 # TODO: one place for health
 
 
 func _on_input_chain_pressed(input):

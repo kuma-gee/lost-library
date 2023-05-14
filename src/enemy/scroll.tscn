@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqvn2dfst6604"]
+[gd_scene load_steps=6 format=3 uid="uid://bqvn2dfst6604"]
 
 [ext_resource type="Script" path="res://src/enemy/scroll.gd" id="1_5i3ch"]
 [ext_resource type="Texture2D" uid="uid://scxibw6a4wba" path="res://assets/Scroll.png" id="1_wnaiy"]
 [ext_resource type="PackedScene" uid="uid://cmftgxsquxfoc" path="res://src/ui/spell_info.tscn" id="2_6t08t"]
+[ext_resource type="PackedScene" uid="uid://uq12dom31pcd" path="res://src/spells/portal.tscn" id="3_xl7j3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ddwr"]
 size = Vector2(26, 24)
@@ -13,6 +14,7 @@ collision_mask = 0
 script = ExtResource("1_5i3ch")
 spell_info_scene = ExtResource("2_6t08t")
 canvas = NodePath("CanvasLayer")
+portal_scene = ExtResource("3_xl7j3")
 sprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

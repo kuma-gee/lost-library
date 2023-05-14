@@ -7,6 +7,8 @@
 radius = 70.0
 
 [node name="Thunderstorm" type="Area2D" node_paths=PackedStringArray("firerate")]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_okktv")
 thunder_scene = ExtResource("2_tmws6")
 firerate = NodePath("Firerate")

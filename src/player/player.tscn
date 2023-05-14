@@ -78,7 +78,8 @@ size = Vector2(10, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oh3kc"]
 size = Vector2(8, 12)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cast_circle", "cursor_root", "sprite", "spell_caster", "chain", "chain_inputs", "teleport_cast") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cast_circle", "cursor_root", "sprite", "spell_caster", "chain", "chain_inputs", "health", "teleport_cast") groups=["player"]]
+z_index = 1
 collision_layer = 2
 script = ExtResource("1_cb6w3")
 input = NodePath("PlayerInput")
@@ -91,6 +92,7 @@ spell_caster = NodePath("CenterRoot/SpellCaster")
 chain = NodePath("PlayerInput/InputChain")
 chain_inputs = NodePath("Char/Control/VBoxContainer")
 thunderstorm_scene = ExtResource("2_xtufb")
+health = NodePath("Health")
 teleport_cast = NodePath("CenterRoot/TeleportCast")
 
 [node name="CastCircle" type="Sprite2D" parent="."]
@@ -115,6 +117,7 @@ offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Char/Control"]
 layout_mode = 1
@@ -127,6 +130,7 @@ offset_right = 3.0
 offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 alignment = 2
 
 [node name="CenterRoot" type="Node2D" parent="."]
@@ -180,7 +184,6 @@ health = 5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Health"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_oh3kc")
-disabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -42,5 +42,5 @@ text = "Retry"
 layout_mode = 2
 text = "Back to Menu"
 
-[connection signal="pressed" from="GameOver/VBoxContainer/Retry" to="GameOver" method="_on_retry_pressed"]
-[connection signal="pressed" from="GameOver/VBoxContainer/Menu" to="GameOver" method="_on_menu_pressed"]
+[connection signal="pressed" from="GameOver/VBoxContainer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="GameOver/VBoxContainer/Menu" to="." method="_on_menu_pressed"]

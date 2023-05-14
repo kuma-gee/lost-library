@@ -60,9 +60,10 @@ func change_scene(scene, transition = null, speed = DEFAULT_SPEED):
 	get_tree().change_scene_to_file(path)
 
 	anim.play("fade_in", -1, speed)
+	
+	transitioning = false
 	await anim.animation_finished
 
-	transitioning = false
 	emit_signal("scene_changed")
 
 

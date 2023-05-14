@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmftgxsquxfoc"]
+[gd_scene load_steps=9 format=3 uid="uid://cmftgxsquxfoc"]
 
 [ext_resource type="Theme" uid="uid://cvvavdkxk7llv" path="res://theme/theme.tres" id="1_ffidn"]
 [ext_resource type="Script" path="res://src/ui/spell_info.gd" id="1_qp53f"]
@@ -10,6 +10,16 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.109804, 0.0745098, 0.0313726, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e3bwi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_13c70"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tifpr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0c5nj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v6huo"]
 
 [node name="SpellInfo" type="Control" node_paths=PackedStringArray("name_label", "input_container")]
 layout_mode = 3
@@ -66,8 +76,21 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Close" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="CenterContainer/PanelContainer"]
 layout_mode = 2
-text = "Close"
+size_flags_horizontal = 8
+size_flags_vertical = 0
 
-[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Close" to="." method="_on_close_pressed"]
+[node name="Close" type="Button" parent="CenterContainer/PanelContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_e3bwi")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_13c70")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_tifpr")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0c5nj")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_v6huo")
+text = "X"
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer2/Close" to="." method="_on_close_pressed"]

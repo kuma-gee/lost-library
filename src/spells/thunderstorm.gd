@@ -1,5 +1,7 @@
 extends Node2D
 
+signal finished
+
 @export var thunder_scene: PackedScene
 @export var firerate: Timer
 
@@ -9,6 +11,7 @@ extends Node2D
 @onready var radius = $CollisionShape2D.shape.radius
 
 func _on_lifetime_timeout():
+	finished.emit()
 	queue_free()
 
 

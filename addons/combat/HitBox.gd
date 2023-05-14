@@ -11,3 +11,4 @@ func _on_area_entered(area):
 	if area is Node2D and area.has_method("damage"):
 		var knockback_dir =  global_position.direction_to(area.global_position)
 		area.damage(damage, knockback_dir * knockback_force)
+
