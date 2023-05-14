@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b815whyv5g4a3"]
+[gd_scene load_steps=23 format=3 uid="uid://b815whyv5g4a3"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_cb6w3"]
 [ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_1jj1u"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="7_ajej8"]
 [ext_resource type="Script" path="res://addons/combat/HealthBox.gd" id="8_mwr0l"]
 [ext_resource type="Script" path="res://src/player/HpContainer.gd" id="9_ik0e2"]
+[ext_resource type="PackedScene" uid="uid://curex363snkn6" path="res://src/spells/fireball.tscn" id="9_kk67e"]
 [ext_resource type="Texture2D" uid="uid://gxvp8aldmy7v" path="res://assets/UI_Health.png" id="9_leggk"]
 [ext_resource type="Script" path="res://addons/input-system/InputChain.gd" id="10_1pavn"]
 [ext_resource type="Script" path="res://shared/items/Hand.gd" id="11_5poc2"]
@@ -77,16 +78,13 @@ size = Vector2(10, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oh3kc"]
 size = Vector2(8, 12)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cast_circle", "teleport_effect", "cursor_root", "sprite", "spell_caster", "chain", "chain_inputs", "teleport_cast") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cast_circle", "cursor_root", "sprite", "spell_caster", "chain", "chain_inputs", "teleport_cast") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_cb6w3")
-speed = null
-accel = null
 input = NodePath("PlayerInput")
 anim = NodePath("AnimationPlayer")
 hand = NodePath("CenterRoot/Hand")
 cast_circle = NodePath("CastCircle")
-teleport_effect = NodePath("")
 cursor_root = NodePath("CenterRoot")
 sprite = NodePath("Char")
 spell_caster = NodePath("CenterRoot/SpellCaster")
@@ -153,6 +151,7 @@ texture = ExtResource("3_oa0so")
 position = Vector2(16, 0)
 script = ExtResource("4_1bbg0")
 spark_spell = ExtResource("5_hcrp1")
+fireball_scene = ExtResource("9_kk67e")
 firerate = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

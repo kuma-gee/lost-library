@@ -84,6 +84,7 @@ collision_layer = 0
 collision_mask = 24
 script = ExtResource("1_fbw8u")
 anim = NodePath("AnimationPlayer")
+damage = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../CollisionShape2D")

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SpellResource" load_steps=2 format=3 uid="uid://epqkr6jtnh04"]
+
+[ext_resource type="Script" path="res://src/spells/SpellResource.gd" id="1_o38j8"]
+
+[resource]
+script = ExtResource("1_o38j8")
+inputs = Array[int]([3, 3, 2, 0, 3])
+name = "Fireball"
+action = 1

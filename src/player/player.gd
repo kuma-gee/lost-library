@@ -29,7 +29,6 @@ signal died()
 var casting = false
 
 func _ready():
-	teleport_effect.hide()
 	for spell in GameManager.spells:
 		chain.add_chain(spell.get_inputs(), spell.get_action())
 
@@ -76,6 +75,7 @@ func _on_player_input_just_released(ev: InputEvent):
 			match action:
 				SpellResource.Action.THUNDERSTORM: add_child(thunderstorm_scene.instantiate())
 				SpellResource.Action.TELEPORT: _teleport()
+				SpellResource.Action.FIREBALL: spell_caster.fireball()
 			
 			print("Action: %s" % SpellResource.Action.keys()[action])
 

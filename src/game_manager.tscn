@@ -1,9 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmixg536s2kt3"]
+[gd_scene load_steps=5 format=3 uid="uid://bmixg536s2kt3"]
 
 [ext_resource type="Script" path="res://src/game_manager.gd" id="1_ubk5m"]
 [ext_resource type="Resource" uid="uid://dv3v875rnt4ey" path="res://src/spells/thunderstorm.tres" id="2_3jgry"]
 [ext_resource type="Resource" uid="uid://xy0mkoeipro1" path="res://src/spells/teleport.tres" id="3_plwpi"]
+[ext_resource type="Resource" uid="uid://epqkr6jtnh04" path="res://src/spells/fireball.tres" id="4_1h35o"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_ubk5m")
-spells = Array[Resource("res://src/spells/SpellResource.gd")]([ExtResource("2_3jgry"), ExtResource("3_plwpi")])
+spells = Array[Resource("res://src/spells/SpellResource.gd")]([ExtResource("2_3jgry"), ExtResource("3_plwpi"), ExtResource("4_1h35o")])
