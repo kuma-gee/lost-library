@@ -8,6 +8,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:3.5.1
     strategy:
       matrix:
         # Remove channel if not releasing (Available: win, linux, mac, Web, android)
