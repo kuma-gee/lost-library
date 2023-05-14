@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://e4ecbsqrjuf6"]
+[gd_scene load_steps=4 format=3 uid="uid://e4ecbsqrjuf6"]
 
-[ext_resource type="Theme" uid="uid://cvvavdkxk7llv" path="res://theme/theme.tres" id="1_npdgd"]
+[ext_resource type="Theme" uid="uid://dyxpiak5ymujy" path="res://theme/theme.tres" id="1_npdgd"]
 [ext_resource type="Script" path="res://src/ui/start_menu.gd" id="2_a7n7o"]
+[ext_resource type="PackedScene" uid="uid://bryo50hd7fs0k" path="res://src/ui/ui_button.tscn" id="3_6a4eu"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -24,7 +25,7 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
 
-[node name="Start" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="Start" parent="CenterContainer/VBoxContainer" instance=ExtResource("3_6a4eu")]
 layout_mode = 2
 text = "Start Game"
 

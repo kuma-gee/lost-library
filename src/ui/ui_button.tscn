@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bryo50hd7fs0k"]
+
+[ext_resource type="Script" path="res://src/ui/ui_button.gd" id="1_hotp4"]
+[ext_resource type="AudioStream" uid="uid://dv7uoe84s12kh" path="res://sound/カーソル移動2.mp3" id="2_jiy7p"]
+[ext_resource type="AudioStream" uid="uid://dcp5aufthp8yo" path="res://sound/決定ボタンを押す48.mp3" id="3_e21ba"]
+
+[node name="UIButton" type="Button" node_paths=PackedStringArray("hover_sound", "click_sound")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 15)
+text = "Test"
+script = ExtResource("1_hotp4")
+hover_sound = NodePath("Hover")
+click_sound = NodePath("Click")
+
+[node name="Hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_jiy7p")
+volume_db = -5.0
+
+[node name="Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_e21ba")
