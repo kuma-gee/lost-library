@@ -4,4 +4,4 @@ extends Interactable
 
 func _on_interacted():
 	activate_sound.play()
-	SceneManager.reload_scene()
+	GameManager.next_level()

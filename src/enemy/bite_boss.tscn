@@ -296,7 +296,7 @@ scroll_scene = ExtResource("2_28bti")
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("7_dejes")
-health = 5
+health = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Health"]
 shape = SubResource("RectangleShape2D_jdfip")

@@ -9,6 +9,7 @@ enum {
 @export var anim: SpriteAnimTool
 @export var spawner: MinionSpawner
 @export var scroll_scene: PackedScene
+@export var health: HealthBox
 
 @export var move_distance := 30
 @export var move_speed := 100
@@ -16,6 +17,9 @@ enum {
 var can_move = true
 var target_pos
 var state = MOVE
+
+func _ready():
+	health.health = max(50, min(10, GameManager.lvl * 5))
 
 func _process(delta):
 	match state:
