@@ -19,7 +19,7 @@ var target_pos
 var state = MOVE
 
 func _ready():
-	health.health = max(50, min(10, GameManager.lvl * 5))
+	health.health = min(50, GameManager.lvl * 10)
 
 func _process(delta):
 	match state:
@@ -30,7 +30,8 @@ func _spawn_minions():
 	if spawner.can_spawn():
 		await get_tree().create_timer(1).timeout
 		anim.play("shout")
-		spawner.spawn()
+		if state == SPAWN: # make sure it's still in spawn state
+			spawner.spawn()
 
 func _set_move_target():
 	if not can_move: return
@@ -67,6 +68,7 @@ func _on_health_died():
 	anim.play("died")
 	spawner.kill_all()
 	await anim.animation_finished
+	spawner.kill_all() # make sure they are really killed
 	
 	var scroll = scroll_scene.instantiate()
 	scroll.global_position = global_position

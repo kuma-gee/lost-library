@@ -285,12 +285,13 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2426"]
 size = Vector2(30, 16)
 
-[node name="BiteBoss" type="CharacterBody2D" node_paths=PackedStringArray("anim", "spawner")]
+[node name="BiteBoss" type="CharacterBody2D" node_paths=PackedStringArray("anim", "spawner", "health")]
 collision_layer = 4
 script = ExtResource("1_gdrh0")
 anim = NodePath("AnimationPlayer")
 spawner = NodePath("MinionSpawner")
 scroll_scene = ExtResource("2_28bti")
+health = NodePath("Health")
 
 [node name="Health" type="Area2D" parent="."]
 collision_layer = 16
