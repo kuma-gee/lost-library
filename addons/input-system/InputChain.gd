@@ -1,24 +1,29 @@
 class_name InputChain
 extends Node
 
+signal pressed(input)
+
 var valid_inputs = []
 var chain = ChainNode.new("")
 var active_chain = null
 
 func handle_input(ev: InputEvent):
-	if not _is_valid_input(ev):
+	var input = _find_input(ev)
+	if input == null:
 		print("invalid input: %s" % ev.as_text())
 		return
 	
+	pressed.emit(input)
+	
 	var c = active_chain if active_chain != null else chain
-	active_chain = c.find_for_event(ev)
+	active_chain = c.find_child(input)
 	print("Pressed %s chained to %s" % [ev.as_text(), active_chain])
 
-func _is_valid_input(ev: InputEvent):
+func _find_input(ev: InputEvent):
 	for i in valid_inputs:
 		if ev.is_action_pressed(i):
-			return true
-	return false
+			return i
+	return null
 
 func add_chain(inputs: Array[String], action):
 	var curr = chain

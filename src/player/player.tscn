@@ -77,7 +77,7 @@ size = Vector2(10, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oh3kc"]
 size = Vector2(8, 12)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cast_circle", "cursor_root", "sprite", "spell_caster", "chain") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cast_circle", "cursor_root", "sprite", "spell_caster", "chain", "chain_inputs") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_cb6w3")
 input = NodePath("PlayerInput")
@@ -88,6 +88,7 @@ cursor_root = NodePath("CenterRoot")
 sprite = NodePath("Sprite2D")
 spell_caster = NodePath("CenterRoot/SpellCaster")
 chain = NodePath("PlayerInput/InputChain")
+chain_inputs = NodePath("Sprite2D/Control/VBoxContainer")
 thunderstorm_scene = ExtResource("2_xtufb")
 
 [node name="CastCircle" type="Sprite2D" parent="."]
@@ -98,6 +99,33 @@ texture = ExtResource("2_qe3n3")
 texture = ExtResource("2_1jj1u")
 hframes = 4
 frame = 2
+
+[node name="Control" type="Control" parent="Sprite2D"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -108.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Sprite2D/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 9.0
+offset_right = 3.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
 
 [node name="CenterRoot" type="Node2D" parent="."]
 
@@ -167,5 +195,6 @@ hp_icon = ExtResource("9_leggk")
 
 [connection signal="just_pressed" from="PlayerInput" to="." method="_on_player_input_just_pressed"]
 [connection signal="just_released" from="PlayerInput" to="." method="_on_player_input_just_released"]
+[connection signal="pressed" from="PlayerInput/InputChain" to="." method="_on_input_chain_pressed"]
 [connection signal="died" from="Health" to="." method="_on_health_died"]
 [connection signal="hit" from="Health" to="." method="_on_health_hit"]

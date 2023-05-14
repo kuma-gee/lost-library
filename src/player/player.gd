@@ -18,8 +18,9 @@ signal died()
 @export var cursor_root: Node2D
 @export var sprite: Sprite2D
 @export var spell_caster: SpellCaster
-@export var chain: InputChain
 
+@export var chain: InputChain
+@export var chain_inputs: Control
 @export var thunderstorm_scene: PackedScene
 
 
@@ -64,6 +65,9 @@ func _on_player_input_just_pressed(ev: InputEvent):
 
 func _on_player_input_just_released(ev: InputEvent):
 	if ev.is_action("cast"):
+		for c in chain_inputs.get_children():
+			chain_inputs.remove_child(c)
+		
 		var action = chain.get_chain_action()
 		if action != null:
 			match action:
@@ -80,3 +84,12 @@ func _on_health_died():
 
 func _on_health_hit(knockback):
 	velocity += knockback
+
+
+func _on_input_chain_pressed(input):
+	var tex = InputDirTexture.new()
+	tex.input = input
+	
+	if chain_inputs.get_child_count() > 5:
+		chain_inputs.remove_child(chain_inputs.get_child(0))
+	chain_inputs.add_child(tex)
