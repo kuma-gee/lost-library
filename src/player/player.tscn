@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://b815whyv5g4a3"]
+[gd_scene load_steps=21 format=3 uid="uid://b815whyv5g4a3"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_cb6w3"]
 [ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_1jj1u"]
+[ext_resource type="Texture2D" uid="uid://x3356tcjb4x2" path="res://assets/CastCircle.png" id="2_qe3n3"]
 [ext_resource type="Texture2D" uid="uid://c8jkbnk7fckul" path="res://assets/Cursor.png" id="3_oa0so"]
 [ext_resource type="Script" path="res://src/player/SpellCaster.gd" id="4_1bbg0"]
 [ext_resource type="PackedScene" uid="uid://dq8yi6fwxkup0" path="res://src/spells/spark.tscn" id="5_hcrp1"]
@@ -10,6 +11,7 @@
 [ext_resource type="Script" path="res://addons/combat/HealthBox.gd" id="8_mwr0l"]
 [ext_resource type="Script" path="res://src/player/HpContainer.gd" id="9_ik0e2"]
 [ext_resource type="Texture2D" uid="uid://gxvp8aldmy7v" path="res://assets/UI_Health.png" id="9_leggk"]
+[ext_resource type="Script" path="res://addons/input-system/InputChain.gd" id="10_1pavn"]
 [ext_resource type="Script" path="res://shared/items/Hand.gd" id="11_5poc2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w122e"]
@@ -74,20 +76,26 @@ size = Vector2(10, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oh3kc"]
 size = Vector2(8, 12)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cursor_root", "sprite", "spell_caster") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cast_circle", "cursor_root", "sprite", "spell_caster", "chain") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_cb6w3")
 input = NodePath("PlayerInput")
 anim = NodePath("AnimationPlayer")
 hand = NodePath("CenterRoot/Hand")
+cast_circle = NodePath("CastCircle")
 cursor_root = NodePath("CenterRoot")
 sprite = NodePath("Sprite2D")
 spell_caster = NodePath("CenterRoot/SpellCaster")
+chain = NodePath("PlayerInput/InputChain")
+
+[node name="CastCircle" type="Sprite2D" parent="."]
+position = Vector2(0, 7)
+texture = ExtResource("2_qe3n3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_1jj1u")
 hframes = 4
-frame = 3
+frame = 2
 
 [node name="CenterRoot" type="Node2D" parent="."]
 
@@ -124,6 +132,9 @@ shape = SubResource("RectangleShape2D_cyneh")
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource("7_ajej8")
 
+[node name="InputChain" type="Node" parent="PlayerInput"]
+script = ExtResource("10_1pavn")
+
 [node name="Health" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 0
@@ -133,6 +144,7 @@ health = 5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Health"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_oh3kc")
+disabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -152,5 +164,6 @@ health = NodePath("../../../Health")
 hp_icon = ExtResource("9_leggk")
 
 [connection signal="just_pressed" from="PlayerInput" to="." method="_on_player_input_just_pressed"]
+[connection signal="just_released" from="PlayerInput" to="." method="_on_player_input_just_released"]
 [connection signal="died" from="Health" to="." method="_on_health_died"]
 [connection signal="hit" from="Health" to="." method="_on_health_hit"]
