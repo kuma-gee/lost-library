@@ -21,6 +21,3 @@ func unhighlight():
 func interact():
 	emit_signal("interacted")
 
-
-func _on_interacted():
-	SceneManager.reload_scene()

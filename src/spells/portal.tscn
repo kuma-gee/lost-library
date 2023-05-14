@@ -1,15 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://uq12dom31pcd"]
+[gd_scene load_steps=5 format=3 uid="uid://uq12dom31pcd"]
 
-[ext_resource type="Script" path="res://shared/items/Interactable.gd" id="1_wn80r"]
+[ext_resource type="Script" path="res://src/spells/portal.gd" id="1_01gwr"]
 [ext_resource type="Texture2D" uid="uid://8jt6ygwupvni" path="res://assets/Portal.png" id="2_kuny0"]
+[ext_resource type="AudioStream" uid="uid://dnm072fk5hwlo" path="res://sound/ワープ.mp3" id="3_ftrah"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odnam"]
 size = Vector2(40, 24)
 
-[node name="Portal" type="Area2D" node_paths=PackedStringArray("sprite")]
+[node name="Portal" type="Area2D" node_paths=PackedStringArray("activate_sound", "sprite")]
 collision_layer = 32
 collision_mask = 0
-script = ExtResource("1_wn80r")
+script = ExtResource("1_01gwr")
+activate_sound = NodePath("ActivateSound")
 sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -17,5 +19,8 @@ texture = ExtResource("2_kuny0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_odnam")
+
+[node name="ActivateSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ftrah")
 
 [connection signal="interacted" from="." to="." method="_on_interacted"]

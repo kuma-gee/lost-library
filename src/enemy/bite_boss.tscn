@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b4iv54x5k5a35"]
+[gd_scene load_steps=22 format=3 uid="uid://b4iv54x5k5a35"]
 
 [ext_resource type="Texture2D" uid="uid://box8pwvaag4ah" path="res://assets/Enemy_Boss_Bite_Book.png" id="1_d7mjs"]
 [ext_resource type="Script" path="res://src/enemy/bite_boss.gd" id="1_gdrh0"]
@@ -10,6 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://bcqm3pfhcnkvy" path="res://src/enemy/enemy_bite.tscn" id="6_tl23x"]
 [ext_resource type="Script" path="res://addons/combat/HealthBox.gd" id="7_dejes"]
 [ext_resource type="Script" path="res://addons/combat/HitBox.gd" id="9_sbbk3"]
+[ext_resource type="AudioStream" uid="uid://dqlkaokyfjlfr" path="res://sound/ゴブリンの鳴き声1.mp3" id="11_8og6q"]
+[ext_resource type="AudioStream" uid="uid://bh0byshy7d8jw" path="res://sound/打撃6.mp3" id="12_jpe0h"]
+[ext_resource type="AudioStream" uid="uid://cfg7sxv3x5y5y" path="res://sound/回復魔法1.mp3" id="13_enpb5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jdfip"]
 size = Vector2(36, 22)
@@ -31,10 +34,46 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DeathSound:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_12b2j"]
 resource_name = "died"
-length = 4.0
+length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -94,6 +133,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DeathSound:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_qhlii"]
@@ -159,6 +210,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ImpactSound:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_1xh4h"]
 resource_name = "shout"
@@ -169,10 +232,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [0, 1]
+"values": [1, 0, 1]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -197,6 +260,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShoutSound:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cia7q"]
@@ -231,6 +306,7 @@ position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_dnngp")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_suitc")
 hframes = 6
 
@@ -238,6 +314,7 @@ hframes = 6
 texture = ExtResource("3_autmr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -6.66667)
 texture = ExtResource("1_d7mjs")
 hframes = 10
 vframes = 2
@@ -265,6 +342,17 @@ knockback_force = 200
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_g2426")
 disabled = true
+
+[node name="ShoutSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_8og6q")
+
+[node name="ImpactSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_jpe0h")
+volume_db = -5.0
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_enpb5")
+volume_db = -10.0
 
 [connection signal="died" from="Health" to="." method="_on_health_died"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,10 +1,31 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cvvavdkxk7llv"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dyxpiak5ymujy"]
 
 [ext_resource type="FontFile" uid="uid://cvhfrya45x8v7" path="res://theme/jackeyfont.ttf" id="1_qcbe6"]
 
-[sub_resource type="StyleBoxFlat" id="1"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4n10j"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5f2s"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ufwrl"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kewur"]
+bg_color = Color(0, 0, 0, 0)
 
 [resource]
 default_font = ExtResource("1_qcbe6")
-Button/styles/normal = SubResource("1")
+default_font_size = 12
+Button/colors/font_color = Color(1, 1, 1, 0.5)
+Button/colors/font_color_focus = Color(1, 1, 1, 1)
+Button/colors/font_color_hover = Color(1, 1, 1, 1)
+Button/colors/font_color_pressed = Color(1, 1, 1, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_4n10j")
+Button/styles/hover = SubResource("StyleBoxFlat_h5f2s")
+Button/styles/normal = SubResource("StyleBoxFlat_ufwrl")
+Button/styles/pressed = SubResource("StyleBoxFlat_kewur")

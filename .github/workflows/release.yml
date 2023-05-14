@@ -8,8 +8,6 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    container:
-      image: barichello/godot-ci:3.4.4
     strategy:
       matrix:
         # Remove channel if not releasing (Available: win, linux, mac, web, android)
@@ -22,6 +20,13 @@ jobs:
       - uses: actions/checkout@v3
         with:
           lfs: true
+
+      - uses: chickensoft-games/setup-godot@v1
+        name: 🤖 Setup Godot
+        with:
+          # Version must include major, minor, and patch, and be >= 4.0.0
+          # Pre-release label is optional.
+          version: 4.0.1
 
       - name: Setup Templates
         run: ./scripts/ci/prepare-templates.sh

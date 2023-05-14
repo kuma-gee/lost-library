@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b815whyv5g4a3"]
+[gd_scene load_steps=25 format=3 uid="uid://b815whyv5g4a3"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_cb6w3"]
 [ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_1jj1u"]
@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://b80fisyqg8wtt" path="res://src/spells/thunderstorm.tscn" id="2_xtufb"]
 [ext_resource type="Texture2D" uid="uid://c8jkbnk7fckul" path="res://assets/Cursor.png" id="3_oa0so"]
 [ext_resource type="Script" path="res://src/player/SpellCaster.gd" id="4_1bbg0"]
+[ext_resource type="Script" path="res://src/player/TeleportCast.gd" id="5_80n8q"]
 [ext_resource type="PackedScene" uid="uid://krisxbn8cct7" path="res://src/spells/spark.tscn" id="5_hcrp1"]
+[ext_resource type="AudioStream" uid="uid://ccqqrb5o1hcq0" path="res://sound/高速移動.mp3" id="6_1ev1v"]
 [ext_resource type="Script" path="res://src/player/PlayerAnim.gd" id="6_p8dvm"]
 [ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="7_ajej8"]
 [ext_resource type="Script" path="res://addons/combat/HealthBox.gd" id="8_mwr0l"]
@@ -135,8 +137,15 @@ alignment = 2
 
 [node name="CenterRoot" type="Node2D" parent="."]
 
-[node name="TeleportCast" type="RayCast2D" parent="CenterRoot"]
+[node name="TeleportCast" type="RayCast2D" parent="CenterRoot" node_paths=PackedStringArray("body", "teleport_sound")]
 target_position = Vector2(80, 0)
+script = ExtResource("5_80n8q")
+body = NodePath("../..")
+teleport_sound = NodePath("AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CenterRoot/TeleportCast"]
+stream = ExtResource("6_1ev1v")
+volume_db = -10.0
 
 [node name="Hand" type="Area2D" parent="CenterRoot"]
 position = Vector2(8, 0)

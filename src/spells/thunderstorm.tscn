@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b80fisyqg8wtt"]
+[gd_scene load_steps=5 format=3 uid="uid://b80fisyqg8wtt"]
 
 [ext_resource type="Script" path="res://src/spells/thunderstorm.gd" id="1_okktv"]
 [ext_resource type="PackedScene" uid="uid://bu5g6bwfjphkk" path="res://src/spells/thunder.tscn" id="2_tmws6"]
+[ext_resource type="AudioStream" uid="uid://bnphq570j0711" path="res://sound/雨が降り始める.mp3" id="3_k6vr8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3vqmt"]
 radius = 70.0
@@ -28,6 +29,11 @@ color = Color(0.615686, 0.615686, 0.615686, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3vqmt")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_k6vr8")
+volume_db = -5.0
+autoplay = true
 
 [connection signal="timeout" from="Firerate" to="." method="_on_firerate_timeout"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

@@ -19,7 +19,7 @@ func _physics_process(delta):
 func _on_anim_finished(anim_name: String):
 	if anim_name == "prepare":
 		anim.play("fire")
-	elif anim_name == "impact":
+	elif anim_name == "impact" or anim_name == "fade_out":
 		queue_free()
 
 func _on_area_entered(area):
@@ -29,4 +29,4 @@ func _on_area_entered(area):
 	super._on_area_entered(area)
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	queue_free()
+	anim.play("fade_out")

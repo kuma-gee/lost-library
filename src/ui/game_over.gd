@@ -13,4 +13,5 @@ func _on_menu_pressed():
 
 
 func _on_retry_pressed():
+	GameManager.reset()
 	SceneManager.reload_scene()

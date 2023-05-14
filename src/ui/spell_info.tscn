@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cmftgxsquxfoc"]
 
-[ext_resource type="Theme" uid="uid://cvvavdkxk7llv" path="res://theme/theme.tres" id="1_ffidn"]
+[ext_resource type="Theme" uid="uid://dyxpiak5ymujy" path="res://theme/theme.tres" id="1_ffidn"]
 [ext_resource type="Script" path="res://src/ui/spell_info.gd" id="1_qp53f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3rfu"]

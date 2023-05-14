@@ -24,7 +24,7 @@ signal died()
 @export var thunderstorm_scene: PackedScene
 @export var health: HealthBox
 
-@export var teleport_cast: RayCast2D
+@export var teleport_cast: TeleportCast
 
 var thunderstorm_active = false
 var casting = false
@@ -83,7 +83,7 @@ func _on_player_input_just_released(ev: InputEvent):
 		if action != null:
 			match action:
 				SpellResource.Action.THUNDERSTORM: _spawn_thunderstorm()
-				SpellResource.Action.TELEPORT: _teleport()
+				SpellResource.Action.TELEPORT: teleport_cast.teleport()
 				SpellResource.Action.FIREBALL: spell_caster.fireball()
 			
 			print("Action: %s" % SpellResource.Action.keys()[action])
@@ -95,16 +95,6 @@ func _spawn_thunderstorm():
 	var node = thunderstorm_scene.instantiate()
 	node.finished.connect(func(): thunderstorm_active = false)
 	add_child(node)
-
-func _teleport():
-	if teleport_cast.is_colliding():
-		var target = teleport_cast.get_collision_point()
-		var dir = global_position.direction_to(target)
-		global_position = target - dir * 3 # make sure player does not get stuck in wall
-	else:
-		var target = teleport_cast.target_position
-		target = target.rotated(teleport_cast.global_rotation)
-		global_position += target
 	
 func _on_health_died():
 	input.disable()
