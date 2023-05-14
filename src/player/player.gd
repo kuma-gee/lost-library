@@ -23,10 +23,13 @@ signal died()
 @export var chain_inputs: Control
 @export var thunderstorm_scene: PackedScene
 
+@export var teleport_cast: RayCast2D
+
 
 var casting = false
 
 func _ready():
+	teleport_effect.hide()
 	for spell in GameManager.spells:
 		chain.add_chain(spell.get_inputs(), spell.get_action())
 
@@ -72,9 +75,20 @@ func _on_player_input_just_released(ev: InputEvent):
 		if action != null:
 			match action:
 				SpellResource.Action.THUNDERSTORM: add_child(thunderstorm_scene.instantiate())
+				SpellResource.Action.TELEPORT: _teleport()
 			
 			print("Action: %s" % SpellResource.Action.keys()[action])
 
+func _teleport():
+	if teleport_cast.is_colliding():
+		var target = teleport_cast.get_collision_point()
+		var dir = global_position.direction_to(target)
+		global_position = target - dir * 3 # make sure player does not get stuck in wall
+	else:
+		var target = teleport_cast.target_position
+		target = target.rotated(teleport_cast.global_rotation)
+		global_position += target
+	
 func _on_health_died():
 	input.disable()
 	anim.play("died")

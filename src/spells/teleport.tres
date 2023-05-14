@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SpellResource" load_steps=2 format=3 uid="uid://xy0mkoeipro1"]
+
+[ext_resource type="Script" path="res://src/spells/SpellResource.gd" id="1_1ov7h"]
+
+[resource]
+script = ExtResource("1_1ov7h")
+inputs = Array[int]([3, 2])
+name = "Teleport"
+action = 3
