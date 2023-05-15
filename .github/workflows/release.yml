@@ -6,10 +6,17 @@ on:
       - "v*.*.*"
 
 jobs:
+  build-godot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build godot
+        run: docker build -t godot-ci
   release:
     runs-on: ubuntu-latest
+    needs: build-godot
     container:
-      image: barichello/godot-ci:3.5.1
+      image: godot-ci
     strategy:
       matrix:
         # Remove channel if not releasing (Available: win, linux, mac, Web, android)
@@ -21,14 +28,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           lfs: true
-
-      - uses: chickensoft-games/setup-godot@v1
-        name: 🤖 Setup Godot
-        with:
-          # Version must include major, minor, and patch, and be >= 4.0.0
-          # Pre-release label is optional.
-          version: 4.0.1
-          use-dotnet: false
 
       # - name: Setup Templates
       #   run: ./scripts/ci/prepare-templates.sh
