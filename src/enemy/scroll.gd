@@ -16,7 +16,7 @@ func _on_interacted():
 	canvas.add_child(info)
 
 	pickup_sound.play()
-	var spell = GameManager.spells.pick_random()
+	var spell = GameManager.next_random_unknown_spell()
 	info.show_spell(spell)
 	
 func _on_close():

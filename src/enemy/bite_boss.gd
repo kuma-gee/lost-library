@@ -28,7 +28,6 @@ func _process(delta):
 		
 func _spawn_minions():
 	if spawner.can_spawn():
-		await get_tree().create_timer(1).timeout
 		anim.play("shout")
 		if state == SPAWN: # make sure it's still in spawn state
 			spawner.spawn()

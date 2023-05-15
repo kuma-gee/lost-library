@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b815whyv5g4a3"]
+[gd_scene load_steps=26 format=3 uid="uid://b815whyv5g4a3"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_cb6w3"]
 [ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_1jj1u"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://gxvp8aldmy7v" path="res://assets/UI_Health.png" id="9_leggk"]
 [ext_resource type="Script" path="res://addons/input-system/InputChain.gd" id="10_1pavn"]
 [ext_resource type="Script" path="res://shared/items/Hand.gd" id="11_5poc2"]
+[ext_resource type="Texture2D" uid="uid://scxibw6a4wba" path="res://assets/Scroll.png" id="18_itoks"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w122e"]
 
@@ -205,11 +206,28 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="HpContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer" node_paths=PackedStringArray("health")]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="HpContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer" node_paths=PackedStringArray("health")]
 layout_mode = 2
 script = ExtResource("9_ik0e2")
-health = NodePath("../../../Health")
+health = NodePath("../../../../Health")
 hp_icon = ExtResource("9_leggk")
+
+[node name="Control" type="Control" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpellList" type="TextureButton" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+texture_normal = ExtResource("18_itoks")
+texture_pressed = ExtResource("18_itoks")
+texture_hover = ExtResource("18_itoks")
+texture_disabled = ExtResource("18_itoks")
+texture_focused = ExtResource("18_itoks")
 
 [connection signal="just_pressed" from="PlayerInput" to="." method="_on_player_input_just_pressed"]
 [connection signal="just_released" from="PlayerInput" to="." method="_on_player_input_just_released"]
