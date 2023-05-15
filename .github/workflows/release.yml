@@ -6,17 +6,10 @@ on:
       - "v*.*.*"
 
 jobs:
-  build-godot:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build godot
-        run: docker build . -t godot-ci
   release:
     runs-on: ubuntu-latest
-    needs: build-godot
     container:
-      image: godot-ci
+      image: barichello/godot-ci:4.0.1 # still waiting for it
     strategy:
       matrix:
         # Remove channel if not releasing (Available: win, linux, mac, Web, android)
@@ -29,8 +22,8 @@ jobs:
         with:
           lfs: true
 
-      # - name: Setup Templates
-      #   run: ./scripts/ci/prepare-templates.sh
+      - name: Setup Templates
+        run: ./scripts/ci/prepare-templates.sh
 
       - name: Prepare Build
         run: ./addons/debug/prepare-build.sh $GITHUB_REF_NAME
