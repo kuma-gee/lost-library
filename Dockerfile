@@ -33,7 +33,7 @@ RUN wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}${SUBDIR}/G
     && mv templates/* ~/.local/share/godot/templates/${GODOT_VERSION}.${RELEASE_NAME} \
     && rm -f Godot_v${GODOT_VERSION}-${RELEASE_NAME}_export_templates.tpz Godot_v${GODOT_VERSION}-${RELEASE_NAME}_${GODOT_PLATFORM}.zip
 
-ADD getbutler.sh /opt/butler/getbutler.sh
+ADD scripts/ci/getbutler.sh /opt/butler/getbutler.sh
 RUN bash /opt/butler/getbutler.sh
 RUN /opt/butler/bin/butler -V
 
