@@ -189,6 +189,6 @@ visible = false
 environment = SubResource("Environment_s0el7")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="WorldEnvironment"]
-color = Color(0.941176, 0.941176, 0.941176, 1)
+color = Color(0.945098, 0.886275, 1, 1)
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]

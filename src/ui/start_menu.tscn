@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://e4ecbsqrjuf6"]
+[gd_scene load_steps=13 format=3 uid="uid://e4ecbsqrjuf6"]
 
 [ext_resource type="Theme" uid="uid://dyxpiak5ymujy" path="res://theme/theme.tres" id="1_npdgd"]
 [ext_resource type="Script" path="res://src/ui/start_menu.gd" id="2_a7n7o"]
 [ext_resource type="PackedScene" uid="uid://bryo50hd7fs0k" path="res://src/ui/ui_button.tscn" id="3_6a4eu"]
+[ext_resource type="Texture2D" uid="uid://hn63o87rg7fc" path="res://assets/UI_Book.png" id="4_5mxsc"]
+[ext_resource type="AudioStream" uid="uid://swi27t74e0c1" path="res://sound/CozyAfternoons(loop)(74).wav" id="5_tcjoy"]
 
 [sub_resource type="Gradient" id="Gradient_dyx16"]
 colors = PackedColorArray(0.185795, 0.101392, 0.466962, 1, 0.0416151, 0.00714876, 0.0883803, 1)
@@ -13,6 +15,23 @@ fill_from = Vector2(1, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_85c0m"]
 texture = SubResource("GradientTexture2D_vi8ug")
+
+[sub_resource type="Gradient" id="Gradient_o27mj"]
+colors = PackedColorArray(0.646617, 0.448318, 1, 0.121569, 0.709804, 0.403922, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f84ff"]
+gradient = SubResource("Gradient_o27mj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wjdxt"]
+emission_shape = 3
+emission_box_extents = Vector3(200, 1, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, -50, 0)
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+color_ramp = SubResource("GradientTexture1D_f84ff")
 
 [sub_resource type="LabelSettings" id="LabelSettings_cbt70"]
 outline_size = 2
@@ -36,6 +55,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_85c0m")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(194, 237)
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_wjdxt")
+texture = ExtResource("4_5mxsc")
+lifetime = 3.0
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -65,6 +91,11 @@ text = "Enter"
 [node name="Exit" parent="CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_6a4eu")]
 layout_mode = 2
 text = "Exit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_tcjoy")
+volume_db = -5.0
+autoplay = true
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Enter" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

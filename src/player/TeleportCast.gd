@@ -7,8 +7,9 @@ extends RayCast2D
 func teleport():
 	if is_colliding():
 		var target = get_collision_point()
-		var dir = body.global_position.direction_to(target)
-		body.global_position = target - dir * 5 # make sure player does not get stuck in wall
+#		var dir = body.global_position.direction_to(target)
+		var dir = get_collision_normal()
+		body.global_position = target + dir * 5 # make sure player does not get stuck in wall
 	else:
 		var target = target_position
 		target = target.rotated(global_rotation)
