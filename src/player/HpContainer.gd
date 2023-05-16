@@ -11,8 +11,8 @@ func _update_hp(hp: int):
 	for child in get_children():
 		remove_child(child)
 	
-	for i in range(0, hp):
-		var tex = TextureRect.new()
-		tex.texture = hp_icon
-		add_child(tex)
-			
+	if hp > 0:
+		for i in range(0, hp):
+			var tex = TextureRect.new()
+			tex.texture = hp_icon
+			add_child(tex)

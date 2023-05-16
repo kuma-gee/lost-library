@@ -107,7 +107,7 @@ func _on_health_died():
 
 func _on_health_hit(knockback):
 	velocity += knockback
-	GameManager.player_health -= 1 # TODO: one place for health
+	GameManager.player_health = health.health
 	GameManager.frame_freeze(0.05, 1 if GameManager.player_health <= 0 else 0.2)
 	
 	var mat = sprite.material as ShaderMaterial
