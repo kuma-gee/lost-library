@@ -299,6 +299,7 @@ texture = ExtResource("3_autmr")
 texture = ExtResource("1_d7mjs")
 hframes = 10
 vframes = 2
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://do4adubak5o0j"]
+[gd_scene load_steps=29 format=3 uid="uid://do4adubak5o0j"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_cb6w3"]
 [ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_1jj1u"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://ccqqrb5o1hcq0" path="res://sound/高速移動.mp3" id="6_1ev1v"]
 [ext_resource type="Script" path="res://src/player/PlayerAnim.gd" id="6_p8dvm"]
 [ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="7_ajej8"]
+[ext_resource type="PackedScene" uid="uid://4uy1yj88e5br" path="res://src/spells/teleport_effect.tscn" id="7_mbvp7"]
 [ext_resource type="Script" path="res://addons/combat/HealthBox.gd" id="8_mwr0l"]
 [ext_resource type="Script" path="res://src/player/HpContainer.gd" id="9_ik0e2"]
 [ext_resource type="PackedScene" uid="uid://curex363snkn6" path="res://src/spells/fireball.tscn" id="9_kk67e"]
@@ -111,7 +112,7 @@ texture = ExtResource("2_qe3n3")
 material = SubResource("ShaderMaterial_0qvwo")
 texture = ExtResource("2_1jj1u")
 hframes = 4
-frame = 3
+frame = 2
 
 [node name="Control" type="Control" parent="Char"]
 layout_mode = 3
@@ -149,6 +150,7 @@ target_position = Vector2(80, 0)
 script = ExtResource("5_80n8q")
 body = NodePath("../..")
 teleport_sound = NodePath("AudioStreamPlayer")
+effect = ExtResource("7_mbvp7")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CenterRoot/TeleportCast"]
 stream = ExtResource("6_1ev1v")

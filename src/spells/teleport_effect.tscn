@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://4uy1yj88e5br"]
+
+[ext_resource type="Texture2D" uid="uid://bfvhjn4oh7jwy" path="res://assets/Spell_TeleportEffect.png" id="1_kw42l"]
+[ext_resource type="Script" path="res://src/spells/teleport_effect.gd" id="2_32avp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skp3t"]
+atlas = ExtResource("1_kw42l")
+region = Rect2(0, 0, 28, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0qr6"]
+atlas = ExtResource("1_kw42l")
+region = Rect2(28, 0, 28, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xacqh"]
+atlas = ExtResource("1_kw42l")
+region = Rect2(56, 0, 28, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85vdm"]
+atlas = ExtResource("1_kw42l")
+region = Rect2(84, 0, 28, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wkwb7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_skp3t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0qr6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xacqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85vdm")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="TeleportEffect" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_wkwb7")
+frame = 3
+frame_progress = 1.0
+script = ExtResource("2_32avp")
