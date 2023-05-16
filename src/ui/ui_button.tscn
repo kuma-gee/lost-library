@@ -18,7 +18,8 @@ click_sound = NodePath("Click")
 
 [node name="Hover" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_jiy7p")
-volume_db = -5.0
+volume_db = -10.0
 
 [node name="Click" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_e21ba")
+volume_db = -5.0

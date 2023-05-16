@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dh1olryh0ve1e"]
+[gd_scene load_steps=11 format=3 uid="uid://dh1olryh0ve1e"]
 
 [ext_resource type="Texture2D" uid="uid://fep37ahobvhf" path="res://assets/Tiles_Walls.png" id="1_j6kva"]
 [ext_resource type="Script" path="res://src/game.gd" id="1_peygm"]
 [ext_resource type="Texture2D" uid="uid://cbr607k8ri3lw" path="res://assets/Tiles_Floor.png" id="2_5ccxw"]
 [ext_resource type="PackedScene" uid="uid://do4adubak5o0j" path="res://src/player/player.tscn" id="5_5sexw"]
 [ext_resource type="PackedScene" uid="uid://b4iv54x5k5a35" path="res://src/enemy/bite_boss.tscn" id="5_edwb7"]
-[ext_resource type="Script" path="res://shared/CameraShake.gd" id="6_vat0t"]
 [ext_resource type="PackedScene" uid="uid://pm20a6nh47o2" path="res://src/ui/game_over.tscn" id="6_y4l8y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uo04m"]
@@ -179,7 +178,6 @@ position = Vector2(0, -102)
 [node name="Player" parent="." instance=ExtResource("5_5sexw")]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-script = ExtResource("6_vat0t")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2

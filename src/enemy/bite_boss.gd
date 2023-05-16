@@ -73,6 +73,3 @@ func _on_health_died():
 	get_tree().current_scene.add_child(scroll)
 	
 	queue_free()
-
-func shake_screen():
-	GameManager.screen_shake()

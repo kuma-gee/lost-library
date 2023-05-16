@@ -1,5 +1,5 @@
 class_name CameraShake
-extends Camera2D
+extends Node
 
 enum Strength {
 	LOW,
@@ -7,44 +7,37 @@ enum Strength {
 	HIGH
 }
 
-# How quickly to move through the noise
-@export var NOISE_SHAKE_SPEED: float = 30.0
-# Noise returns values in the range (-1, 1)
-# So this is how much to multiply the returned value by
-@export var NOISE_SHAKE_STRENGTH: float = 5.0
-# Multiplier for lerping the shake strength to zero
-@export var SHAKE_DECAY_RATE: float = 50.0
+## How much vibrations
+@export var noise_shake_speed: float = 30.0
+## How strong each vibration
+@export var noise_shake_strength: float = 30.0
+## How fast to return to normal
+@export var shake_decay_rate: float = 30.0
 
 @onready var rand = RandomNumberGenerator.new()
 @onready var noise = FastNoiseLite.new()
+@onready var camera = get_viewport().get_camera_2d()
 
 # Used to keep track of where we are in the noise
 # so that we can smoothly move through it
 var noise_i: float = 0.0
-
 var shake_strength: float = 0.0
 
 func _ready() -> void:
 	rand.randomize()
-	# Randomize the generated noise
 	noise.seed = rand.randi()
-	# Period affects how quickly the noise changes values
 	noise.frequency = 2
 
 func shake() -> void:
-	shake_strength = NOISE_SHAKE_STRENGTH
+	shake_strength = noise_shake_strength
 
 func _process(delta: float) -> void:
-	# Fade out the intensity over time
-	shake_strength = lerp(shake_strength, 0.0, SHAKE_DECAY_RATE * delta)
-
-	# Shake by adjusting camera.offset so we can move the camera around the level via it's position
-	offset = get_noise_offset(delta)
+	shake_strength = lerp(shake_strength, 0.0, shake_decay_rate * delta)
+	if shake_strength != 0:
+		camera.offset = get_noise_offset(delta)
 
 func get_noise_offset(delta: float) -> Vector2:
-	noise_i += delta * NOISE_SHAKE_SPEED
-	# Set the x values of each call to 'get_noise_2d' to a different value
-	# so that our x and y vectors will be reading from unrelated areas of noise
+	noise_i += delta * noise_shake_speed
 	return Vector2(
 		noise.get_noise_2d(1, noise_i) * shake_strength,
 		noise.get_noise_2d(100, noise_i) * shake_strength

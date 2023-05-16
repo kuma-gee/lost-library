@@ -1,7 +1,10 @@
 extends Control
 
+@export var open_door_sound: AudioStreamPlayer
+
 func _on_start_pressed():
-	SceneManager.change_scene("res://src/game.tscn")
+	open_door_sound.play()
+	SceneManager.change_scene("res://src/game.tscn", null, 0.4)
 
 
 func _on_exit_pressed():

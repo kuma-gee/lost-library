@@ -91,6 +91,7 @@ size = Vector2(8, 12)
 z_index = 1
 collision_layer = 2
 script = ExtResource("1_cb6w3")
+speed = 50
 input = NodePath("PlayerInput")
 anim = NodePath("AnimationPlayer")
 hand = NodePath("CenterRoot/Hand")

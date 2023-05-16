@@ -13,6 +13,9 @@ func _set_health(hp):
 	player_health = hp
 	health_change.emit(hp)
 
+func is_first_level():
+	return lvl == 1
+
 func next_level():
 	lvl += 1
 	SceneManager.reload_scene()
@@ -37,9 +40,6 @@ func next_random_unknown_spell():
 	known_spells.append(random.action)
 	
 	return random
-
-func screen_shake():
-	get_viewport().get_camera_2d().shake()
 
 func frame_freeze(time_scale: float, duration: float):
 	$FrameFreeze.freeze(time_scale, duration)

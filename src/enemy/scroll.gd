@@ -8,7 +8,9 @@ extends Interactable
 var open = false
 
 func _on_interacted():
-	if open: return
+	if open:
+		_on_close()
+		return
 	
 	open = true
 	var info = spell_info_scene.instantiate()

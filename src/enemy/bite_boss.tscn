@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b4iv54x5k5a35"]
+[gd_scene load_steps=23 format=3 uid="uid://b4iv54x5k5a35"]
 
 [ext_resource type="Texture2D" uid="uid://box8pwvaag4ah" path="res://assets/Enemy_Boss_Bite_Book.png" id="1_d7mjs"]
 [ext_resource type="Script" path="res://src/enemy/bite_boss.gd" id="1_gdrh0"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://dqlkaokyfjlfr" path="res://sound/ゴブリンの鳴き声1.mp3" id="11_8og6q"]
 [ext_resource type="AudioStream" uid="uid://bh0byshy7d8jw" path="res://sound/打撃6.mp3" id="12_jpe0h"]
 [ext_resource type="AudioStream" uid="uid://cfg7sxv3x5y5y" path="res://sound/回復魔法1.mp3" id="13_enpb5"]
+[ext_resource type="Script" path="res://shared/CameraShake.gd" id="14_84cye"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jdfip"]
 size = Vector2(34, 20)
@@ -177,7 +178,7 @@ tracks/5/keys = {
 tracks/6/type = "method"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath(".")
+tracks/6/path = NodePath("MoveGroundShake")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -185,7 +186,7 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"shake_screen"
+"method": &"shake"
 }]
 }
 
@@ -334,6 +335,12 @@ volume_db = -5.0
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_enpb5")
 volume_db = -10.0
+
+[node name="MoveGroundShake" type="Node" parent="."]
+script = ExtResource("14_84cye")
+noise_shake_speed = 1.0
+noise_shake_strength = 5.0
+shake_decay_rate = 20.0
 
 [connection signal="died" from="Health" to="." method="_on_health_died"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
