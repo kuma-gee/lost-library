@@ -31,8 +31,9 @@ var casting = false
 var stop = false
 
 func _ready():
-	health.health = GameManager.player_health
-	print("Init health ", GameManager.player_health)
+#	HP here does not matter anymore
+#	health.health = GameManager.player_health
+#	print("Init health ", GameManager.player_health)
 	
 	for spell in GameManager.spells:
 		chain.add_chain(spell.get_inputs(), spell.get_action())
@@ -107,6 +108,12 @@ func _on_health_died():
 func _on_health_hit(knockback):
 	velocity += knockback
 	GameManager.player_health -= 1 # TODO: one place for health
+	GameManager.frame_freeze(0.05, 1 if GameManager.player_health <= 0 else 0.2)
+	
+	var mat = sprite.material as ShaderMaterial
+	mat.set_shader_parameter("enable", true)
+	await get_tree().create_timer(0.1).timeout
+	mat.set_shader_parameter("enable", false)
 
 
 func _on_input_chain_pressed(input):

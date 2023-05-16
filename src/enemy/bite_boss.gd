@@ -29,8 +29,6 @@ func _process(delta):
 func _spawn_minions():
 	if spawner.can_spawn():
 		anim.play("shout")
-		if state == SPAWN: # make sure it's still in spawn state
-			spawner.spawn()
 
 func _set_move_target():
 	if not can_move: return
@@ -63,6 +61,7 @@ func _on_animation_player_animation_finished(anim_name):
 
 
 func _on_health_died():
+	GameManager.frame_freeze(0.05, 1)
 	state = DEAD
 	anim.play("died")
 	spawner.kill_all()
@@ -74,3 +73,6 @@ func _on_health_died():
 	get_tree().current_scene.add_child(scroll)
 	
 	queue_free()
+
+func shake_screen():
+	GameManager.screen_shake()

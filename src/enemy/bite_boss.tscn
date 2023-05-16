@@ -15,61 +15,13 @@
 [ext_resource type="AudioStream" uid="uid://cfg7sxv3x5y5y" path="res://sound/回復魔法1.mp3" id="13_enpb5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jdfip"]
-size = Vector2(36, 22)
+size = Vector2(34, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dnngp"]
 size = Vector2(32, 6)
 
 [sub_resource type="Animation" id="Animation_gasog"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HitBox/CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D2:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("DeathSound:playing")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="Animation" id="Animation_12b2j"]
 resource_name = "died"
@@ -172,7 +124,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Vector2(0, 0), Vector2(0, -8), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -221,6 +173,20 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shake_screen"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_1xh4h"]
@@ -274,6 +240,20 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MinionSpawner")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cia7q"]
 _data = {
@@ -301,6 +281,7 @@ script = ExtResource("7_dejes")
 health = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Health"]
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_jdfip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -308,7 +289,6 @@ position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_dnngp")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("2_suitc")
 hframes = 6
 
@@ -319,7 +299,6 @@ texture = ExtResource("3_autmr")
 texture = ExtResource("1_d7mjs")
 hframes = 10
 vframes = 2
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

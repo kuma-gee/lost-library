@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b815whyv5g4a3"]
+[gd_scene load_steps=28 format=3 uid="uid://do4adubak5o0j"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_cb6w3"]
 [ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_1jj1u"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b80fisyqg8wtt" path="res://src/spells/thunderstorm.tscn" id="2_xtufb"]
 [ext_resource type="Texture2D" uid="uid://c8jkbnk7fckul" path="res://assets/Cursor.png" id="3_oa0so"]
 [ext_resource type="Script" path="res://src/player/SpellCaster.gd" id="4_1bbg0"]
+[ext_resource type="Shader" path="res://shared/shaders/hit.gdshader" id="4_c6jcc"]
 [ext_resource type="Script" path="res://src/player/TeleportCast.gd" id="5_80n8q"]
 [ext_resource type="PackedScene" uid="uid://krisxbn8cct7" path="res://src/spells/spark.tscn" id="5_hcrp1"]
 [ext_resource type="AudioStream" uid="uid://ccqqrb5o1hcq0" path="res://sound/高速移動.mp3" id="6_1ev1v"]
@@ -18,6 +19,10 @@
 [ext_resource type="Script" path="res://addons/input-system/InputChain.gd" id="10_1pavn"]
 [ext_resource type="Script" path="res://shared/items/Hand.gd" id="11_5poc2"]
 [ext_resource type="Texture2D" uid="uid://scxibw6a4wba" path="res://assets/Scroll.png" id="18_itoks"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0qvwo"]
+shader = ExtResource("4_c6jcc")
+shader_parameter/enable = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w122e"]
 
@@ -103,9 +108,10 @@ position = Vector2(0, 7)
 texture = ExtResource("2_qe3n3")
 
 [node name="Char" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0qvwo")
 texture = ExtResource("2_1jj1u")
 hframes = 4
-frame = 2
+frame = 3
 
 [node name="Control" type="Control" parent="Char"]
 layout_mode = 3
@@ -190,6 +196,7 @@ collision_layer = 8
 collision_mask = 0
 script = ExtResource("8_mwr0l")
 health = 5
+invincible_time = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Health"]
 position = Vector2(0, 1)

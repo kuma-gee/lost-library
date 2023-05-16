@@ -4,17 +4,15 @@ extends Control
 @export var hp_icon: Texture2D
 
 func _ready():
-	health.hp_change.connect(func(hp): _update_hp(hp))
+	GameManager.health_change.connect(func(hp): _update_hp(hp))
+	_update_hp(GameManager.player_health)
 
 func _update_hp(hp: int):
-	var diff = hp - get_child_count()
-	if diff < 0:
-		for i in range(0, -diff):
-			if get_child_count() > 0:
-				remove_child(get_child(0))
-	elif diff > 0:
-		for i in range(0, diff):
-			var tex = TextureRect.new()
-			tex.texture = hp_icon
-			add_child(tex)
+	for child in get_children():
+		remove_child(child)
+	
+	for i in range(0, hp):
+		var tex = TextureRect.new()
+		tex.texture = hp_icon
+		add_child(tex)
 			

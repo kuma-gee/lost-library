@@ -1,11 +1,17 @@
 extends Node
 
+signal health_change(hp)
+
 @export var spells: Array[SpellResource]
 
 var lvl = 1
-var player_health = 5
+var player_health = 5 : set = _set_health
 
 var known_spells = []
+
+func _set_health(hp):
+	player_health = hp
+	health_change.emit(hp)
 
 func next_level():
 	lvl += 1
@@ -31,3 +37,9 @@ func next_random_unknown_spell():
 	known_spells.append(random.action)
 	
 	return random
+
+func screen_shake():
+	get_viewport().get_camera_2d().shake()
+
+func frame_freeze(time_scale: float, duration: float):
+	$FrameFreeze.freeze(time_scale, duration)
