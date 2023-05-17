@@ -89,7 +89,6 @@ size = Vector2(10, 4)
 size = Vector2(8, 12)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cast_circle", "cursor_root", "sprite", "spell_caster", "chain", "chain_inputs", "health", "teleport_cast", "hit_sound") groups=["player"]]
-z_index = 1
 collision_layer = 2
 script = ExtResource("1_cb6w3")
 speed = 50

@@ -12,8 +12,16 @@ func _ready():
 func _lose_hp(hp: int):
 	for i in range(1, hp + 1):
 		var idx = get_child_count() - i
+		if idx < 0:
+			break
+		
 		var heart = get_child(idx)
-		heart.kill()
+		if heart:
+			heart.kill()
 	
-	if get_child_count() == 2: # the second one will be exiting after this
-		get_child(0).pulse()
+	if GameManager.player_health == 1:
+		for child in get_children():
+			if child.killed: continue
+			
+			child.pulse()
+			break

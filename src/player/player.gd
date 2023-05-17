@@ -33,6 +33,7 @@ var casting = false
 var stop = false
 
 func _ready():
+	health.health = GameManager.player_health
 	for spell in GameManager.spells:
 		chain.add_chain(spell.get_inputs(), spell.get_action())
 

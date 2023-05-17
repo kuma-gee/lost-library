@@ -172,12 +172,15 @@ format = 2
 layer_0/y_sort_enabled = true
 layer_0/tile_data = PackedInt32Array(-655370, 0, 0, -655369, 65536, 0, -655368, 65536, 0, -655367, 65536, 0, -655366, 65536, 0, -655365, 65536, 0, -655364, 65536, 0, -655363, 65536, 0, -655362, 65536, 0, -655361, 65536, 0, -720896, 65536, 0, -720895, 65536, 0, -720894, 65536, 0, -720893, 65536, 0, -720892, 65536, 0, -720891, 65536, 0, -720890, 65536, 0, -720889, 65536, 0, -720888, 65536, 0, -720887, 131072, 0, -589834, 0, 1, -524298, 0, 1, -458762, 0, 1, -393226, 0, 1, -327690, 0, 1, -262154, 0, 1, -196618, 0, 1, -131082, 0, 1, -65546, 0, 1, -10, 0, 1, 65526, 0, 1, 131062, 0, 1, 196598, 0, 1, 262134, 0, 1, 327670, 0, 1, 393206, 0, 1, 458742, 0, 1, 524278, 0, 1, 589814, 0, 1, 655350, 0, 2, -655351, 131072, 1, -589815, 131072, 1, -524279, 131072, 1, -458743, 131072, 1, -393207, 131072, 1, -327671, 131072, 1, -262135, 131072, 1, -196599, 131072, 1, -131063, 131072, 1, -65527, 131072, 1, 9, 131072, 1, 65545, 131072, 1, 131081, 131072, 1, 196617, 131072, 1, 262153, 131072, 1, 327689, 131072, 1, 393225, 131072, 1, 458761, 131072, 1, 524297, 131072, 1, 589833, 131072, 2, 655351, 65536, 2, 655352, 65536, 2, 655353, 65536, 2, 655354, 65536, 2, 655355, 65536, 2, 655356, 65536, 2, 655357, 65536, 2, 655358, 65536, 2, 655359, 65536, 2, 589824, 65536, 2, 589825, 65536, 2, 589826, 65536, 2, 589827, 65536, 2, 589828, 65536, 2, 589829, 65536, 2, 589830, 65536, 2, 589831, 65536, 2, 589832, 65536, 2)
 
-[node name="BiteBoss" parent="." instance=ExtResource("5_edwb7")]
+[node name="Node2D" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="BiteBoss" parent="Node2D" instance=ExtResource("5_edwb7")]
 position = Vector2(0, -102)
 
-[node name="Player" parent="." instance=ExtResource("5_5sexw")]
+[node name="Player" parent="Node2D" instance=ExtResource("5_5sexw")]
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera2D" type="Camera2D" parent="Node2D/Player"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -191,4 +194,4 @@ environment = SubResource("Environment_s0el7")
 [node name="CanvasModulate" type="CanvasModulate" parent="WorldEnvironment"]
 color = Color(0.945098, 0.886275, 1, 1)
 
-[connection signal="died" from="Player" to="." method="_on_player_died"]
+[connection signal="died" from="Node2D/Player" to="." method="_on_player_died"]
