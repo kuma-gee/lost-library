@@ -207,7 +207,6 @@ modulate = Color(1, 0.431373, 0.431373, 1)
 position = Vector2(5, 0)
 scale = Vector2(1.1, 1.1)
 sprite_frames = SubResource("SpriteFrames_7y1wj")
-frame_progress = 0.491562
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

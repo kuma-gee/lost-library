@@ -4,8 +4,20 @@ extends Interactable
 @export var canvas: CanvasLayer
 @export var portal_scene: PackedScene
 @export var pickup_sound: AudioStreamPlayer
+@export var anim: AnimationPlayer
 
 var open = false
+
+func _ready():
+	anim.animation_finished.connect(func(n):  if n == "burn": _burned())
+	anim.play("idle")
+
+func _burned():
+	var portal = portal_scene.instantiate()
+	portal.global_position = global_position
+	get_tree().current_scene.add_child(portal)
+	queue_free()
+	
 
 func _on_interacted():
 	if open:
@@ -22,13 +34,6 @@ func _on_interacted():
 	info.show_spell(spell)
 	
 func _on_close():
-	var portal = portal_scene.instantiate()
-	portal.global_position = global_position
-	get_tree().current_scene.add_child(portal)
-	
-	hide()
 	canvas.hide()
 	pickup_sound.play()
-	await pickup_sound.finished
-	queue_free()
-	
+	anim.play("burn")
