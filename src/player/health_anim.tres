@@ -1,0 +1,18 @@
+[gd_resource type="AnimatedTexture" load_steps=5 format=3 uid="uid://dtg64xfup4y4u"]
+
+[ext_resource type="Texture2D" uid="uid://c88cw2suechls" path="res://assets/UI_Health_0.png" id="1_rux78"]
+[ext_resource type="Texture2D" uid="uid://dragklya5ei5v" path="res://assets/UI_Health_1.png" id="2_yskwd"]
+[ext_resource type="Texture2D" uid="uid://byjrak7udy8qj" path="res://assets/UI_Health_2.png" id="3_jrf2k"]
+[ext_resource type="Texture2D" uid="uid://1j7d8nvmhya1" path="res://assets/UI_Health_3.png" id="4_85fsp"]
+
+[resource]
+frames = 4
+pause = true
+one_shot = true
+frame_0/texture = ExtResource("1_rux78")
+frame_1/texture = ExtResource("2_yskwd")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("3_jrf2k")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("4_85fsp")
+frame_3/duration = 1.0

@@ -26,15 +26,13 @@ signal died()
 
 @export var teleport_cast: TeleportCast
 
+@export var hit_sound: AudioStreamPlayer
+
 var thunderstorm_active = false
 var casting = false
 var stop = false
 
 func _ready():
-#	HP here does not matter anymore
-#	health.health = GameManager.player_health
-#	print("Init health ", GameManager.player_health)
-	
 	for spell in GameManager.spells:
 		chain.add_chain(spell.get_inputs(), spell.get_action())
 
@@ -105,9 +103,10 @@ func _on_health_died():
 	died.emit()
 
 
-func _on_health_hit(knockback):
+func _on_health_hit(dmg, knockback):
 	velocity += knockback
-	GameManager.player_health = health.health
+	hit_sound.play()
+	GameManager.reduce_hp(dmg)
 	GameManager.frame_freeze(0.05, 1 if GameManager.player_health <= 0 else 0.2)
 	
 	var mat = sprite.material as ShaderMaterial

@@ -1,0 +1,230 @@
+[gd_scene load_steps=16 format=3 uid="uid://k4fk6d1m5300"]
+
+[ext_resource type="Texture2D" uid="uid://gxvp8aldmy7v" path="res://assets/UI_Health.png" id="1_0irok"]
+[ext_resource type="Script" path="res://src/ui/heart.gd" id="1_bgaq0"]
+[ext_resource type="AudioStream" uid="uid://bketqay4knon7" path="res://sound/心臓の鼓動2.mp3" id="3_0rbhk"]
+[ext_resource type="Texture2D" uid="uid://4a0p8gjwg4qn" path="res://assets/LowHPBorder.png" id="4_ua6ck"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_anpxu"]
+atlas = ExtResource("1_0irok")
+region = Rect2(0, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sj4uv"]
+atlas = ExtResource("1_0irok")
+region = Rect2(15, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fos20"]
+atlas = ExtResource("1_0irok")
+region = Rect2(15, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62iju"]
+atlas = ExtResource("1_0irok")
+region = Rect2(30, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdfoa"]
+atlas = ExtResource("1_0irok")
+region = Rect2(45, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olj76"]
+atlas = ExtResource("1_0irok")
+region = Rect2(60, 0, 15, 13)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7y1wj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_anpxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sj4uv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fos20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62iju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdfoa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olj76")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_dsmct"]
+resource_name = "enter"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(5, 0), Vector2(5, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/TextureRect:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_vkm51"]
+resource_name = "pulse"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.431373, 0.431373, 1), Color(1, 1, 1, 1), Color(1, 0.431373, 0.431373, 1), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HeartBeat:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/TextureRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.811765, 0.25098, 0.364706, 0.196078), Color(0.811765, 0.25098, 0.364706, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/TextureRect:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_7dh6h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.811765, 0.25098, 0.364706, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_barp6"]
+_data = {
+"RESET": SubResource("Animation_7dh6h"),
+"enter": SubResource("Animation_dsmct"),
+"pulse": SubResource("Animation_vkm51")
+}
+
+[node name="Heart" type="Control" node_paths=PackedStringArray("anim_sprite", "anim")]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_bgaq0")
+anim_sprite = NodePath("AnimatedSprite2D")
+anim = NodePath("AnimationPlayer")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0.431373, 0.431373, 1)
+position = Vector2(5, 0)
+scale = Vector2(1.1, 1.1)
+sprite_frames = SubResource("SpriteFrames_7y1wj")
+frame_progress = 0.491562
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_barp6")
+}
+
+[node name="HeartBeat" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_0rbhk")
+volume_db = -15.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+modulate = Color(0.811765, 0.25098, 0.364706, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_ua6ck")

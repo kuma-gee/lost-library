@@ -1,17 +1,17 @@
 extends Node
 
-signal health_change(hp)
+signal lose_hp(hp)
 
 @export var spells: Array[SpellResource]
 
 var lvl = 1
-var player_health = 5 : set = _set_health
+var player_health = 5
 
 var known_spells = []
 
-func _set_health(hp):
-	player_health = hp
-	health_change.emit(hp)
+func reduce_hp(hp):
+	player_health -= hp
+	lose_hp.emit(hp)
 
 func is_first_level():
 	return lvl == 1

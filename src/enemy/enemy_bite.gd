@@ -26,7 +26,7 @@ func _physics_process(delta):
 	velocity = dir * speed
 	move_and_slide()
 
-func _on_hurt_box_hit(_knockback):
+func _on_hurt_box_hit(_dmg, _knockback):
 	stopped = true
 	hit_timer.start()
 
