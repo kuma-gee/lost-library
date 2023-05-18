@@ -22,6 +22,9 @@
 [ext_resource type="PackedScene" uid="uid://k4fk6d1m5300" path="res://src/ui/heart.tscn" id="19_bnicy"]
 [ext_resource type="AudioStream" uid="uid://djxp5vh8whm2p" path="res://sound/ガラスが割れる3.mp3" id="21_cnqlr"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cyneh"]
+size = Vector2(10, 4)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0qvwo"]
 shader = ExtResource("4_c6jcc")
 shader_parameter/enable = false
@@ -33,7 +36,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Char:frame")
+tracks/0/path = NodePath("CollisionShape2D/Char:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -49,7 +52,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Char:frame")
+tracks/0/path = NodePath("CollisionShape2D/Char:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -65,7 +68,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Char:frame")
+tracks/0/path = NodePath("CollisionShape2D/Char:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -82,11 +85,23 @@ _data = {
 "move": SubResource("Animation_4peaf")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cyneh"]
-size = Vector2(10, 4)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oh3kc"]
-size = Vector2(8, 12)
+size = Vector2(8, 8)
+
+[sub_resource type="Animation" id="Animation_ntggk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Char:material:shader_parameter/enable")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_aw372"]
 resource_name = "hit"
@@ -95,7 +110,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Char:material:shader_parameter/enable")
+tracks/0/path = NodePath("CollisionShape2D/Char:material:shader_parameter/enable")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -103,21 +118,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [true, false, true, false, true, false]
-}
-
-[sub_resource type="Animation" id="Animation_ntggk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Char:material:shader_parameter/enable")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vwl4a"]
@@ -132,30 +132,35 @@ script = ExtResource("1_cb6w3")
 speed = 50
 input = NodePath("PlayerInput")
 anim = NodePath("AnimationPlayer")
-hand = NodePath("CenterRoot/Hand")
-cast_circle = NodePath("CastCircle")
-cursor_root = NodePath("CenterRoot")
-sprite = NodePath("Char")
-spell_caster = NodePath("CenterRoot/SpellCaster")
+hand = NodePath("CollisionShape2D/CenterRoot/Hand")
+cast_circle = NodePath("CollisionShape2D/CastCircle")
+cursor_root = NodePath("CollisionShape2D/CenterRoot")
+sprite = NodePath("CollisionShape2D/Char")
+spell_caster = NodePath("CollisionShape2D/CenterRoot/SpellCaster")
 chain = NodePath("PlayerInput/InputChain")
-chain_inputs = NodePath("Char/Control/VBoxContainer")
+chain_inputs = NodePath("CollisionShape2D/Char/Control/VBoxContainer")
 thunderstorm_scene = ExtResource("2_xtufb")
 health = NodePath("Health")
-teleport_cast = NodePath("CenterRoot/TeleportCast")
+teleport_cast = NodePath("CollisionShape2D/CenterRoot/TeleportCast")
 hit_sound = NodePath("HitSound")
 hit_player = NodePath("HitPlayer")
 
-[node name="CastCircle" type="Sprite2D" parent="."]
-position = Vector2(0, 7)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_cyneh")
+
+[node name="CastCircle" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(0, 2)
 texture = ExtResource("2_qe3n3")
 
-[node name="Char" type="Sprite2D" parent="."]
+[node name="Char" type="Sprite2D" parent="CollisionShape2D"]
 material = SubResource("ShaderMaterial_0qvwo")
+position = Vector2(0, -5)
 texture = ExtResource("2_1jj1u")
 hframes = 4
 frame = 2
 
-[node name="Control" type="Control" parent="Char"]
+[node name="Control" type="Control" parent="CollisionShape2D/Char"]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -170,7 +175,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Char/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CollisionShape2D/Char/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -184,49 +189,45 @@ grow_vertical = 2
 mouse_filter = 2
 alignment = 2
 
-[node name="CenterRoot" type="Node2D" parent="."]
+[node name="CenterRoot" type="Node2D" parent="CollisionShape2D"]
+position = Vector2(0, -5)
 
-[node name="TeleportCast" type="RayCast2D" parent="CenterRoot" node_paths=PackedStringArray("body", "teleport_sound")]
+[node name="TeleportCast" type="RayCast2D" parent="CollisionShape2D/CenterRoot" node_paths=PackedStringArray("body", "teleport_sound")]
 target_position = Vector2(80, 0)
 script = ExtResource("5_80n8q")
-body = NodePath("../..")
+body = NodePath("../../..")
 teleport_sound = NodePath("AudioStreamPlayer")
 effect = ExtResource("7_mbvp7")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CenterRoot/TeleportCast"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CollisionShape2D/CenterRoot/TeleportCast"]
 stream = ExtResource("6_1ev1v")
 volume_db = -10.0
 
-[node name="Hand" type="Area2D" parent="CenterRoot"]
+[node name="Hand" type="Area2D" parent="CollisionShape2D/CenterRoot"]
 position = Vector2(8, 0)
 collision_layer = 0
 collision_mask = 32
 script = ExtResource("11_5poc2")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="CenterRoot/Hand"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CollisionShape2D/CenterRoot/Hand"]
 shape = SubResource("RectangleShape2D_w122e")
 
-[node name="Cursor" type="Sprite2D" parent="CenterRoot"]
+[node name="Cursor" type="Sprite2D" parent="CollisionShape2D/CenterRoot"]
 position = Vector2(13, 0)
 texture = ExtResource("3_oa0so")
 
-[node name="SpellCaster" type="Node2D" parent="CenterRoot"]
+[node name="SpellCaster" type="Node2D" parent="CollisionShape2D/CenterRoot"]
 position = Vector2(16, 0)
 script = ExtResource("4_1bbg0")
 spark_spell = ExtResource("5_hcrp1")
 fireball_scene = ExtResource("9_kk67e")
-firerate = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_jux2d")
 }
 script = ExtResource("6_p8dvm")
-sprite = NodePath("../Char")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
-shape = SubResource("RectangleShape2D_cyneh")
+sprite = NodePath("../CollisionShape2D/Char")
 
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource("7_ajej8")
@@ -235,6 +236,7 @@ script = ExtResource("7_ajej8")
 script = ExtResource("10_1pavn")
 
 [node name="Health" type="Area2D" parent="."]
+position = Vector2(0, -2)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("8_mwr0l")

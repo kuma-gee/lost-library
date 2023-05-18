@@ -4,6 +4,7 @@ enum {
 	MOVE,
 	SPAWN,
 	DEAD,
+	JUMP,
 }
 
 @export var anim: SpriteAnimTool

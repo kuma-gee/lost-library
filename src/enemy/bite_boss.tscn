@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b4iv54x5k5a35"]
+[gd_scene load_steps=24 format=3 uid="uid://b4iv54x5k5a35"]
 
 [ext_resource type="Texture2D" uid="uid://box8pwvaag4ah" path="res://assets/Enemy_Boss_Bite_Book.png" id="1_d7mjs"]
 [ext_resource type="Script" path="res://src/enemy/bite_boss.gd" id="1_gdrh0"]
@@ -47,6 +47,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_12b2j"]
 resource_name = "died"
@@ -58,10 +70,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 1.5, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1, 1.5, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+"values": [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -134,6 +146,33 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sprite2D:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ntcc6"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_qhlii"]
@@ -212,6 +251,18 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite2D:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_1xh4h"]
@@ -303,11 +354,24 @@ tracks/6/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sprite2D:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cia7q"]
 _data = {
 "RESET": SubResource("Animation_gasog"),
 "died": SubResource("Animation_12b2j"),
+"jump": SubResource("Animation_ntcc6"),
 "move": SubResource("Animation_qhlii"),
 "shout": SubResource("Animation_1xh4h")
 }
@@ -347,6 +411,8 @@ hframes = 6
 texture = ExtResource("3_autmr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -20)
 texture = ExtResource("1_d7mjs")
 hframes = 10
 vframes = 2
@@ -391,6 +457,8 @@ script = ExtResource("14_84cye")
 noise_shake_speed = 1.0
 noise_shake_strength = 5.0
 shake_decay_rate = 20.0
+
+[node name="HighJumpTimer" type="Timer" parent="."]
 
 [connection signal="died" from="Health" to="." method="_on_health_died"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
