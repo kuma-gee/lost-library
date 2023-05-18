@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           lfs: true
-      - uses: vitorgus/setup-godot@v1
+      - uses: sakkaku-dev/install-godot@v2
         with:
           godot-version: 4.0.1
 
