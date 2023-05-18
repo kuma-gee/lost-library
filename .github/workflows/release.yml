@@ -8,8 +8,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    container:
-      image: barichello/godot-ci:4.0.1 # still waiting for it
+    # container:
+    # image: barichello/godot-ci:4.0.1 # still waiting for it
     strategy:
       matrix:
         # Remove channel if not releasing (Available: win, linux, mac, Web, android)
@@ -21,9 +21,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           lfs: true
+      - uses: vitorgus/setup-godot@v1
+        with:
+          godot-version: 4.0.1
 
-      - name: Setup Templates
-        run: ./scripts/ci/prepare-templates.sh
+      # - name: Setup Templates
+      #   run: ./scripts/ci/prepare-templates.sh
 
       - name: Prepare Build
         run: ./addons/debug/prepare-build.sh $GITHUB_REF_NAME
