@@ -20,16 +20,22 @@ fi
 shift
 
 CHANNELS=( "$@" )
+LAST_TAG=$(git describe --tags --abbrev=0)
+CHANGELOG=""
 
 generate_changelog() {
+    echo "Generating changelog"
     touch package.json
     echo "{}" > package.json
-    changelog -p -t $VERSION -f CHANGELOG.md
+    changelog -p -t $LAST_TAG -f CHANGELOG.md
+    CHANGELOG=$(cat CHANGELOG.md)
     rm package.json
+    rm CHANGELOG.md
 }
 
 build_channels() {
     for CHANNEL in "${CHANNELS[@]}"; do
+        echo "Building channel $CHANNEL"
         ./scripts/build-channel.sh $CHANNEL
     done
 }
@@ -47,7 +53,7 @@ github_release() {
     done
 
     echo "Creating release"
-    gh release create $VERSION gh-releases/* -n "" -t ""
+    gh release create $VERSION gh-releases/* -n "$CHANGELOG" -t ""
     rm gh-releases -rf
 }
 
@@ -62,10 +68,10 @@ itch_release() {
 
 generate_changelog
 
-# build_channels
+build_channels
 
-# if [[ $VERSION != *"-rc"* ]]; then
-#     itch_release
-# fi
+if [[ $VERSION != *"-rc"* ]]; then
+    itch_release
+fi
 
-# github_release
+github_release
