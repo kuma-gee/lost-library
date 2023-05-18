@@ -3,6 +3,7 @@ extends Area2D
 
 signal died()
 signal hit(dmg, knockback)
+signal invincible_timeout()
 
 @export var health: int : set = _set_health
 @export var invincible_time := 0.0
@@ -26,3 +27,4 @@ func damage(dmg: int, knockback: Vector2):
 		invincible = true
 		await get_tree().create_timer(invincible_time).timeout
 		invincible = false
+		invincible_timeout.emit()

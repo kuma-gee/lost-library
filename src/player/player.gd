@@ -27,12 +27,14 @@ signal died()
 @export var teleport_cast: TeleportCast
 
 @export var hit_sound: AudioStreamPlayer
+@export var hit_player: AnimationPlayer
 
 var thunderstorm_active = false
 var casting = false
 var stop = false
 
 func _ready():
+	hit_player.play("RESET")
 	health.health = GameManager.player_health
 	for spell in GameManager.spells:
 		chain.add_chain(spell.get_inputs(), spell.get_action())
@@ -110,10 +112,7 @@ func _on_health_hit(dmg, knockback):
 	GameManager.reduce_hp(dmg)
 	GameManager.frame_freeze(0.05, 1 if GameManager.player_health <= 0 else 0.2)
 	
-	var mat = sprite.material as ShaderMaterial
-	mat.set_shader_parameter("enable", true)
-	await get_tree().create_timer(0.1).timeout
-	mat.set_shader_parameter("enable", false)
+	hit_player.play("hit")
 
 
 func _on_input_chain_pressed(input):
@@ -123,3 +122,7 @@ func _on_input_chain_pressed(input):
 	if chain_inputs.get_child_count() > 5:
 		chain_inputs.remove_child(chain_inputs.get_child(0))
 	chain_inputs.add_child(tex)
+
+
+func _on_health_invincible_timeout():
+	hit_player.play("RESET")

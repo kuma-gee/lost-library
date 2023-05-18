@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://do4adubak5o0j"]
+[gd_scene load_steps=33 format=3 uid="uid://do4adubak5o0j"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_cb6w3"]
 [ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_1jj1u"]
@@ -88,7 +88,45 @@ size = Vector2(10, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oh3kc"]
 size = Vector2(8, 12)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cast_circle", "cursor_root", "sprite", "spell_caster", "chain", "chain_inputs", "health", "teleport_cast", "hit_sound") groups=["player"]]
+[sub_resource type="Animation" id="Animation_aw372"]
+resource_name = "hit"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Char:material:shader_parameter/enable")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4, 0.5, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_ntggk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Char:material:shader_parameter/enable")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vwl4a"]
+_data = {
+"RESET": SubResource("Animation_ntggk"),
+"hit": SubResource("Animation_aw372")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cast_circle", "cursor_root", "sprite", "spell_caster", "chain", "chain_inputs", "health", "teleport_cast", "hit_sound", "hit_player") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_cb6w3")
 speed = 50
@@ -105,6 +143,7 @@ thunderstorm_scene = ExtResource("2_xtufb")
 health = NodePath("Health")
 teleport_cast = NodePath("CenterRoot/TeleportCast")
 hit_sound = NodePath("HitSound")
+hit_player = NodePath("HitPlayer")
 
 [node name="CastCircle" type="Sprite2D" parent="."]
 position = Vector2(0, 7)
@@ -243,8 +282,14 @@ texture_focused = ExtResource("18_itoks")
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_cnqlr")
 
+[node name="HitPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vwl4a")
+}
+
 [connection signal="just_pressed" from="PlayerInput" to="." method="_on_player_input_just_pressed"]
 [connection signal="just_released" from="PlayerInput" to="." method="_on_player_input_just_released"]
 [connection signal="pressed" from="PlayerInput/InputChain" to="." method="_on_input_chain_pressed"]
 [connection signal="died" from="Health" to="." method="_on_health_died"]
 [connection signal="hit" from="Health" to="." method="_on_health_hit"]
+[connection signal="invincible_timeout" from="Health" to="." method="_on_health_invincible_timeout"]
