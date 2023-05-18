@@ -1,4 +1,6 @@
-build/
+build/*
+!build/.gdignore
 *.css*
 _sprites/
 .godot/
+CHANGELOG.md
