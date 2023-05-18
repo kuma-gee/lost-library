@@ -24,9 +24,15 @@ signal died()
 @export var hit_sound: AudioStreamPlayer
 @export var hit_player: AnimationPlayer
 
+enum {
+	CAST,
+	MOVE,
+	DEAD,
+	WARP
+}
+
 var thunderstorm_active = false
-var casting = false
-var stop = false
+var state = MOVE
 
 func _ready():
 	hit_player.play("RESET")
@@ -35,22 +41,17 @@ func _ready():
 		chain.add_chain(spell.get_inputs(), spell.get_action())
 
 func _process(delta):
-	if stop: return
-	
-	var dir = global_position.direction_to(get_global_mouse_position())
-	cursor_root.rotation = dir.angle()
-	
-	casting = input.is_pressed("cast")
-	sprite.flip_h = dir.x < 0
+	if state == CAST or state == MOVE:
+		var dir = global_position.direction_to(get_global_mouse_position())
+		cursor_root.rotation = dir.angle()
+		sprite.flip_h = dir.x < 0
 
 func _physics_process(delta):
-	if stop: return
-	
-	if casting:
+	if state == CAST:
 		anim.start_play("idle")
 		cast_circle.visible = true
 		velocity = Vector2.ZERO
-	else:
+	elif state == MOVE:
 		anim.start_play("move")
 		cast_circle.visible = false
 		var motion = Vector2(
@@ -63,16 +64,18 @@ func _physics_process(delta):
 
 
 func _on_player_input_just_pressed(ev: InputEvent):
-	if not casting:
-		if ev.is_action("fire"):
+	if state == MOVE:
+		if ev.is_action("cast"):
+			state = CAST
+		elif ev.is_action("fire"):
 			spell_caster.fire()
 		elif ev.is_action("interact"):
 			hand.interact()
-	else:
+	elif state == CAST:
 		chain.handle_input(ev)
 
 func _on_player_input_just_released(ev: InputEvent):
-	if ev.is_action("cast"):
+	if state == CAST and ev.is_action("cast"):
 		for c in chain_inputs.get_children():
 			chain_inputs.remove_child(c)
 		
@@ -84,6 +87,7 @@ func _on_player_input_just_released(ev: InputEvent):
 				SpellResource.Action.FIREBALL: spell_caster.fireball()
 			
 			print("Action: %s" % SpellResource.Action.keys()[action])
+		state = MOVE
 
 func _spawn_thunderstorm():
 	if thunderstorm_active: return
@@ -95,7 +99,7 @@ func _spawn_thunderstorm():
 	
 func _on_health_died():
 	input.disable()
-	stop = true
+	state = DEAD
 	anim.play("died")
 	await anim.animation_finished
 	died.emit()
@@ -111,12 +115,13 @@ func _on_health_hit(dmg, knockback):
 
 
 func _on_input_chain_pressed(input):
-	var tex = InputDirTexture.new()
-	tex.input = input
-	
-	if chain_inputs.get_child_count() > 5:
-		chain_inputs.remove_child(chain_inputs.get_child(0))
-	chain_inputs.add_child(tex)
+	if state == CAST:
+		var tex = InputDirTexture.new()
+		tex.input = input
+		
+		if chain_inputs.get_child_count() > 5:
+			chain_inputs.remove_child(chain_inputs.get_child(0))
+		chain_inputs.add_child(tex)
 
 
 func _on_health_invincible_timeout():
@@ -124,6 +129,6 @@ func _on_health_invincible_timeout():
 
 
 func _on_hand_interacted(what):
-	print(what)
 	if what == "portal":
+		state = WARP
 		anim.play("warp")
