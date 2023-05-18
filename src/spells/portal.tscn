@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://uq12dom31pcd"]
+[gd_scene load_steps=15 format=3 uid="uid://uq12dom31pcd"]
 
 [ext_resource type="Script" path="res://src/spells/portal.gd" id="1_01gwr"]
 [ext_resource type="Texture2D" uid="uid://8jt6ygwupvni" path="res://assets/Portal.png" id="2_kuny0"]
 [ext_resource type="AudioStream" uid="uid://dnm072fk5hwlo" path="res://sound/ワープ.mp3" id="3_ftrah"]
 [ext_resource type="Texture2D" uid="uid://cctpms2uhsvkk" path="res://assets/Light_Flat.png" id="4_8avg7"]
 [ext_resource type="AudioStream" uid="uid://c8brm32w64uow" path="res://sound/魔力に満ちた部屋.mp3" id="5_gofwy"]
+[ext_resource type="AudioStream" uid="uid://n2f5aku06xth" path="res://sound/キックの素振り1.mp3" id="6_a1qlp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odnam"]
 size = Vector2(40, 24)
@@ -30,20 +31,187 @@ color = Color(0.854902, 0.607843, 1, 1)
 color_ramp = SubResource("GradientTexture1D_aiefm")
 turbulence_noise_strength = 4.58
 
-[node name="Portal" type="Area2D" node_paths=PackedStringArray("activate_sound", "sprite")]
+[sub_resource type="Animation" id="Animation_u324f"]
+resource_name = "spawn"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PointLight2D:energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("IdleSound")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SpawnSound:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_nqnwf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_4n77w"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PointLight2D:energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wx3a8"]
+_data = {
+"RESET": SubResource("Animation_nqnwf"),
+"idle": SubResource("Animation_4n77w"),
+"spawn": SubResource("Animation_u324f")
+}
+
+[node name="Portal" type="Area2D" node_paths=PackedStringArray("activate_sound", "anim", "sprite")]
 z_index = -1
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_01gwr")
 activate_sound = NodePath("ActivateSound")
+anim = NodePath("AnimationPlayer")
 sprite = NodePath("Sprite2D")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_kuny0")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_odnam")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+texture = ExtResource("2_kuny0")
+hframes = 6
 
 [node name="ActivateSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_ftrah")
@@ -53,11 +221,20 @@ color = Color(0.52549, 0.0117647, 1, 1)
 texture = ExtResource("4_8avg7")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
 amount = 16
 process_material = SubResource("ParticleProcessMaterial_7irjf")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="IdleSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_gofwy")
-autoplay = true
+
+[node name="SpawnSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_a1qlp")
+volume_db = -10.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wx3a8")
+}
 
 [connection signal="interacted" from="." to="." method="_on_interacted"]

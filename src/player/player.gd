@@ -1,10 +1,5 @@
 extends CharacterBody2D
 
-const U = "move_up"
-const D = "move_down"
-const L = "move_left"
-const R = "move_right"
-
 signal died()
 
 @export var speed := 100
@@ -126,3 +121,9 @@ func _on_input_chain_pressed(input):
 
 func _on_health_invincible_timeout():
 	hit_player.play("RESET")
+
+
+func _on_hand_interacted(what):
+	print(what)
+	if what == "portal":
+		anim.play("warp")
