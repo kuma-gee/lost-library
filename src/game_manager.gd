@@ -28,18 +28,18 @@ func reset():
 
 func next_random_unknown_spell():
 	var unknown = []
+	for spell in spells:
+		if spell.action in known_spells:
+			continue
 	
-	if known_spells.size() == spells.size():
-		unknown = spells
+		unknown.append(spell)
+
+	var random
+	if unknown.size() == 0:
+		random = spells.pick_random()
 	else:
-		for spell in spells:
-			if spell.action in known_spells:
-				continue
-		
-			unknown.append(spell)
-	
-	var random = unknown.pick_random()
-	known_spells.append(random.action)
+		random = unknown.pick_random()
+		known_spells.append(random.action)
 	
 	return random
 
