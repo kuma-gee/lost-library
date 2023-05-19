@@ -1,14 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmixg536s2kt3"]
+[gd_scene load_steps=7 format=3 uid="uid://bmixg536s2kt3"]
 
 [ext_resource type="Script" path="res://src/game_manager.gd" id="1_ubk5m"]
 [ext_resource type="Resource" uid="uid://dv3v875rnt4ey" path="res://src/spells/thunderstorm.tres" id="2_3jgry"]
 [ext_resource type="Resource" uid="uid://xy0mkoeipro1" path="res://src/spells/teleport.tres" id="3_plwpi"]
 [ext_resource type="Resource" uid="uid://epqkr6jtnh04" path="res://src/spells/fireball.tres" id="4_1h35o"]
 [ext_resource type="Script" path="res://shared/FrameFreeze.gd" id="5_xw5lp"]
+[ext_resource type="AudioStream" uid="uid://dnm072fk5hwlo" path="res://sound/ワープ.mp3" id="6_wltn4"]
 
-[node name="GameManager" type="Node"]
+[node name="GameManager" type="Node" node_paths=PackedStringArray("warp_sound")]
 script = ExtResource("1_ubk5m")
 spells = Array[Resource("res://src/spells/SpellResource.gd")]([ExtResource("2_3jgry"), ExtResource("3_plwpi"), ExtResource("4_1h35o")])
+warp_sound = NodePath("ActivateSound")
 
 [node name="FrameFreeze" type="Node" parent="."]
 script = ExtResource("5_xw5lp")
+
+[node name="ActivateSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_wltn4")

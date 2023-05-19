@@ -235,5 +235,3 @@ volume_db = -10.0
 libraries = {
 "": SubResource("AnimationLibrary_wx3a8")
 }
-
-[connection signal="interacted" from="." to="." method="_on_interacted"]

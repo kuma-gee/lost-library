@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4k21i8u0tb3m"
-path.s3tc="res://.godot/imported/horizontal.png-2c1497e38acb7b28dea8fe59cc04a286.s3tc.ctex"
+uid="uid://c2shg5ervsh3u"
+path.s3tc="res://.godot/imported/Wizard_Mask.png-04cda19e03df0b18d4cf69f3c41cddc8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/scene-manager/shader_patterns/horizontal.png"
-dest_files=["res://.godot/imported/horizontal.png-2c1497e38acb7b28dea8fe59cc04a286.s3tc.ctex"]
+source_file="res://assets/Wizard_Mask.png"
+dest_files=["res://.godot/imported/Wizard_Mask.png-04cda19e03df0b18d4cf69f3c41cddc8.s3tc.ctex"]
 
 [params]
 

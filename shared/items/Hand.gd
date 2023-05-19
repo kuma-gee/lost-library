@@ -1,6 +1,6 @@
 class_name Hand extends Area2D
 
-signal interacted(what)
+signal interacted(obj)
 
 var last_interacted: Interactable
 var closest: Interactable
@@ -21,7 +21,8 @@ func reinteract():
 
 func interact():
 	if closest:
-		interacted.emit(closest.interact())
+		closest.interact()
+		interacted.emit(closest)
 		last_interacted = closest
 
 

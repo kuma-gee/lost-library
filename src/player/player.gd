@@ -33,6 +33,7 @@ enum {
 
 var thunderstorm_active = false
 var state = MOVE
+var portal
 
 func _ready():
 	hit_player.play("RESET")
@@ -60,6 +61,16 @@ func _physics_process(delta):
 		)
 		
 		velocity = velocity.move_toward(motion * speed, accel * delta)
+		move_and_slide()
+	elif state == WARP:
+		var target = portal.global_position
+		var dir = target - global_position
+		if dir.length() < 5:
+			dir = Vector2.ZERO
+		else:
+			dir = dir.normalized()
+		
+		velocity = velocity.move_toward(dir * speed, accel * delta)
 		move_and_slide()
 
 
@@ -128,7 +139,11 @@ func _on_health_invincible_timeout():
 	hit_player.play("RESET")
 
 
-func _on_hand_interacted(what):
-	if what == "portal":
+func _on_hand_interacted(obj):
+	if obj is Portal:
 		state = WARP
+		portal = obj
 		anim.play("warp")
+	
+func next_level():
+	GameManager.next_level()

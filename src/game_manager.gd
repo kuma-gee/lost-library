@@ -3,6 +3,7 @@ extends Node
 signal lose_hp(hp)
 
 @export var spells: Array[SpellResource]
+@export var warp_sound: AudioStreamPlayer
 
 var lvl = 1
 var player_health = 5
@@ -18,6 +19,7 @@ func is_first_level():
 
 func next_level():
 	lvl += 1
+	warp_sound.play()
 	SceneManager.reload_scene()
 
 func reset():

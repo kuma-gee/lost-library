@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://do4adubak5o0j"]
+[gd_scene load_steps=36 format=3 uid="uid://do4adubak5o0j"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_cb6w3"]
 [ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_1jj1u"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://src/player/SpellCaster.gd" id="4_1bbg0"]
 [ext_resource type="Shader" path="res://shared/shaders/hit.gdshader" id="4_c6jcc"]
 [ext_resource type="Script" path="res://src/player/TeleportCast.gd" id="5_80n8q"]
+[ext_resource type="Texture2D" uid="uid://c2shg5ervsh3u" path="res://assets/Wizard_Mask.png" id="5_c8bxd"]
 [ext_resource type="PackedScene" uid="uid://krisxbn8cct7" path="res://src/spells/spark.tscn" id="5_hcrp1"]
 [ext_resource type="AudioStream" uid="uid://ccqqrb5o1hcq0" path="res://sound/高速移動.mp3" id="6_1ev1v"]
 [ext_resource type="Script" path="res://src/player/PlayerAnim.gd" id="6_p8dvm"]
@@ -28,6 +29,8 @@ size = Vector2(10, 4)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0qvwo"]
 shader = ExtResource("4_c6jcc")
 shader_parameter/enable = false
+shader_parameter/dissolve_amount = 0.0
+shader_parameter/dissolve_texture = ExtResource("5_c8bxd")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w122e"]
 
@@ -36,26 +39,38 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape2D/Char:scale")
+tracks/0/path = NodePath("CollisionShape2D/Char:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.2, 1)]
+"values": [Vector2(0, -5)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D/Char:position")
+tracks/1/path = NodePath("CollisionShape2D/Char:material:shader_parameter/dissolve_amount")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -5)]
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D/Char:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
 }
 
 [sub_resource type="Animation" id="Animation_rmoep"]
@@ -75,26 +90,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D/Char:scale")
+tracks/1/path = NodePath("CollisionShape2D/Char:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(0, -5)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape2D/Char:position")
+tracks/2/path = NodePath("CollisionShape2D/Char:material:shader_parameter/dissolve_amount")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -5)]
+"values": [1.0]
 }
 
 [sub_resource type="Animation" id="Animation_dotvp"]
@@ -115,26 +130,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D/Char:scale")
+tracks/1/path = NodePath("CollisionShape2D/Char:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(0, -5)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape2D/Char:position")
+tracks/2/path = NodePath("CollisionShape2D/Char:material:shader_parameter/dissolve_amount")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -5)]
+"values": [1.0]
 }
 
 [sub_resource type="Animation" id="Animation_4peaf"]
@@ -155,31 +170,81 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D/Char:scale")
+tracks/1/path = NodePath("CollisionShape2D/Char:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(0, -5)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape2D/Char:position")
+tracks/2/path = NodePath("CollisionShape2D/Char:material:shader_parameter/dissolve_amount")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -5)]
+"values": [1.0]
 }
 
 [sub_resource type="Animation" id="Animation_2i3g3"]
 resource_name = "warp"
-length = 0.5
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Char:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.7, 1.1, 1.3),
+"transitions": PackedFloat32Array(1, 10, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -5), Vector2(0, -5), Vector2(0, -10), Vector2(0, -10), Vector2(0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"next_level"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D/Char:material:shader_parameter/dissolve_amount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.1, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D/Char:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 5, 6]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jux2d"]
 _data = {
@@ -261,10 +326,9 @@ texture = ExtResource("2_qe3n3")
 [node name="Char" type="Sprite2D" parent="CollisionShape2D"]
 material = SubResource("ShaderMaterial_0qvwo")
 position = Vector2(0, -5)
-scale = Vector2(0.2, 1)
 texture = ExtResource("2_1jj1u")
-hframes = 4
-frame = 1
+hframes = 7
+frame = 5
 
 [node name="Control" type="Control" parent="CollisionShape2D/Char"]
 layout_mode = 3
