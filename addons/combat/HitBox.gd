@@ -1,6 +1,8 @@
 class_name HitBox
 extends Area2D
 
+signal hit(area)
+
 @export var damage = 1
 @export var knockback_force = 0
 
@@ -12,4 +14,5 @@ func _on_area_entered(area):
 	if area is Node2D and area.has_method("damage"):
 		var knockback_dir =  global_position.direction_to(area.global_position)
 		area.damage(damage, knockback_dir * knockback_force)
+		hit.emit(area)
 

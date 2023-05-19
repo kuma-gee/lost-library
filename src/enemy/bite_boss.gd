@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal died()
+
 enum {
 	MOVE,
 	SPAWN,
@@ -18,6 +20,8 @@ enum {
 @export var jump_timer: Timer
 @export var follow_player_speed := 200
 
+@export var hit_player: AnimationPlayer
+
 var can_move = true
 var target_pos
 var state = MOVE
@@ -25,6 +29,7 @@ var speed = move_speed
 var can_jump = false
 
 func _ready():
+	hit_player.play("RESET")
 	health.health = min(50, GameManager.lvl * 10)
 
 func _process(delta):
@@ -104,8 +109,13 @@ func _on_health_died():
 	scroll.global_position = global_position
 	get_tree().current_scene.add_child(scroll)
 	
+	died.emit()
 	queue_free()
 
 
 func _on_high_jump_timer_timeout():
 	can_jump = true
+
+
+func _on_health_hit(dmg, knockback):
+	hit_player.play("hit")

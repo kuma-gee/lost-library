@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b4iv54x5k5a35"]
+[gd_scene load_steps=29 format=3 uid="uid://b4iv54x5k5a35"]
 
 [ext_resource type="Texture2D" uid="uid://box8pwvaag4ah" path="res://assets/Enemy_Boss_Bite_Book.png" id="1_d7mjs"]
 [ext_resource type="Script" path="res://src/enemy/bite_boss.gd" id="1_gdrh0"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://addons/tools/SpriteAnimTool.gd" id="4_hu13f"]
 [ext_resource type="Script" path="res://src/enemy/MinionSpawner.gd" id="5_lf52b"]
 [ext_resource type="PackedScene" uid="uid://bcqm3pfhcnkvy" path="res://src/enemy/enemy_bite.tscn" id="6_tl23x"]
+[ext_resource type="Shader" path="res://shared/shaders/hit.gdshader" id="6_uch4e"]
 [ext_resource type="Script" path="res://addons/combat/HealthBox.gd" id="7_dejes"]
 [ext_resource type="Script" path="res://addons/combat/HitBox.gd" id="9_sbbk3"]
 [ext_resource type="AudioStream" uid="uid://dqlkaokyfjlfr" path="res://sound/ゴブリンの鳴き声1.mp3" id="11_8og6q"]
@@ -20,6 +21,11 @@ size = Vector2(34, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dnngp"]
 size = Vector2(32, 6)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ohbmk"]
+shader = ExtResource("6_uch4e")
+shader_parameter/enable = true
+shader_parameter/dissolve_amount = 1.0
 
 [sub_resource type="Animation" id="Animation_gasog"]
 length = 0.001
@@ -564,7 +570,44 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2426"]
 size = Vector2(30, 16)
 
-[node name="BiteBoss" type="CharacterBody2D" node_paths=PackedStringArray("anim", "spawner", "health", "jump_timer")]
+[sub_resource type="Animation" id="Animation_yd82c"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enable")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_uotch"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enable")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t3c4s"]
+_data = {
+"RESET": SubResource("Animation_uotch"),
+"hit": SubResource("Animation_yd82c")
+}
+
+[node name="BiteBoss" type="CharacterBody2D" node_paths=PackedStringArray("anim", "spawner", "health", "jump_timer", "hit_player")]
 collision_layer = 4
 script = ExtResource("1_gdrh0")
 anim = NodePath("AnimationPlayer")
@@ -572,6 +615,7 @@ spawner = NodePath("MinionSpawner")
 scroll_scene = ExtResource("2_28bti")
 health = NodePath("Health")
 jump_timer = NodePath("HighJumpTimer")
+hit_player = NodePath("HitPlayer")
 
 [node name="Health" type="Area2D" parent="."]
 collision_layer = 16
@@ -599,7 +643,7 @@ position = Vector2(0, -7)
 texture = ExtResource("3_autmr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
+material = SubResource("ShaderMaterial_ohbmk")
 texture = ExtResource("1_d7mjs")
 hframes = 10
 vframes = 2
@@ -655,6 +699,12 @@ wait_time = 5.0
 one_shot = true
 autostart = true
 
+[node name="HitPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_t3c4s")
+}
+
 [connection signal="died" from="Health" to="." method="_on_health_died"]
+[connection signal="hit" from="Health" to="." method="_on_health_hit"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="HighJumpTimer" to="." method="_on_high_jump_timer_timeout"]

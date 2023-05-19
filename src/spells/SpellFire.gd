@@ -4,7 +4,7 @@ extends HitBox
 @export var anim: AnimationPlayer
 @export var speed := 200
 
-var hit = false
+var did_hit = false
 
 func _ready():
 	anim.animation_finished.connect(_on_anim_finished)
@@ -13,7 +13,7 @@ func _ready():
 	super._ready()
 
 func _physics_process(delta):
-	if hit: return
+	if did_hit: return
 	translate(Vector2.RIGHT.rotated(rotation) * speed * delta)
 
 func _on_anim_finished(anim_name: String):
@@ -23,7 +23,7 @@ func _on_anim_finished(anim_name: String):
 		queue_free()
 
 func _on_area_entered(area):
-	hit = true
+	did_hit = true
 	if anim.has_animation("impact"):
 		anim.play("impact")
 	super._on_area_entered(area)

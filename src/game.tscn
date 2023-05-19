@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dh1olryh0ve1e"]
+[gd_scene load_steps=12 format=3 uid="uid://dh1olryh0ve1e"]
 
 [ext_resource type="Texture2D" uid="uid://fep37ahobvhf" path="res://assets/Tiles_Walls.png" id="1_j6kva"]
 [ext_resource type="Script" path="res://src/game.gd" id="1_peygm"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://do4adubak5o0j" path="res://src/player/player.tscn" id="5_5sexw"]
 [ext_resource type="PackedScene" uid="uid://b4iv54x5k5a35" path="res://src/enemy/bite_boss.tscn" id="5_edwb7"]
 [ext_resource type="PackedScene" uid="uid://pm20a6nh47o2" path="res://src/ui/game_over.tscn" id="6_y4l8y"]
+[ext_resource type="AudioStream" uid="uid://brvcsedvgk4qj" path="res://sound/Level 1 (Loop).wav" id="7_14oxk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uo04m"]
 texture = ExtResource("1_j6kva")
@@ -332,9 +333,10 @@ background_mode = 3
 glow_intensity = 1.99
 glow_hdr_threshold = 0.8
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("gameover")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("gameover", "idle_music")]
 script = ExtResource("1_peygm")
 gameover = NodePath("CanvasLayer/GameOver")
+idle_music = NodePath("AudioStreamPlayer")
 
 [node name="Floor" type="TileMap" parent="."]
 z_index = -1
@@ -372,4 +374,9 @@ environment = SubResource("Environment_s0el7")
 [node name="CanvasModulate" type="CanvasModulate" parent="WorldEnvironment"]
 color = Color(0.945098, 0.886275, 1, 1)
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_14oxk")
+volume_db = -50.0
+
+[connection signal="died" from="Node2D/BiteBoss" to="." method="_on_bite_boss_died"]
 [connection signal="died" from="Node2D/Player" to="." method="_on_player_died"]

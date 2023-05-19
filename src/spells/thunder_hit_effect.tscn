@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://ct08i63y3166t"]
+
+[ext_resource type="AudioStream" uid="uid://o53owcxfv7k7" path="res://sound/雷魔法2.mp3" id="1_2etju"]
+[ext_resource type="Script" path="res://src/spells/thunder_hit_effect.gd" id="1_cykto"]
+[ext_resource type="SpriteFrames" uid="uid://uwuvlyt50mrc" path="res://src/spells/thunder_hit_frames.tres" id="2_0sv1f"]
+
+[sub_resource type="Animation" id="Animation_7kvri"]
+resource_name = "hit"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a4au1"]
+_data = {
+"hit": SubResource("Animation_7kvri")
+}
+
+[node name="ThunderHitEffect" type="Node2D" node_paths=PackedStringArray("hit_sound")]
+script = ExtResource("1_cykto")
+hit_sound = NodePath("HitSound")
+frames = ExtResource("2_0sv1f")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_2etju")
+volume_db = -10.0
+pitch_scale = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a4au1")
+}
