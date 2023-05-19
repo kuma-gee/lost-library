@@ -65,7 +65,7 @@ func _set_move_target():
 		anim.play("move")
 
 func _physics_process(delta):
-	if target_pos:
+	if target_pos != null:
 		var dir = target_pos - global_position
 		var len = dir.length()
 		if len < 5 and speed == move_speed: # prevent overshooting target

@@ -8,6 +8,7 @@ signal died()
 @export var anim: SpriteAnimTool
 @export var body: Node2D
 @export var hit_timer: Timer
+@export var soft_collision: SoftCollision2D
 
 var stopped = false
 
@@ -24,6 +25,10 @@ func _physics_process(delta):
 		anim.start_play("move")
 	
 	velocity = dir * speed
+	
+	var push = soft_collision.get_push_vector()
+	velocity += push
+	
 	move_and_slide()
 
 func _on_hurt_box_hit(_dmg, _knockback):

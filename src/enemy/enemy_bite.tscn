@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bcqm3pfhcnkvy"]
+[gd_scene load_steps=16 format=3 uid="uid://bcqm3pfhcnkvy"]
 
 [ext_resource type="Texture2D" uid="uid://d3sbd08tc23i3" path="res://assets/Enemy_Bite.png" id="1_6vj7j"]
 [ext_resource type="Script" path="res://src/enemy/enemy_bite.gd" id="1_p6q80"]
 [ext_resource type="Script" path="res://addons/tools/SpriteAnimTool.gd" id="2_wxo4l"]
 [ext_resource type="Script" path="res://addons/combat/HealthBox.gd" id="4_bctyo"]
+[ext_resource type="Script" path="res://shared/SoftCollision.gd" id="4_k70fk"]
 [ext_resource type="Script" path="res://addons/combat/HitBox.gd" id="5_wxo0e"]
 
 [sub_resource type="Animation" id="Animation_g3lul"]
@@ -185,39 +186,32 @@ _data = {
 "open": SubResource("Animation_juok7")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_whgt2"]
-size = Vector2(8, 4)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f2dcu"]
 size = Vector2(10, 12)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x8qa4"]
+radius = 7.07107
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vcyrr"]
 size = Vector2(8, 8)
 
-[node name="EnemyBite" type="CharacterBody2D" node_paths=PackedStringArray("anim", "body", "hit_timer") groups=["minion"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_whgt2"]
+size = Vector2(8, 4)
+
+[node name="EnemyBite" type="CharacterBody2D" node_paths=PackedStringArray("anim", "body", "hit_timer", "soft_collision") groups=["minion"]]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_p6q80")
 anim = NodePath("AnimationPlayer")
 body = NodePath("Body")
 hit_timer = NodePath("HitTimer")
+soft_collision = NodePath("SoftCollision")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_vo8hu")
 }
 script = ExtResource("2_wxo4l")
-
-[node name="Body" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
-shape = SubResource("RectangleShape2D_whgt2")
-disabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Body"]
-position = Vector2(0, -2)
-texture = ExtResource("1_6vj7j")
-hframes = 8
-frame = 2
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 16
@@ -232,6 +226,14 @@ shape = SubResource("RectangleShape2D_f2dcu")
 wait_time = 0.5
 one_shot = true
 
+[node name="SoftCollision" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 64
+script = ExtResource("4_k70fk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision"]
+shape = SubResource("CircleShape2D_x8qa4")
+
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 8
@@ -240,6 +242,17 @@ script = ExtResource("5_wxo0e")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("RectangleShape2D_vcyrr")
 disabled = true
+
+[node name="Body" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_whgt2")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Body"]
+position = Vector2(0, -2)
+texture = ExtResource("1_6vj7j")
+hframes = 8
+frame = 2
 
 [connection signal="died" from="HurtBox" to="." method="_on_hurt_box_died"]
 [connection signal="hit" from="HurtBox" to="." method="_on_hurt_box_hit"]
