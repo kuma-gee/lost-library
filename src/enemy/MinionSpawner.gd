@@ -3,6 +3,7 @@ extends Timer
 
 @export var minion: PackedScene
 @export var count = 5
+@export var spawn_radius = 250
 
 var timed_out = true
 var all_died = true
@@ -21,16 +22,11 @@ func spawn():
 	all_died = false
 	alive = count
 	for i in range(0, count):
-		var walls = get_tree().get_first_node_in_group("walls")
 		var enemy = minion.instantiate()
-		var rect = walls.get_used_rect()
-		var start = walls.map_to_local(rect.position)
-		var end = walls.map_to_local(rect.end)
-		
-		var radius = (end - start).length() / 2
+		var center = Vector2.ZERO
 		var dir = Vector2.UP.rotated(TAU * randf())
 		
-		var spawn_pos = walls.map_to_local(rect.get_center()) + dir * radius
+		var spawn_pos = center  + dir * spawn_radius
 		enemy.global_position = spawn_pos
 		enemy.died.connect(_on_enemy_died)
 		get_tree().current_scene.add_child(enemy)

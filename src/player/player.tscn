@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://src/player/SpellCaster.gd" id="4_1bbg0"]
 [ext_resource type="Shader" path="res://shared/shaders/hit.gdshader" id="4_c6jcc"]
 [ext_resource type="Script" path="res://src/player/TeleportCast.gd" id="5_80n8q"]
-[ext_resource type="Texture2D" uid="uid://c2shg5ervsh3u" path="res://assets/Wizard_Mask.png" id="5_c8bxd"]
+[ext_resource type="Texture2D" uid="uid://4k21i8u0tb3m" path="res://addons/scene-manager/shader_patterns/horizontal.png" id="5_dv42y"]
 [ext_resource type="PackedScene" uid="uid://krisxbn8cct7" path="res://src/spells/spark.tscn" id="5_hcrp1"]
 [ext_resource type="AudioStream" uid="uid://ccqqrb5o1hcq0" path="res://sound/高速移動.mp3" id="6_1ev1v"]
 [ext_resource type="Script" path="res://src/player/PlayerAnim.gd" id="6_p8dvm"]
@@ -31,7 +31,7 @@ size = Vector2(10, 4)
 shader = ExtResource("4_c6jcc")
 shader_parameter/enable = false
 shader_parameter/dissolve_amount = 1.0
-shader_parameter/dissolve_texture = ExtResource("5_c8bxd")
+shader_parameter/dissolve_texture = ExtResource("5_dv42y")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w122e"]
 
@@ -215,8 +215,8 @@ tracks/0/path = NodePath("CollisionShape2D/Char:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.7, 1.1, 1.3),
-"transitions": PackedFloat32Array(1, 10, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.3, 0.6, 1, 1.2),
+"transitions": PackedFloat32Array(1, 5, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, -5), Vector2(0, -5), Vector2(0, -10), Vector2(0, -10), Vector2(0, 0)]
 }
@@ -227,7 +227,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.9),
+"times": PackedFloat32Array(0.8),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -241,10 +241,10 @@ tracks/2/path = NodePath("CollisionShape2D/Char:material:shader_parameter/dissol
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1.1, 1.4),
+"times": PackedFloat32Array(1, 1.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [1.0, 0.0]
+"values": [0.5, 0.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -253,7 +253,7 @@ tracks/3/path = NodePath("CollisionShape2D/Char:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.9),
+"times": PackedFloat32Array(0, 0.4, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 5, 6]
@@ -261,6 +261,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_ruxc2"]
 resource_name = "spawn"
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -380,10 +381,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -8.0
-offset_top = -108.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_left = -16.0
+offset_top = -117.0
+offset_right = -16.0
+offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -434,6 +435,7 @@ position = Vector2(16, 0)
 script = ExtResource("4_1bbg0")
 spark_spell = ExtResource("5_hcrp1")
 fireball_scene = ExtResource("9_kk67e")
+firerate = 0.7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
