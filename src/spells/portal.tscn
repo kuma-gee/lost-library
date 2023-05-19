@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://uq12dom31pcd"]
+[gd_scene load_steps=14 format=3 uid="uid://uq12dom31pcd"]
 
 [ext_resource type="Script" path="res://src/spells/portal.gd" id="1_01gwr"]
 [ext_resource type="Texture2D" uid="uid://8jt6ygwupvni" path="res://assets/Portal.png" id="2_kuny0"]
-[ext_resource type="AudioStream" uid="uid://dnm072fk5hwlo" path="res://sound/ワープ.mp3" id="3_ftrah"]
 [ext_resource type="Texture2D" uid="uid://cctpms2uhsvkk" path="res://assets/Light_Flat.png" id="4_8avg7"]
 [ext_resource type="AudioStream" uid="uid://c8brm32w64uow" path="res://sound/魔力に満ちた部屋.mp3" id="5_gofwy"]
 [ext_resource type="AudioStream" uid="uid://n2f5aku06xth" path="res://sound/キックの素振り1.mp3" id="6_a1qlp"]
@@ -196,12 +195,11 @@ _data = {
 "spawn": SubResource("Animation_u324f")
 }
 
-[node name="Portal" type="Area2D" node_paths=PackedStringArray("activate_sound", "anim", "sprite")]
+[node name="Portal" type="Area2D" node_paths=PackedStringArray("anim", "sprite")]
 z_index = -1
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_01gwr")
-activate_sound = NodePath("ActivateSound")
 anim = NodePath("AnimationPlayer")
 sprite = NodePath("Sprite2D")
 
@@ -212,9 +210,6 @@ shape = SubResource("RectangleShape2D_odnam")
 position = Vector2(0, -7)
 texture = ExtResource("2_kuny0")
 hframes = 8
-
-[node name="ActivateSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_ftrah")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(0.52549, 0.0117647, 1, 1)

@@ -1,7 +1,6 @@
 class_name Portal
 extends Interactable
 
-@export var activate_sound: AudioStreamPlayer
 @export var anim: AnimationPlayer
 
 func _ready():

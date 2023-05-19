@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://do4adubak5o0j"]
+[gd_scene load_steps=38 format=3 uid="uid://do4adubak5o0j"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_cb6w3"]
 [ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_1jj1u"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://scxibw6a4wba" path="res://assets/Scroll.png" id="18_itoks"]
 [ext_resource type="PackedScene" uid="uid://k4fk6d1m5300" path="res://src/ui/heart.tscn" id="19_bnicy"]
 [ext_resource type="AudioStream" uid="uid://djxp5vh8whm2p" path="res://sound/ガラスが割れる3.mp3" id="21_cnqlr"]
+[ext_resource type="AudioStream" uid="uid://n2f5aku06xth" path="res://sound/キックの素振り1.mp3" id="23_dwjs5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cyneh"]
 size = Vector2(10, 4)
@@ -29,7 +30,7 @@ size = Vector2(10, 4)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0qvwo"]
 shader = ExtResource("4_c6jcc")
 shader_parameter/enable = false
-shader_parameter/dissolve_amount = 0.0
+shader_parameter/dissolve_amount = 1.0
 shader_parameter/dissolve_texture = ExtResource("5_c8bxd")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w122e"]
@@ -58,7 +59,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [1.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -71,6 +72,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D/CastCircle:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_rmoep"]
@@ -246,12 +259,40 @@ tracks/3/keys = {
 "values": [4, 5, 6]
 }
 
+[sub_resource type="Animation" id="Animation_ruxc2"]
+resource_name = "spawn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Char:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpawnSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jux2d"]
 _data = {
 "RESET": SubResource("Animation_tmh6a"),
 "died": SubResource("Animation_rmoep"),
 "idle": SubResource("Animation_dotvp"),
 "move": SubResource("Animation_4peaf"),
+"spawn": SubResource("Animation_ruxc2"),
 "warp": SubResource("Animation_2i3g3")
 }
 
@@ -320,6 +361,7 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_cyneh")
 
 [node name="CastCircle" type="Sprite2D" parent="CollisionShape2D"]
+visible = false
 position = Vector2(0, 2)
 texture = ExtResource("2_qe3n3")
 
@@ -327,7 +369,8 @@ texture = ExtResource("2_qe3n3")
 material = SubResource("ShaderMaterial_0qvwo")
 position = Vector2(0, -5)
 texture = ExtResource("2_1jj1u")
-hframes = 7
+hframes = 10
+vframes = 2
 frame = 5
 
 [node name="Control" type="Control" parent="CollisionShape2D/Char"]
@@ -458,6 +501,10 @@ stream = ExtResource("21_cnqlr")
 libraries = {
 "": SubResource("AnimationLibrary_vwl4a")
 }
+
+[node name="SpawnSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("23_dwjs5")
+volume_db = -10.0
 
 [connection signal="interacted" from="CollisionShape2D/CenterRoot/Hand" to="." method="_on_hand_interacted"]
 [connection signal="just_pressed" from="PlayerInput" to="." method="_on_player_input_just_pressed"]

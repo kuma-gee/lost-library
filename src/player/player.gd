@@ -28,18 +28,25 @@ enum {
 	CAST,
 	MOVE,
 	DEAD,
-	WARP
+	WARP,
+	SPAWN,
 }
 
 var thunderstorm_active = false
-var state = MOVE
+var state = SPAWN
 var portal
 
 func _ready():
 	hit_player.play("RESET")
+	anim.play("RESET")
 	health.health = GameManager.player_health
 	for spell in GameManager.spells:
 		chain.add_chain(spell.get_inputs(), spell.get_action())
+		
+	await anim.animation_finished
+	anim.play("spawn")
+	await anim.animation_finished
+	state = MOVE
 
 func _process(delta):
 	if state == CAST or state == MOVE:
