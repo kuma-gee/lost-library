@@ -19,6 +19,7 @@ if [[ ${#ARGS[@]} == 1 ]]; then
 fi
 shift
 
+# win, linux, Web, macOS, android
 CHANNELS=( "$@" )
 LAST_TAG=$(git describe --tags --abbrev=0)
 CHANGELOG=""
