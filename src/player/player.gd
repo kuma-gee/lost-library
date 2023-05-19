@@ -8,7 +8,6 @@ signal died()
 @export var input: PlayerInput
 @export var anim: SpriteAnimTool
 @export var hand: Hand
-@export var cast_circle: Sprite2D
 
 @export var cursor_root: Node2D
 @export var sprite: Sprite2D
@@ -22,7 +21,8 @@ signal died()
 @export var teleport_cast: TeleportCast
 
 @export var hit_sound: AudioStreamPlayer
-@export var hit_player: AnimationPlayer
+@export var effect_player: AnimationPlayer
+@export var cast_player: AnimationPlayer
 
 enum {
 	CAST,
@@ -37,7 +37,7 @@ var state = SPAWN
 var portal
 
 func _ready():
-	hit_player.play("RESET")
+	effect_player.play("RESET")
 	anim.play("RESET")
 	health.health = GameManager.player_health
 	for spell in GameManager.spells:
@@ -56,12 +56,9 @@ func _process(delta):
 
 func _physics_process(delta):
 	if state == CAST:
-		anim.start_play("idle")
-		cast_circle.visible = true
 		velocity = Vector2.ZERO
 	elif state == MOVE:
 		anim.start_play("move")
-		cast_circle.visible = false
 		var motion = Vector2(
 			input.get_action_strength("move_right") - input.get_action_strength("move_left"),
 			input.get_action_strength("move_down") - input.get_action_strength("move_up")
@@ -85,6 +82,8 @@ func _on_player_input_just_pressed(ev: InputEvent):
 	if state == MOVE:
 		if ev.is_action("cast"):
 			state = CAST
+			anim.play("cast")
+			cast_player.play("cast")
 		elif ev.is_action("fire"):
 			spell_caster.fire()
 		elif ev.is_action("interact"):
@@ -94,9 +93,6 @@ func _on_player_input_just_pressed(ev: InputEvent):
 
 func _on_player_input_just_released(ev: InputEvent):
 	if state == CAST and ev.is_action("cast"):
-		for c in chain_inputs.get_children():
-			chain_inputs.remove_child(c)
-		
 		var action = chain.get_chain_action()
 		if action != null:
 			match action:
@@ -105,6 +101,12 @@ func _on_player_input_just_released(ev: InputEvent):
 				SpellResource.Action.FIREBALL: spell_caster.fireball()
 			
 			print("Action: %s" % SpellResource.Action.keys()[action])
+			cast_player.play("activate")
+		else:
+			cast_player.play("stop_cast")
+			
+		for c in chain_inputs.get_children():
+			chain_inputs.remove_child(c)
 		state = MOVE
 
 func _spawn_thunderstorm():
@@ -129,7 +131,7 @@ func _on_health_hit(dmg, knockback):
 	GameManager.reduce_hp(dmg)
 	GameManager.frame_freeze(0.05, 1 if GameManager.player_health <= 0 else 0.2)
 	
-	hit_player.play("hit")
+	effect_player.play("hit")
 
 
 func _on_input_chain_pressed(input):
@@ -143,7 +145,7 @@ func _on_input_chain_pressed(input):
 
 
 func _on_health_invincible_timeout():
-	hit_player.play("RESET")
+	effect_player.play("RESET")
 
 
 func _on_hand_interacted(obj):

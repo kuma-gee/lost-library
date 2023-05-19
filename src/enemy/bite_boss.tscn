@@ -24,7 +24,7 @@ size = Vector2(32, 6)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ohbmk"]
 shader = ExtResource("6_uch4e")
-shader_parameter/enable = true
+shader_parameter/enable = false
 shader_parameter/dissolve_amount = 1.0
 
 [sub_resource type="Animation" id="Animation_gasog"]
@@ -570,6 +570,21 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2426"]
 size = Vector2(30, 16)
 
+[sub_resource type="Animation" id="Animation_uotch"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enable")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_yd82c"]
 resource_name = "hit"
 length = 0.2
@@ -584,21 +599,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
-}
-
-[sub_resource type="Animation" id="Animation_uotch"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enable")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t3c4s"]
@@ -643,6 +643,7 @@ position = Vector2(0, -7)
 texture = ExtResource("3_autmr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_ohbmk")
 texture = ExtResource("1_d7mjs")
 hframes = 10

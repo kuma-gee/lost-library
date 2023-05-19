@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://do4adubak5o0j"]
+[gd_scene load_steps=43 format=3 uid="uid://do4adubak5o0j"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_cb6w3"]
 [ext_resource type="Texture2D" uid="uid://cpl0vhq754v73" path="res://assets/Wizard.png" id="2_1jj1u"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b80fisyqg8wtt" path="res://src/spells/thunderstorm.tscn" id="2_xtufb"]
 [ext_resource type="Texture2D" uid="uid://c8jkbnk7fckul" path="res://assets/Cursor.png" id="3_oa0so"]
 [ext_resource type="Script" path="res://src/player/SpellCaster.gd" id="4_1bbg0"]
+[ext_resource type="Texture2D" uid="uid://cctpms2uhsvkk" path="res://assets/Light_Flat.png" id="4_12r5q"]
 [ext_resource type="Shader" path="res://shared/shaders/hit.gdshader" id="4_c6jcc"]
 [ext_resource type="Script" path="res://src/player/TeleportCast.gd" id="5_80n8q"]
 [ext_resource type="Texture2D" uid="uid://4k21i8u0tb3m" path="res://addons/scene-manager/shader_patterns/horizontal.png" id="5_dv42y"]
@@ -19,7 +20,10 @@
 [ext_resource type="PackedScene" uid="uid://curex363snkn6" path="res://src/spells/fireball.tscn" id="9_kk67e"]
 [ext_resource type="Script" path="res://addons/input-system/InputChain.gd" id="10_1pavn"]
 [ext_resource type="Script" path="res://shared/items/Hand.gd" id="11_5poc2"]
+[ext_resource type="Animation" uid="uid://b2ax4gsvvg52g" path="res://src/player/activate.res" id="16_be1r0"]
+[ext_resource type="Animation" uid="uid://xli5ij5j5nj4" path="res://src/player/cast.res" id="17_betrb"]
 [ext_resource type="Texture2D" uid="uid://scxibw6a4wba" path="res://assets/Scroll.png" id="18_itoks"]
+[ext_resource type="Animation" uid="uid://c8fddg6cx15td" path="res://src/player/stop_cast.res" id="18_pb1bu"]
 [ext_resource type="PackedScene" uid="uid://k4fk6d1m5300" path="res://src/ui/heart.tscn" id="19_bnicy"]
 [ext_resource type="AudioStream" uid="uid://djxp5vh8whm2p" path="res://sound/ガラスが割れる3.mp3" id="21_cnqlr"]
 [ext_resource type="AudioStream" uid="uid://n2f5aku06xth" path="res://sound/キックの素振り1.mp3" id="23_dwjs5"]
@@ -76,14 +80,38 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CollisionShape2D/CastCircle:visible")
+tracks/3/path = NodePath("CollisionShape2D/CastCircle:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D/CastCircle/PointLight2D:energy")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CollisionShape2D/CastCircle:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [3]
 }
 
 [sub_resource type="Animation" id="Animation_rmoep"]
@@ -99,46 +127,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [2, 3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D/Char:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -5)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape2D/Char:material:shader_parameter/dissolve_amount")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-
-[sub_resource type="Animation" id="Animation_dotvp"]
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape2D/Char:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -205,6 +193,46 @@ tracks/2/keys = {
 "values": [1.0]
 }
 
+[sub_resource type="Animation" id="Animation_ruxc2"]
+resource_name = "spawn"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Char:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpawnSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D/CastCircle:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_2i3g3"]
 resource_name = "warp"
 length = 1.5
@@ -259,9 +287,9 @@ tracks/3/keys = {
 "values": [4, 5, 6]
 }
 
-[sub_resource type="Animation" id="Animation_ruxc2"]
-resource_name = "spawn"
-length = 0.6
+[sub_resource type="Animation" id="Animation_v1fw1"]
+resource_name = "cast"
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -269,29 +297,29 @@ tracks/0/path = NodePath("CollisionShape2D/Char:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [7, 8, 9, 10, 11, 12]
+"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SpawnSound:playing")
+tracks/1/path = NodePath("CollisionShape2D/Char:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Vector2(0, -5)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jux2d"]
 _data = {
 "RESET": SubResource("Animation_tmh6a"),
+"cast": SubResource("Animation_v1fw1"),
 "died": SubResource("Animation_rmoep"),
-"idle": SubResource("Animation_dotvp"),
 "move": SubResource("Animation_4peaf"),
 "spawn": SubResource("Animation_ruxc2"),
 "warp": SubResource("Animation_2i3g3")
@@ -337,14 +365,20 @@ _data = {
 "hit": SubResource("Animation_aw372")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cast_circle", "cursor_root", "sprite", "spell_caster", "chain", "chain_inputs", "health", "teleport_cast", "hit_sound", "hit_player") groups=["player"]]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2qgwl"]
+_data = {
+"activate": ExtResource("16_be1r0"),
+"cast": ExtResource("17_betrb"),
+"stop_cast": ExtResource("18_pb1bu")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "anim", "hand", "cursor_root", "sprite", "spell_caster", "chain", "chain_inputs", "health", "teleport_cast", "hit_sound", "effect_player", "cast_player") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_cb6w3")
 speed = 50
 input = NodePath("PlayerInput")
 anim = NodePath("AnimationPlayer")
 hand = NodePath("CollisionShape2D/CenterRoot/Hand")
-cast_circle = NodePath("CollisionShape2D/CastCircle")
 cursor_root = NodePath("CollisionShape2D/CenterRoot")
 sprite = NodePath("CollisionShape2D/Char")
 spell_caster = NodePath("CollisionShape2D/CenterRoot/SpellCaster")
@@ -354,7 +388,8 @@ thunderstorm_scene = ExtResource("2_xtufb")
 health = NodePath("Health")
 teleport_cast = NodePath("CollisionShape2D/CenterRoot/TeleportCast")
 hit_sound = NodePath("HitSound")
-hit_player = NodePath("HitPlayer")
+effect_player = NodePath("EffectPlayer")
+cast_player = NodePath("CastPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
@@ -364,6 +399,13 @@ shape = SubResource("RectangleShape2D_cyneh")
 visible = false
 position = Vector2(0, 2)
 texture = ExtResource("2_qe3n3")
+hframes = 5
+frame = 3
+
+[node name="PointLight2D" type="PointLight2D" parent="CollisionShape2D/CastCircle"]
+color = Color(0.756863, 0.584314, 0.945098, 1)
+energy = 0.0
+texture = ExtResource("4_12r5q")
 
 [node name="Char" type="Sprite2D" parent="CollisionShape2D"]
 material = SubResource("ShaderMaterial_0qvwo")
@@ -374,6 +416,7 @@ vframes = 2
 frame = 5
 
 [node name="Control" type="Control" parent="CollisionShape2D/Char"]
+z_index = 2
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -498,7 +541,7 @@ texture_focused = ExtResource("18_itoks")
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_cnqlr")
 
-[node name="HitPlayer" type="AnimationPlayer" parent="."]
+[node name="EffectPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_vwl4a")
 }
@@ -506,6 +549,11 @@ libraries = {
 [node name="SpawnSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("23_dwjs5")
 volume_db = -10.0
+
+[node name="CastPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2qgwl")
+}
 
 [connection signal="interacted" from="CollisionShape2D/CenterRoot/Hand" to="." method="_on_hand_interacted"]
 [connection signal="just_pressed" from="PlayerInput" to="." method="_on_player_input_just_pressed"]
