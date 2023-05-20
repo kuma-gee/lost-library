@@ -17,7 +17,11 @@ func _burned():
 	portal.global_position = global_position
 	get_tree().current_scene.add_child(portal)
 	queue_free()
-	
+
+func _unhandled_input(event):
+	if open:
+		if event.is_action_pressed("cancel") or event.is_action_pressed("interact"):
+			_on_close()
 
 func _on_interacted():
 	if open:
