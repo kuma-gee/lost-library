@@ -4,7 +4,7 @@ extends Control
 @export var particles: GPUParticles2D
 
 func _ready():
-	particles.emitting = true
+	particles.emitting = true # in the final build, this does not emit automatically
 
 func _on_start_pressed():
 	open_door_sound.play()

@@ -24,6 +24,8 @@ signal died()
 @export var effect_player: AnimationPlayer
 @export var cast_player: AnimationPlayer
 
+@export var dissolve_texture: Texture2D
+
 enum {
 	CAST,
 	MOVE,
@@ -37,6 +39,10 @@ var state = SPAWN
 var portal
 
 func _ready():
+	# in the final build, the texture does not exit for some reason
+	var mat = sprite.material as ShaderMaterial
+	mat.set_shader_parameter("dissolve_texture", dissolve_texture)
+	
 	effect_player.play("RESET")
 	anim.play("RESET")
 	health.health = GameManager.player_health

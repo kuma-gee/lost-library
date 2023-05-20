@@ -124,7 +124,7 @@ locale_filter=[0, []]
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.117647, 0.054902, 0.156863, 1)
 textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.117647, 0.054902, 0.156863, 1)
 environment/default_clear_color=Color(0.101961, 0.101961, 0.101961, 1)
 environment/default_environment="res://default_env.tres"

@@ -15,7 +15,7 @@ void fragment() {
 	//	}
 		if (COLOR.a > 0.0) {
 			float sample = texture(dissolve_texture, UV).r;
-			COLOR.a = step(sample, dissolve_amount);	
+			COLOR.a = step(sample, dissolve_amount);
 		}
 //		COLOR.rgb = texture(TEXTURE, UV);
 	}

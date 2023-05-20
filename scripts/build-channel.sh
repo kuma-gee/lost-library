@@ -5,4 +5,4 @@ CHANNEL=${CHANNEL:-$1}
 # mkdir ~/.config
 # cp /root/.config/godot ~/.config -r
 mkdir -v -p build/$CHANNEL
-godot -v --export-release --headless $CHANNEL
+godot --export-release --headless $CHANNEL
