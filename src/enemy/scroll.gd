@@ -9,8 +9,14 @@ extends Interactable
 var open = false
 
 func _ready():
-	anim.animation_finished.connect(func(n):  if n == "burn": _burned())
-	anim.play("idle")
+	anim.animation_finished.connect(_on_anim_finished)
+	anim.play("spawn")
+
+func _on_anim_finished(anim_name: String):
+	if anim_name == "spawn":
+		anim.play("idle")
+	elif anim_name == "burn":
+		_burned()
 
 func _burned():
 	var portal = portal_scene.instantiate()

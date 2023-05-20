@@ -1,12 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://bqvn2dfst6604"]
+[gd_scene load_steps=16 format=3 uid="uid://bqvn2dfst6604"]
 
 [ext_resource type="Script" path="res://src/enemy/scroll.gd" id="1_5i3ch"]
 [ext_resource type="Texture2D" uid="uid://scxibw6a4wba" path="res://assets/Scroll.png" id="1_wnaiy"]
 [ext_resource type="PackedScene" uid="uid://cmftgxsquxfoc" path="res://src/ui/spell_info.tscn" id="2_6t08t"]
 [ext_resource type="PackedScene" uid="uid://uq12dom31pcd" path="res://src/spells/portal.tscn" id="3_xl7j3"]
+[ext_resource type="Texture2D" uid="uid://24dfri5labc7" path="res://assets/Scroll_Shadow.png" id="4_tis4q"]
 [ext_resource type="AudioStream" uid="uid://ctcm6ja44smvt" path="res://sound/紙を広げる2.mp3" id="5_bxrkv"]
 [ext_resource type="AudioStream" uid="uid://dwly11k3njk5u" path="res://sound/マッチで火をつける.mp3" id="6_xibjc"]
 [ext_resource type="Texture2D" uid="uid://cctpms2uhsvkk" path="res://assets/Light_Flat.png" id="7_w00r6"]
+[ext_resource type="AudioStream" uid="uid://bn4txtp8rd7m1" path="res://sound/パッ.mp3" id="8_6yoby"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ddwr"]
 size = Vector2(26, 24)
@@ -36,6 +38,42 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D2:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D2:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_lp047"]
@@ -89,10 +127,34 @@ tracks/3/keys = {
 "update": 1,
 "values": [false, true, false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D2:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="Animation_ptgj2"]
 resource_name = "idle"
-length = 0.1
+length = 2.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -101,10 +163,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0]
+"values": [12, 13, 14, 13]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -130,12 +192,101 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D2:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D2:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_t7x0t"]
+resource_name = "spawn"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpawnSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D2:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 2]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rw65t"]
 _data = {
 "RESET": SubResource("Animation_qieqs"),
 "burn": SubResource("Animation_lp047"),
-"idle": SubResource("Animation_ptgj2")
+"idle": SubResource("Animation_ptgj2"),
+"spawn": SubResource("Animation_t7x0t")
 }
 
 [node name="Scroll" type="Area2D" node_paths=PackedStringArray("canvas", "pickup_sound", "anim", "sprite")]
@@ -151,10 +302,17 @@ sprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5ddwr")
+disabled = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = ExtResource("4_tis4q")
+hframes = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_wnaiy")
-hframes = 7
+hframes = 10
+vframes = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -175,5 +333,10 @@ enabled = false
 color = Color(0.94902, 0.47451, 0.482353, 1)
 energy = 0.7
 texture = ExtResource("7_w00r6")
+
+[node name="SpawnSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_6yoby")
+volume_db = -10.0
+pitch_scale = 0.5
 
 [connection signal="interacted" from="." to="." method="_on_interacted"]

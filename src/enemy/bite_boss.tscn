@@ -1,9 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://b4iv54x5k5a35"]
+[gd_scene load_steps=28 format=3 uid="uid://b4iv54x5k5a35"]
 
 [ext_resource type="Texture2D" uid="uid://box8pwvaag4ah" path="res://assets/Enemy_Boss_Bite_Book.png" id="1_d7mjs"]
 [ext_resource type="Script" path="res://src/enemy/bite_boss.gd" id="1_gdrh0"]
 [ext_resource type="PackedScene" uid="uid://bqvn2dfst6604" path="res://src/enemy/scroll.tscn" id="2_28bti"]
-[ext_resource type="Texture2D" uid="uid://15qrm1afwu17" path="res://assets/Enemy_Boss_Bite_LandEffect.png" id="2_suitc"]
 [ext_resource type="Texture2D" uid="uid://b6y4bbfwlvmy0" path="res://assets/Enemy_Boss_Bite_Shadow.png" id="3_autmr"]
 [ext_resource type="Script" path="res://addons/tools/SpriteAnimTool.gd" id="4_hu13f"]
 [ext_resource type="Script" path="res://src/enemy/MinionSpawner.gd" id="5_lf52b"]
@@ -156,23 +155,23 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D2:visible")
+tracks/4/path = NodePath("DeathSound:playing")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(2),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("DeathSound:playing")
+tracks/5/path = NodePath("Health/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(2),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -180,7 +179,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Health/CollisionShape2D:disabled")
+tracks/6/path = NodePath("Sprite2D:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -192,22 +191,10 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Sprite2D:visible")
+tracks/7/path = NodePath("Sprite2D3:scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Sprite2D3:scale")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -443,6 +430,18 @@ tracks/7/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Sprite2D3:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_1xh4h"]
 resource_name = "shout"
@@ -462,46 +461,34 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D2:frame")
+tracks/1/path = NodePath("Sprite2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/path = NodePath("ShoutSound:playing")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("ShoutSound:playing")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0.6),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("MinionSpawner")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MinionSpawner")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0.6),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -509,10 +496,22 @@ tracks/4/keys = {
 "method": &"spawn"
 }]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HitBox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("HitBox/CollisionShape2D:disabled")
+tracks/5/path = NodePath("Health/CollisionShape2D:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -524,34 +523,22 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Health/CollisionShape2D:disabled")
+tracks/6/path = NodePath("Sprite2D:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Sprite2D:visible")
+tracks/7/path = NodePath("Sprite2D3:scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Sprite2D3:scale")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -632,11 +619,6 @@ disabled = true
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_dnngp")
 disabled = true
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("2_suitc")
-hframes = 6
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
 position = Vector2(0, -7)
