@@ -8,6 +8,8 @@ func _ready():
 	for i in range(0, GameManager.player_health):
 		var node = hp_icon.instantiate()
 		add_child(node)
+	
+	_pulse_on_low()
 
 func _lose_hp(hp: int):
 	for i in range(1, hp + 1):
@@ -18,7 +20,9 @@ func _lose_hp(hp: int):
 		var heart = get_child(idx)
 		if heart:
 			heart.kill()
-	
+	_pulse_on_low()
+
+func _pulse_on_low():
 	if GameManager.player_health == 1:
 		for child in get_children():
 			if child.killed: continue
