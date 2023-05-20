@@ -29,6 +29,7 @@ var speed = move_speed
 var can_jump = false
 
 func _ready():
+	anim.play("RESET")
 	hit_player.play("RESET")
 	health.health = min(50, GameManager.lvl * 10)
 
