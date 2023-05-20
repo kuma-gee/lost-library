@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://3dk4vod52ege"]
+
+[ext_resource type="PackedScene" uid="uid://dh1olryh0ve1e" path="res://src/game.tscn" id="1_5q85o"]
+
+[node name="Screenshot" type="Node2D"]
+
+[node name="Game" parent="." instance=ExtResource("1_5q85o")]
+
+[node name="CollisionShape2D" parent="Game/Node2D/Player/Health" index="0"]
+disabled = true
+
+[editable path="Game"]
+[editable path="Game/Node2D/BiteBoss"]
+[editable path="Game/Node2D/Player"]
