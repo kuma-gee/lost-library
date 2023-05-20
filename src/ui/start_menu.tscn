@@ -38,7 +38,7 @@ color_ramp = SubResource("GradientTexture1D_f84ff")
 outline_size = 2
 outline_color = Color(0.721569, 0.247059, 1, 1)
 
-[node name="StartMenu" type="Control" node_paths=PackedStringArray("open_door_sound")]
+[node name="StartMenu" type="Control" node_paths=PackedStringArray("open_door_sound", "particles")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,6 +48,7 @@ grow_vertical = 2
 theme = ExtResource("1_npdgd")
 script = ExtResource("2_a7n7o")
 open_door_sound = NodePath("OpenDoor")
+particles = NodePath("GPUParticles2D")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
