@@ -587,7 +587,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_yd82c"]
 resource_name = "hit"
-length = 0.2
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
