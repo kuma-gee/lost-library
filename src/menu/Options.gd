@@ -2,8 +2,8 @@ extends Control
 
 const CONFIG_FILE = "user://settings.cfg"
 
-@onready var _audio := $Audio
-@onready var _input := $Input
+@export var _audio: AudioSettings
+@export var _input: InputSettings
 
 var _logger = Logger.new("Options")
 var _config = ConfigFile.new()
@@ -31,3 +31,10 @@ func _save_config():
 	_audio.save_settings(_config)
 	_input.save_settings(_config)
 	_config.save(CONFIG_FILE)
+
+
+func _on_title_back_pressed():
+	var cancel_event = InputEventAction.new()
+	cancel_event.action = "ui_cancel"
+	cancel_event.pressed = true
+	Input.parse_input_event(cancel_event)

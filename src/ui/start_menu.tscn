@@ -104,8 +104,6 @@ text = "Exit"
 
 [node name="Options" parent="." instance=ExtResource("7_m56wc")]
 layout_mode = 1
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_tcjoy")

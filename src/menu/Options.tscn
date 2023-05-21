@@ -1,15 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://bh8672uj3c4gn"]
+[gd_scene load_steps=10 format=3 uid="uid://bh8672uj3c4gn"]
 
 [ext_resource type="Script" path="res://addons/menu-system/AudioSlider.gd" id="1"]
 [ext_resource type="Script" path="res://src/menu/AudioSettings.gd" id="1_4l5hd"]
 [ext_resource type="Theme" uid="uid://dyxpiak5ymujy" path="res://theme/theme.tres" id="1_sb63w"]
+[ext_resource type="Script" path="res://src/menu/Options.gd" id="2_enfnm"]
+[ext_resource type="PackedScene" uid="uid://bryo50hd7fs0k" path="res://src/ui/ui_button.tscn" id="2_jag4g"]
 [ext_resource type="Script" path="res://src/menu/InputSetting.gd" id="3_pt256"]
 [ext_resource type="PackedScene" uid="uid://blurtq1v44gav" path="res://addons/menu-system/RemapButton.tscn" id="5_34cxq"]
+[ext_resource type="Script" path="res://src/menu/LabelHover.gd" id="5_htjkt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qgskr"]
 bg_color = Color(0, 0, 0, 0.705882)
 
-[node name="Options" type="Control"]
+[node name="Options" type="Control" node_paths=PackedStringArray("_audio", "_input")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +20,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_sb63w")
+script = ExtResource("2_enfnm")
+_audio = NodePath("CenterContainer/VBoxContainer/Options")
+_input = NodePath("RemapKeyPopup")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -29,16 +35,24 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleBack" parent="CenterContainer/VBoxContainer" instance=ExtResource("2_jag4g")]
+layout_mode = 2
+text = "< Options"
+alignment = 1
 
 [node name="Options" type="GridContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 columns = 2
 script = ExtResource("1_4l5hd")
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Options"]
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Options" node_paths=PackedStringArray("control")]
 layout_mode = 2
 text = "Sound"
 vertical_alignment = 1
+script = ExtResource("5_htjkt")
+control = NodePath("../AudioSlider")
 
 [node name="AudioSlider" type="HSlider" parent="CenterContainer/VBoxContainer/Options"]
 layout_mode = 2
@@ -77,3 +91,5 @@ anchor_bottom = 1.0
 [node name="Label" type="Label" parent="RemapKeyPopup/CenterContainer"]
 layout_mode = 2
 text = "Press any key..."
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/TitleBack" to="." method="_on_title_back_pressed"]

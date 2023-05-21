@@ -1,3 +1,4 @@
+class_name InputSettings
 extends Control
 
 const INPUT_SECTION = "input"
@@ -24,8 +25,9 @@ func _ready():
 			_logger.warn("No event for action %s" % action)
 			continue
 		
-		var label = Label.new()
+		var label = LabelHover.new()
 		label.text = action
+		label.control = button
 		container.add_child(label)
 		
 		button.connect("pressed", func(): _on_remap_pressed(button))

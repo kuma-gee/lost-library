@@ -1,3 +1,4 @@
+class_name AudioSettings
 extends Control
 
 const AUDIO_SECTION = "audio"
