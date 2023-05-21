@@ -2,15 +2,9 @@ extends Control
 
 @export var menu_scene: PackedScene
 
-func _ready():
-	visibility_changed.connect(func(): get_tree().paused = visible)
-
-
-func _exit_tree():
-	get_tree().paused = false
-
 
 func _on_menu_pressed():
+	GameManager.reset()
 	SceneManager.change_scene(menu_scene)
 
 
