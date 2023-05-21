@@ -84,14 +84,23 @@ static func to_text(type: int) -> String:
 	
 	var ev = to_event(type) as InputEventKey
 	if ev:
-		return String.chr(ev.unicode)
+		if ev.unicode:
+			var char = String.chr(ev.unicode)
+			if char == " ":
+				return "Space"
+			return char
+		return ev.as_text()
 	return ""
 
 
 static func to_event(type: int) -> InputEvent:
 	if type <= 0:
 		var key = InputEventKey.new()
-		key.unicode = -type
+		var code = -type
+		if code >= KEY_SPECIAL:
+			key.keycode = code
+		else:
+			key.unicode = code
 		return key
 		
 	if type >= Key.JOYSTICK_L_UP and type <= Key.JOYSTICK_R_LEFT:
@@ -120,7 +129,10 @@ static func to_event(type: int) -> InputEvent:
 	
 static func to_type(event: InputEvent) -> int:
 	if event is InputEventKey:
-		return -event.unicode
+		if event.unicode: # ASCII should only return unicodes ?
+			return -event.unicode
+		
+		return -event.keycode # Special Keys like Enter, Tab should only have keycode ?
 	
 	if event is InputEventJoypadMotion and event.axis_value != 0:
 		for key in JOY_MOTION_MAP:

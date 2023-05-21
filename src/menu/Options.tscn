@@ -14,6 +14,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_sb63w")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -61,7 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qgskr")
 script = ExtResource("3_pt256")
-actions = Array[String](["move_up", "move_left", "move_right", "move_down"])
+actions = Array[String](["move_up", "move_left", "move_right", "move_down", "fire", "cast", "interact"])
 container = NodePath("../CenterContainer/VBoxContainer/Options")
 popup = NodePath(".")
 remap_btn = ExtResource("5_34cxq")
