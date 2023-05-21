@@ -2,7 +2,7 @@
 
 DIR="addons/i18n"
 
-pybabel extract -F "$DIR/babelrc" -k text -k LineEdit/placeholder_text -k tr -k items --no-location -o "$DIR/messages.pot" \
+pybabel extract -F "$DIR/babelrc" -k text -k LineEdit/placeholder_text -k tr -k items -k actions --no-location -o "$DIR/messages.pot" \
     src "$DIR/menu"
 
 cd $DIR

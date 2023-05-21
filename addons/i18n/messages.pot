@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-01-22 09:56+0100\n"
+"POT-Creation-Date: 2023-05-21 16:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.3\n"
 
-msgid "Master"
+msgid "Sound"
+msgstr ""
+
+msgid "move_up"
+msgstr ""
+
+msgid "move_left"
+msgstr ""
+
+msgid "move_right"
+msgstr ""
+
+msgid "move_down"
+msgstr ""
+
+msgid "fire"
+msgstr ""
+
+msgid "cast"
+msgstr ""
+
+msgid "interact"
 msgstr ""
 
 msgid "Press any key..."
@@ -32,9 +53,21 @@ msgstr ""
 msgid "Back to Menu"
 msgstr ""
 
-msgid "LANG_EN"
+msgid "Retry"
 msgstr ""
 
-msgid "LANG_DE"
+msgid "Test"
+msgstr ""
+
+msgid "X"
+msgstr ""
+
+msgid "Lost Library"
+msgstr ""
+
+msgid "Enter"
+msgstr ""
+
+msgid "Exit"
 msgstr ""
 

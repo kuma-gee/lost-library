@@ -107,6 +107,10 @@ cancel={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://addons/i18n/en.po")
+
 [layer_names]
 
 2d_physics/layer_1="static"

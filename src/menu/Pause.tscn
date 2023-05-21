@@ -50,8 +50,6 @@ text = "Back to Menu"
 
 [node name="Options" parent="." instance=ExtResource("2")]
 layout_mode = 1
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="GameOver" parent="." instance=ExtResource("6_1amjj")]
 layout_mode = 1
