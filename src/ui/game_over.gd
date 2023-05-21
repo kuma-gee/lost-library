@@ -5,8 +5,10 @@ extends Control
 func _ready():
 	visibility_changed.connect(func(): get_tree().paused = visible)
 
+
 func _exit_tree():
 	get_tree().paused = false
+
 
 func _on_menu_pressed():
 	SceneManager.change_scene(menu_scene)

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dd6a6wprugy8v"]
+[gd_scene load_steps=7 format=3 uid="uid://dd6a6wprugy8v"]
 
 [ext_resource type="Script" path="res://src/menu/Pause.gd" id="1"]
 [ext_resource type="Theme" uid="uid://dyxpiak5ymujy" path="res://theme/theme.tres" id="1_jvqb8"]
 [ext_resource type="PackedScene" uid="uid://bh8672uj3c4gn" path="res://src/menu/Options.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://e4ecbsqrjuf6" path="res://src/ui/start_menu.tscn" id="3_gjjhh"]
 [ext_resource type="PackedScene" uid="uid://bryo50hd7fs0k" path="res://src/ui/ui_button.tscn" id="4_uc1il"]
+[ext_resource type="PackedScene" uid="uid://ds5ylkmwwx3aj" path="res://src/ui/game_over.tscn" id="6_1amjj"]
 
 [node name="Pause" type="Control"]
 process_mode = 3
@@ -51,6 +52,9 @@ text = "Back to Menu"
 layout_mode = 1
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="GameOver" parent="." instance=ExtResource("6_1amjj")]
+layout_mode = 1
 
 [connection signal="pressed" from="Pause/CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Pause/CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]

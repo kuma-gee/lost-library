@@ -1,14 +1,13 @@
 extends Node2D
 
-@export var gameover: Control
+@export var pause: Control
 @export var idle_music: AudioStreamPlayer
 
 func _ready():
 	randomize()
-	gameover.hide()
 
 func _on_player_died():
-	gameover.show()
+	pause.game_over()
 
 
 func _on_bite_boss_died():

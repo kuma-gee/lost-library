@@ -4,8 +4,11 @@ extends Menu
 
 @onready var pause := $Pause
 @onready var options := $Options
+@onready var gameover := $GameOver
 
 @onready var back_button := $Pause/CenterContainer/VBoxContainer/Back
+
+var closable = true
 
 func _ready():
 	clear_menu()
@@ -19,9 +22,13 @@ func _handle_event(event: InputEvent):
 			get_viewport().set_input_as_handled()
 		elif is_in_sub_menu():
 			super._handle_event(event)
-		else:
+		elif closable:
 			_on_resume_pressed()
 
+func game_over():
+	clear_menu()
+	closable = false
+	change_menu(gameover)
 
 func update_menu():
 	super.update_menu()
