@@ -53,7 +53,9 @@ func load_settings(config: ConfigFile):
 		for action in config.get_section_keys(section):
 			var type = config.get_value(section, action)
 			var button = _action_button_map[action]
-			button.remap_input(InputType.to_event(type))
+			var ev = InputType.to_event(type)
+			_logger.debug("Remapping %s to %s from type %s" % [action, ev, type])
+			button.remap_input(ev)
 
 
 func save_settings(config: ConfigFile):

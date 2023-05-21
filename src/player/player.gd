@@ -39,7 +39,7 @@ var state = SPAWN
 var portal
 
 func _ready():
-	# in the final build, the texture does not exit for some reason
+	# in the final build, the texture does not exist for some reason
 	var mat = sprite.material as ShaderMaterial
 	mat.set_shader_parameter("dissolve_texture", dissolve_texture)
 	

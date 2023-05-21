@@ -5,12 +5,21 @@ extends HSlider
 @export var vol_range = 40
 @export var vol_offset = 5
 
+@export var hover_sound: AudioStreamPlayer
+
 var master_id
 
 func _ready():
+	await owner.ready
 	master_id = AudioServer.get_bus_index(bus_name)
-	connect("value_changed", self._volume_changed)
+	value_changed.connect(self._volume_changed)
 	value = get_volume_percentage()
+	
+	mouse_entered.connect(_on_hover)
+	focus_entered.connect(_on_hover)
+
+func _on_hover():
+	hover_sound.play()
 
 func _volume_changed(v: float):
 	if v == 0:

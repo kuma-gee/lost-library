@@ -54,12 +54,13 @@ vertical_alignment = 1
 script = ExtResource("5_htjkt")
 control = NodePath("../AudioSlider")
 
-[node name="AudioSlider" type="HSlider" parent="CenterContainer/VBoxContainer/Options"]
+[node name="AudioSlider" type="HSlider" parent="CenterContainer/VBoxContainer/Options" node_paths=PackedStringArray("hover_sound")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 script = ExtResource("1")
 vol_offset = 0
+hover_sound = NodePath("../../TitleBack/Hover")
 
 [node name="Control" type="Control" parent="CenterContainer/VBoxContainer/Options"]
 custom_minimum_size = Vector2(0, 10)
@@ -93,3 +94,5 @@ layout_mode = 2
 text = "Press any key..."
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/TitleBack" to="." method="_on_title_back_pressed"]
+
+[editable path="CenterContainer/VBoxContainer/TitleBack"]
