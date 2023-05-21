@@ -2,10 +2,10 @@ class_name AudioSlider
 extends HSlider
 
 @export var bus_name := "Master"
+@export var vol_range = 40
+@export var vol_offset = 5
 
 var master_id
-var vol_range = 60
-var vol_offset = 5
 
 func _ready():
 	master_id = AudioServer.get_bus_index(bus_name)
