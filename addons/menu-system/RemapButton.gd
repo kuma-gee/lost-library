@@ -1,5 +1,5 @@
 class_name RemapButton
-extends Button
+extends UIButton
 
 @export var disable = false
 @export var action := ""
@@ -7,12 +7,15 @@ extends Button
 var input := PlayerInput.new()
 
 func _ready():
+	super._ready()
+	
 	disabled = disable
 	_update()
 
 func _update():
 	var ev = get_input()
-	text = InputType.to_text(InputType.to_type(ev))
+	var type = InputType.to_type(ev)
+	text = InputType.to_text(type)
 
 func get_input() -> InputEvent:
 	var inputs = InputMap.action_get_events(action)
@@ -23,9 +26,6 @@ func get_input() -> InputEvent:
 
 
 func remap_input(ev: InputEvent) -> void:
-	var existing = get_input()
-	if existing:
-		InputMap.action_erase_event(action, existing)
+	InputMap.action_erase_events(action)
 	InputMap.action_add_event(action, ev)
-	
 	_update()

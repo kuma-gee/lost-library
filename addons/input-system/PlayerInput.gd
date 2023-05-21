@@ -6,7 +6,7 @@ extends InputReader
 
 
 func is_player_event(event: InputEvent) -> bool:
-	return joypad == _is_joypad_event(event) and device_id == event.device
+	return joypad == _is_joypad_event(event) and (event.device == -1 or device_id == event.device)
 
 
 func _is_joypad_event(event: InputEvent) -> bool:

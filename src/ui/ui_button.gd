@@ -1,3 +1,4 @@
+class_name UIButton
 extends Button
 
 @export var hover_sound: AudioStreamPlayer

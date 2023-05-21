@@ -1,9 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://blurtq1v44gav"]
+[gd_scene load_steps=4 format=3 uid="uid://blurtq1v44gav"]
 
 [ext_resource type="Script" path="res://addons/menu-system/RemapButton.gd" id="1"]
+[ext_resource type="AudioStream" uid="uid://dv7uoe84s12kh" path="res://sound/カーソル移動2.mp3" id="2_1yxti"]
+[ext_resource type="AudioStream" uid="uid://dcp5aufthp8yo" path="res://sound/決定ボタンを押す48.mp3" id="3_47agi"]
 
-[node name="RemapButton" type="Button"]
+[node name="RemapButton" type="Button" node_paths=PackedStringArray("hover_sound", "click_sound")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1")
+action = "move_down"
+hover_sound = NodePath("Hover")
+click_sound = NodePath("Click")
+
+[node name="Hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_1yxti")
+volume_db = -10.0
+
+[node name="Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_47agi")
+volume_db = -5.0

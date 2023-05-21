@@ -30,10 +30,6 @@ func update_menu():
 	get_tree().paused = visible
 
 
-func _on_Options_pressed():
-	change_menu(options)
-
-
 func _on_resume_pressed():
 	clear_menu()
 
@@ -41,3 +37,7 @@ func _on_resume_pressed():
 func _on_back_pressed():
 	if start_scene:
 		SceneManager.change_scene(start_scene)
+
+
+func _on_options_pressed():
+	change_menu(options)

@@ -82,16 +82,16 @@ static func to_text(type: int) -> String:
 	if index != -1:
 		return Key.keys()[index]
 	
-	var ev = to_event(type)
+	var ev = to_event(type) as InputEventKey
 	if ev:
-		return ev.as_text()
+		return String.chr(ev.unicode)
 	return ""
 
 
 static func to_event(type: int) -> InputEvent:
 	if type <= 0:
 		var key = InputEventKey.new()
-		key.keycode = -type
+		key.unicode = -type
 		return key
 		
 	if type >= Key.JOYSTICK_L_UP and type <= Key.JOYSTICK_R_LEFT:
@@ -120,7 +120,7 @@ static func to_event(type: int) -> InputEvent:
 	
 static func to_type(event: InputEvent) -> int:
 	if event is InputEventKey:
-		return -event.keycode
+		return -event.unicode
 	
 	if event is InputEventJoypadMotion and event.axis_value != 0:
 		for key in JOY_MOTION_MAP:

@@ -1,10 +1,14 @@
+$text-color: Color(0.9, 0.75, 1, 0.7);
+$hover-color: Color(1, 1, 1, 1);
+
+$slider-highlight: Color(1, 0.7, 1, 1);
+$slider-color: Color(0.678431, 0.396078, 0.839216, 1);
+$slider-bg: Color(0.0784314, 0, 0.137255, 1);
+
 body {
   font-family: url(jackeyfont.ttf);
   font-size: 8;
 }
-
-$text-color: Color(0.9, 0.75, 1, 0.7);
-$hover-color: Color(1, 1, 1, 1);
 
 Button {
   background: none;
@@ -17,4 +21,24 @@ Button:pressed,
 Button:focus {
   background: none;
   color: #{$hover-color};
+}
+
+Label {
+  color: #{$text-color};
+}
+
+HSlider {
+  --icons-grabber: url(./grabber.tres);
+  --icons-grabber-highlight: url(./grabber.tres);
+
+  &:slider {
+    padding: 2;
+    background: #{$slider-bg};
+  }
+  &:grabber_area {
+    background: #{$slider-color};
+  }
+  &:grabber_area_highlight {
+    background: #{$slider-highlight};
+  }
 }

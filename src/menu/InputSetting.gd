@@ -4,8 +4,9 @@ const INPUT_SECTION = "input"
 
 @export var actions: Array[String] = []
 
-@onready var input_grid := $InputGrid
-@onready var popup := $RemapKeyPopup
+@export var container: Container
+@export var popup: Control
+@export var remap_btn: PackedScene
 
 var _logger = Logger.new("InputSetting")
 var _current_remap = null
@@ -14,7 +15,7 @@ var _action_button_map = {}
 func _ready():
 	popup.hide()
 	for action in actions:
-		var button = RemapButton.new()
+		var button = remap_btn.instantiate()
 		button.action = action
 		_action_button_map[action] = button
 		
@@ -25,17 +26,17 @@ func _ready():
 		
 		var label = Label.new()
 		label.text = action
-		input_grid.add_child(label)
+		container.add_child(label)
 		
 		button.connect("pressed", func(): _on_remap_pressed(button))
-		input_grid.add_child(button)
+		container.add_child(button)
 
 
 func _input(ev: InputEvent):
 	if _current_remap and not ev is InputEventMouseMotion:
 		_current_remap.remap_input(ev)
 		popup.hide()
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		_current_remap = null
 
 func _on_remap_pressed(btn: RemapButton):

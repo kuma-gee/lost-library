@@ -18,14 +18,16 @@ theme = ExtResource("1_jvqb8")
 script = ExtResource("1")
 start_scene = ExtResource("3_gjjhh")
 
+[node name="_bg" type="ColorRect" parent="."]
+layout_mode = 2
+offset_right = 384.0
+offset_bottom = 216.0
+color = Color(0.0431373, 0.0196078, 0.0941176, 0.705882)
+
 [node name="Pause" type="MarginContainer" parent="."]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-
-[node name="ColorRect" type="ColorRect" parent="Pause"]
-layout_mode = 2
-color = Color(0.0431373, 0.0196078, 0.0941176, 0.705882)
 
 [node name="CenterContainer" type="CenterContainer" parent="Pause"]
 layout_mode = 2
@@ -37,8 +39,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Resume"
 
-[node name="Options" type="Button" parent="Pause/CenterContainer/VBoxContainer"]
-visible = false
+[node name="Options" parent="Pause/CenterContainer/VBoxContainer" instance=ExtResource("4_uc1il")]
 layout_mode = 2
 text = "Options"
 
@@ -47,12 +48,10 @@ layout_mode = 2
 text = "Back to Menu"
 
 [node name="Options" parent="." instance=ExtResource("2")]
-visible = false
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="pressed" from="Pause/CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="Pause/CenterContainer/VBoxContainer/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="Pause/CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Pause/CenterContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

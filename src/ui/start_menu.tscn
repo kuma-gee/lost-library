@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://e4ecbsqrjuf6"]
+[gd_scene load_steps=15 format=3 uid="uid://e4ecbsqrjuf6"]
 
 [ext_resource type="Theme" uid="uid://dyxpiak5ymujy" path="res://theme/theme.tres" id="1_npdgd"]
 [ext_resource type="Script" path="res://src/ui/start_menu.gd" id="2_a7n7o"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://hn63o87rg7fc" path="res://assets/UI_Book.png" id="4_5mxsc"]
 [ext_resource type="AudioStream" uid="uid://swi27t74e0c1" path="res://sound/CozyAfternoons(loop)(74).wav" id="5_tcjoy"]
 [ext_resource type="AudioStream" uid="uid://ctgsvwqwquar2" path="res://sound/門を開ける.mp3" id="6_vo2mx"]
+[ext_resource type="PackedScene" uid="uid://bh8672uj3c4gn" path="res://src/menu/Options.tscn" id="7_m56wc"]
 
 [sub_resource type="Gradient" id="Gradient_dyx16"]
 colors = PackedColorArray(0.185795, 0.101392, 0.466962, 1, 0.0416151, 0.00714876, 0.0883803, 1)
@@ -38,7 +39,7 @@ color_ramp = SubResource("GradientTexture1D_f84ff")
 outline_size = 2
 outline_color = Color(0.721569, 0.247059, 1, 1)
 
-[node name="StartMenu" type="Control" node_paths=PackedStringArray("open_door_sound", "particles")]
+[node name="StartMenu" type="Control" node_paths=PackedStringArray("open_door_sound", "particles", "start", "options")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,8 +50,10 @@ theme = ExtResource("1_npdgd")
 script = ExtResource("2_a7n7o")
 open_door_sound = NodePath("OpenDoor")
 particles = NodePath("GPUParticles2D")
+start = NodePath("Start")
+options = NodePath("Options")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="_bg" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,7 +69,7 @@ process_material = SubResource("ParticleProcessMaterial_wjdxt")
 texture = ExtResource("4_5mxsc")
 lifetime = 3.0
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="Start" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -74,26 +77,35 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Start"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="Start/VBoxContainer"]
 layout_mode = 2
 text = "Lost Library"
 label_settings = SubResource("LabelSettings_cbt70")
 uppercase = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Start/VBoxContainer"]
 layout_mode = 2
 
-[node name="Enter" parent="CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_6a4eu")]
+[node name="Enter" parent="Start/VBoxContainer/VBoxContainer" instance=ExtResource("3_6a4eu")]
 layout_mode = 2
 text = "Enter"
 
-[node name="Exit" parent="CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_6a4eu")]
+[node name="Options" parent="Start/VBoxContainer/VBoxContainer" instance=ExtResource("3_6a4eu")]
+layout_mode = 2
+text = "Options"
+
+[node name="Exit" parent="Start/VBoxContainer/VBoxContainer" instance=ExtResource("3_6a4eu")]
 layout_mode = 2
 text = "Exit"
+
+[node name="Options" parent="." instance=ExtResource("7_m56wc")]
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_tcjoy")
@@ -103,5 +115,6 @@ autoplay = true
 [node name="OpenDoor" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_vo2mx")
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Enter" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Start/VBoxContainer/VBoxContainer/Enter" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Start/VBoxContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Start/VBoxContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
