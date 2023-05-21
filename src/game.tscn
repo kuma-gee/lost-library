@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dh1olryh0ve1e"]
+[gd_scene load_steps=13 format=3 uid="uid://dh1olryh0ve1e"]
 
 [ext_resource type="Texture2D" uid="uid://fep37ahobvhf" path="res://assets/Tiles_Walls.png" id="1_j6kva"]
 [ext_resource type="Script" path="res://src/game.gd" id="1_peygm"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://do4adubak5o0j" path="res://src/player/player.tscn" id="5_5sexw"]
 [ext_resource type="PackedScene" uid="uid://b4iv54x5k5a35" path="res://src/enemy/bite_boss.tscn" id="5_edwb7"]
 [ext_resource type="PackedScene" uid="uid://pm20a6nh47o2" path="res://src/ui/game_over.tscn" id="6_y4l8y"]
+[ext_resource type="PackedScene" uid="uid://dd6a6wprugy8v" path="res://src/menu/Pause.tscn" id="7_1dp6b"]
 [ext_resource type="AudioStream" uid="uid://brvcsedvgk4qj" path="res://sound/Level 1 (Loop).wav" id="7_14oxk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uo04m"]
@@ -360,6 +361,8 @@ layer = 2
 
 [node name="GameOver" parent="CanvasLayer" instance=ExtResource("6_y4l8y")]
 visible = false
+
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("7_1dp6b")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s0el7")

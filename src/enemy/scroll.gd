@@ -28,6 +28,7 @@ func _unhandled_input(event):
 	if open:
 		if event.is_action_pressed("cancel") or event.is_action_pressed("interact"):
 			_on_close()
+			get_viewport().set_input_as_handled()
 
 func _on_interacted():
 	if open:

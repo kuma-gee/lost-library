@@ -1,53 +1,58 @@
-[gd_scene load_steps=3 format=3 uid="uid://dd6a6wprugy8v"]
+[gd_scene load_steps=6 format=3 uid="uid://dd6a6wprugy8v"]
 
 [ext_resource type="Script" path="res://src/menu/Pause.gd" id="1"]
+[ext_resource type="Theme" uid="uid://dyxpiak5ymujy" path="res://theme/theme.tres" id="1_jvqb8"]
 [ext_resource type="PackedScene" uid="uid://bh8672uj3c4gn" path="res://src/menu/Options.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://e4ecbsqrjuf6" path="res://src/ui/start_menu.tscn" id="3_gjjhh"]
+[ext_resource type="PackedScene" uid="uid://bryo50hd7fs0k" path="res://src/ui/ui_button.tscn" id="4_uc1il"]
 
-[node name="Pause" type="CanvasLayer"]
-
-[node name="Control" type="Control" parent="."]
+[node name="Pause" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_jvqb8")
 script = ExtResource("1")
+start_scene = ExtResource("3_gjjhh")
 
-[node name="Pause" type="MarginContainer" parent="Control"]
+[node name="Pause" type="MarginContainer" parent="."]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="ColorRect" type="ColorRect" parent="Control/Pause"]
+[node name="ColorRect" type="ColorRect" parent="Pause"]
 layout_mode = 2
-color = Color(0, 0, 0, 0.588235)
+color = Color(0.0431373, 0.0196078, 0.0941176, 0.705882)
 
-[node name="CenterContainer" type="CenterContainer" parent="Control/Pause"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Pause/CenterContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="Pause"]
 layout_mode = 2
 
-[node name="Resume" type="Button" parent="Control/Pause/CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/CenterContainer"]
+layout_mode = 2
+
+[node name="Resume" parent="Pause/CenterContainer/VBoxContainer" instance=ExtResource("4_uc1il")]
 layout_mode = 2
 text = "Resume"
 
-[node name="Options" type="Button" parent="Control/Pause/CenterContainer/VBoxContainer"]
+[node name="Options" type="Button" parent="Pause/CenterContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Options"
 
-[node name="Back" type="Button" parent="Control/Pause/CenterContainer/VBoxContainer"]
+[node name="Back" parent="Pause/CenterContainer/VBoxContainer" instance=ExtResource("4_uc1il")]
 layout_mode = 2
 text = "Back to Menu"
 
-[node name="Options" parent="Control" instance=ExtResource("2")]
+[node name="Options" parent="." instance=ExtResource("2")]
 visible = false
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 
-[connection signal="pressed" from="Control/Pause/CenterContainer/VBoxContainer/Resume" to="Control" method="_on_Resume_pressed"]
-[connection signal="pressed" from="Control/Pause/CenterContainer/VBoxContainer/Options" to="Control" method="_on_Options_pressed"]
-[connection signal="pressed" from="Control/Pause/CenterContainer/VBoxContainer/Back" to="Control" method="_on_Back_pressed"]
+[connection signal="pressed" from="Pause/CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Pause/CenterContainer/VBoxContainer/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="Pause/CenterContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
