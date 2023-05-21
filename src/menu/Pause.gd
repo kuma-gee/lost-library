@@ -14,6 +14,8 @@ func _ready():
 	clear_menu()
 	back_button.visible = start_scene != null
 
+func _exit_tree():
+	get_tree().paused = false
 
 func _handle_event(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):

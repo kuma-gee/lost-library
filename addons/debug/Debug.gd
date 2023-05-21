@@ -50,11 +50,11 @@ func _ready():
 	_logging_cmd()
 
 
-func _unhandled_input(event):
-	if event.is_action_pressed("dev"):
-		visible = !visible
-		if visible:
-			input.grab_focus()
+#func _unhandled_input(event):
+#	if event.is_action_pressed("dev"):
+#		visible = !visible
+#		if visible:
+#			input.grab_focus()
 
 
 func print_line(str: String):
