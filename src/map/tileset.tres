@@ -312,5 +312,7 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.207843, 0.333333, 0.780392, 1)
 terrain_set_0/terrain_1/name = "Walls"
 terrain_set_0/terrain_1/color = Color(0.5, 0.4375, 0.25, 1)
+custom_data_layer_0/name = "Type"
+custom_data_layer_0/type = 2
 sources/0 = SubResource("TileSetAtlasSource_uo04m")
 sources/2 = SubResource("TileSetAtlasSource_5jkja")

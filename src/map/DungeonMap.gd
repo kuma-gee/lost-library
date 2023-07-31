@@ -1,5 +1,15 @@
 # https://abitawake.com/news/articles/procedural-generation-with-godot-create-dungeons-using-a-bsp-tree
+class_name DungeonMap
 extends TileMap
+
+signal tiles_updated
+
+const TILE_TYPE = "Type"
+enum Type {
+	WALL,
+	GROUND,
+}
+
 
 @export var map_w := 80
 @export var map_h := 50
@@ -7,15 +17,14 @@ extends TileMap
 @export var min_room_factor := 0.4
 
 var wall_source = 0
-var wall_layer = 0
 var wall_tile = Vector2i(0, 0)
 var wall_terrain_set = 0
 var wall_terrain_id = 1
 
 var ground_source = 2
-var ground_layer = 0
 var ground_tile = Vector2i(2, 2)
 
+var layer = 0
 var tree = {}
 var leaves = []
 var leaf_id = 0
@@ -32,13 +41,15 @@ func generate():
 	create_rooms()
 	join_rooms()
 	clear_deadends()
+	tiles_updated.emit()
+	print("updated")
 
 func fill_roof():
 	var cells = []
 	for x in range(0, map_w):
 		for y in range(0, map_h):
 			cells.append(Vector2i(x, y))
-			set_cell(wall_layer, Vector2i(x, y), wall_source, wall_tile)
+			set_cell(layer, Vector2i(x, y), wall_source, wall_tile)
 	
 	# set_cells_terrain_connect(wall_layer, cells, wall_terrain_set, wall_terrain_id)
 
@@ -135,7 +146,7 @@ func create_rooms():
 		var r = rooms[i]
 		for x in range(r.x, r.x + r.w):
 			for y in range(r.y, r.y + r.h):
-				set_cell(ground_layer, Vector2i(x, y), ground_source, ground_tile)
+				set_ground(Vector2i(x, y))
 
 func join_rooms():
 	for sister in leaves:
@@ -165,7 +176,15 @@ func connect_leaves(leaf1, leaf2):
 	for i in range(x, x+w):
 		for j in range(y, y+h):
 			# if get_cell_source_id(wall_layer, Vector2(i, j)) != -1:
-			set_cell(ground_layer, Vector2i(i, j), ground_source, ground_tile)
+			set_ground(Vector2i(i, j))
+
+func set_ground(cell: Vector2i):
+	set_cell(layer, cell, ground_source, ground_tile)
+	var data = get_cell_tile_data(layer, cell)
+	data.set_custom_data(TILE_TYPE, Type.GROUND)
+
+static func is_ground_type(data: TileData):
+	return data.get_custom_data(TILE_TYPE) == Type.GROUND
 			
 func clear_deadends():
 	var done = false
@@ -173,19 +192,19 @@ func clear_deadends():
 	while !done:
 		done = true
 
-		for cell in get_used_cells(ground_layer):
-			if get_cell_atlas_coords(wall_layer, cell) != ground_tile: continue
+		for cell in get_used_cells(layer):
+			if get_cell_atlas_coords(layer, cell) != ground_tile: continue
 
 			var roof_count = check_nearby(cell.x, cell.y)
 			if roof_count == 3:
-				set_cell(wall_layer, cell, wall_source, wall_tile)
+				set_cell(layer, cell, wall_source, wall_tile)
 				done = false
 
 # check in 4 dirs to see how many tiles are roofs
 func check_nearby(x, y):
 	var count = 0
-	if get_cell_atlas_coords(wall_layer, Vector2(x, y-1)) == wall_tile:  count += 1
-	if get_cell_atlas_coords(wall_layer, Vector2(x, y+1)) == wall_tile:  count += 1
-	if get_cell_atlas_coords(wall_layer, Vector2(x-1, y)) == wall_tile:  count += 1
-	if get_cell_atlas_coords(wall_layer, Vector2(x+1, y)) == wall_tile:  count += 1
+	if get_cell_atlas_coords(layer, Vector2(x, y-1)) == wall_tile:  count += 1
+	if get_cell_atlas_coords(layer, Vector2(x, y+1)) == wall_tile:  count += 1
+	if get_cell_atlas_coords(layer, Vector2(x-1, y)) == wall_tile:  count += 1
+	if get_cell_atlas_coords(layer, Vector2(x+1, y)) == wall_tile:  count += 1
 	return count
