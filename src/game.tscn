@@ -60,7 +60,8 @@ handle_input_locally = false
 size = Vector2i(64, 64)
 render_target_update_mode = 4
 
-[node name="MiniMap" parent="CanvasLayer/MiniMap/SubViewportContainer/SubViewport" node_paths=PackedStringArray("tileMap") instance=ExtResource("5_88giu")]
+[node name="MiniMap" parent="CanvasLayer/MiniMap/SubViewportContainer/SubViewport" node_paths=PackedStringArray("main_camera", "tileMap") instance=ExtResource("5_88giu")]
+main_camera = NodePath("../../../../../Player/Camera2D")
 tileMap = NodePath("../../../../../DungeonMap")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
