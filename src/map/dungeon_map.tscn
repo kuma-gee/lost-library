@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0m4eekntqqpe"]
+
+[ext_resource type="Script" path="res://src/map/DungeonMap.gd" id="1_17s1q"]
+[ext_resource type="TileSet" uid="uid://bnfljba8i5rmf" path="res://src/map/tileset.tres" id="1_olgfe"]
+
+[node name="DungeonMap" type="TileMap"]
+tile_set = ExtResource("1_olgfe")
+format = 2
+script = ExtResource("1_17s1q")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(100, 100)
+zoom = Vector2(0.1, 0.1)
