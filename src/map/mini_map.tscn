@@ -16,5 +16,5 @@ script = ExtResource("1_nonpy")
 camera = NodePath("Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.2, 0.2)
 position_smoothing_speed = 10.0

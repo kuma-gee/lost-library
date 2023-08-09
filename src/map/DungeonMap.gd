@@ -33,6 +33,15 @@ var rooms = []
 func _ready():
 	generate()
 
+func random_leaf():
+	for id in tree:
+		var leaf = tree[id]
+		if not leaf.has("l") and not leaf.has("r"):
+			var c = leaf.center
+			return map_to_local(Vector2i(c.x, c.y))
+
+	return null
+
 func generate():
 	clear()
 	fill_roof()
@@ -42,7 +51,6 @@ func generate():
 	join_rooms()
 	clear_deadends()
 	tiles_updated.emit()
-	print("updated")
 
 func fill_roof():
 	var cells = []

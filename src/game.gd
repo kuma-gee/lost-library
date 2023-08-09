@@ -2,9 +2,13 @@ extends Node2D
 
 @export var pause: Control
 @export var idle_music: AudioStreamPlayer
+@export var dungeon: DungeonMap
+@export var player: Node2D
 
 func _ready():
 	randomize()
+	
+	player.global_position = dungeon.random_leaf()
 
 func _on_player_died():
 	pause.game_over()
