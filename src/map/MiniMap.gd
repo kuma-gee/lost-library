@@ -6,8 +6,8 @@ extends TileMap
 @export var main_camera: Camera2D
 @export var tileMap: DungeonMap
 
-const SOURCE = 1
-const ATLAS = Vector2(13, 8)
+const SOURCE = 2
+const ATLAS = Vector2(2, 2)
 
 const SOURCE_LAYER = 0
 const TARGET_LAYER = 0

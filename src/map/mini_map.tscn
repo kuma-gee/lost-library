@@ -1,91 +1,20 @@
 [gd_scene load_steps=5 format=3 uid="uid://decn8mpavuer8"]
 
-[ext_resource type="Texture2D" uid="uid://cbr607k8ri3lw" path="res://assets/Tiles_Floor.png" id="1_5vwda"]
+[ext_resource type="Shader" path="res://src/map/color.gdshader" id="1_041dp"]
+[ext_resource type="TileSet" uid="uid://bnfljba8i5rmf" path="res://src/map/tileset.tres" id="1_a6vhd"]
 [ext_resource type="Script" path="res://src/map/MiniMap.gd" id="1_nonpy"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n5jd5"]
-texture = ExtResource("1_5vwda")
-texture_region_size = Vector2i(4, 4)
-5:7/0 = 0
-6:7/0 = 0
-7:7/0 = 0
-8:7/0 = 0
-9:7/0 = 0
-10:7/0 = 0
-11:7/0 = 0
-12:7/0 = 0
-13:7/0 = 0
-14:7/0 = 0
-5:8/0 = 0
-6:8/0 = 0
-7:8/0 = 0
-8:8/0 = 0
-9:8/0 = 0
-10:8/0 = 0
-11:8/0 = 0
-12:8/0 = 0
-13:8/0 = 0
-14:8/0 = 0
-5:9/0 = 0
-6:9/0 = 0
-7:9/0 = 0
-8:9/0 = 0
-9:9/0 = 0
-10:9/0 = 0
-11:9/0 = 0
-12:9/0 = 0
-13:9/0 = 0
-14:9/0 = 0
-5:10/0 = 0
-6:10/0 = 0
-7:10/0 = 0
-8:10/0 = 0
-9:10/0 = 0
-10:10/0 = 0
-11:10/0 = 0
-12:10/0 = 0
-13:10/0 = 0
-14:10/0 = 0
-5:11/0 = 0
-6:11/0 = 0
-7:11/0 = 0
-8:11/0 = 0
-9:11/0 = 0
-10:11/0 = 0
-11:11/0 = 0
-12:11/0 = 0
-13:11/0 = 0
-14:11/0 = 0
-5:12/0 = 0
-6:12/0 = 0
-7:12/0 = 0
-8:12/0 = 0
-9:12/0 = 0
-10:12/0 = 0
-11:12/0 = 0
-12:12/0 = 0
-13:12/0 = 0
-14:12/0 = 0
-5:13/0 = 0
-6:13/0 = 0
-7:13/0 = 0
-8:13/0 = 0
-9:13/0 = 0
-10:13/0 = 0
-11:13/0 = 0
-12:13/0 = 0
-13:13/0 = 0
-14:13/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_48ask"]
-tile_size = Vector2i(4, 4)
-sources/1 = SubResource("TileSetAtlasSource_n5jd5")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cnqie"]
+shader = ExtResource("1_041dp")
+shader_parameter/color = Color(0.501961, 0.423529, 0.360784, 1)
 
 [node name="MiniMap" type="TileMap" node_paths=PackedStringArray("camera")]
-tile_set = SubResource("TileSet_48ask")
+material = SubResource("ShaderMaterial_cnqie")
+tile_set = ExtResource("1_a6vhd")
 format = 2
 script = ExtResource("1_nonpy")
 camera = NodePath("Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
 position_smoothing_speed = 10.0
